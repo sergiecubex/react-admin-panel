@@ -38,7 +38,7 @@ const Profile = () => {
               <ProfileHeader data={data.header} />
             </Col>
           </Row>
-          <section id='profile-info'>
+          {/* <section id='profile-info'>
             <Row>
               <Col lg={{ size: 3, order: 1 }} sm={{ size: 12 }} xs={{ order: 2 }}>
                 <ProfileAbout data={data.userAbout} />
@@ -63,7 +63,7 @@ const Profile = () => {
                 </Button>
               </Col>
             </Row>
-          </section>
+          </section> */}
         </div>
       ) : null}
     </Fragment>
