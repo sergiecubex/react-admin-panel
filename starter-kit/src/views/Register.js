@@ -61,7 +61,7 @@ const Register = () => {
           } else {
             setValErrors({})
             const data = { ...res.data.user, accessToken: res.data.accessToken }
-            ability.update(res.data.user.ability)
+            // ability.update(res.data.user.ability)
             dispatch(handleLogin(data))
             history.push('/')
           }
@@ -136,7 +136,7 @@ const Register = () => {
               </g>
             </g>
           </svg>
-          <h2 className='brand-text text-primary ml-1'>Vuexy</h2>
+          <h2 className='brand-text text-primary ml-1'>Project</h2>
         </Link>
         <Col className='d-none d-lg-flex align-items-center p-5' lg='8' sm='12'>
           <div className='w-100 d-lg-flex align-items-center justify-content-center px-5'>
@@ -215,7 +215,8 @@ const Register = () => {
                   invalid={errors.terms && true}
                 />
               </FormGroup>
-              <Button.Ripple type='submit' block color='primary'>
+              <Button.Ripple type='submit' block color='primary'> 
+              {/* tag={Link} to='/' */}
                 Sign up
               </Button.Ripple>
             </Form>
