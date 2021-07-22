@@ -25,6 +25,20 @@ const Routes = [
     }
   },
   {
+    path: '/register',
+    component: lazy(() => import('../../views/Register')),
+    layout: 'BlankLayout'
+  },
+  {
+    path: '/recovery',
+    component: lazy(() => import('../../views/ForgotPassword')),
+    layout: 'BlankLayout'
+  },
+  {
+    path: '/pages/profile',
+    component: lazy(() => import('../../views/pages/profile'))
+  },
+  {
     path: '/error',
     component: lazy(() => import('../../views/Error')),
     layout: 'BlankLayout'

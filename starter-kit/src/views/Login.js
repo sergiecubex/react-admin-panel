@@ -73,7 +73,7 @@ const Login = () => {
         <Col className='d-flex align-items-center auth-bg px-2 p-lg-5' lg='4' sm='12'>
           <Col className='px-xl-2 mx-auto' sm='8' md='6' lg='12'>
             <CardTitle tag='h2' className='font-weight-bold mb-1'>
-              Welcome to Vuexy! 👋
+              Welcome to the Project! 👋
             </CardTitle>
             <CardText className='mb-2'>Please sign-in to your account and start the adventure</CardText>
             <Form className='auth-login-form mt-2' onSubmit={e => e.preventDefault()}>
@@ -88,7 +88,7 @@ const Login = () => {
                   <Label className='form-label' for='login-password'>
                     Password
                   </Label>
-                  <Link to='/'>
+                  <Link to='/recovery'>
                     <small>Forgot Password?</small>
                   </Link>
                 </div>
@@ -103,7 +103,7 @@ const Login = () => {
             </Form>
             <p className='text-center mt-2'>
               <span className='mr-25'>New on our platform?</span>
-              <Link to='/'>
+              <Link to='/Register'>
                 <span>Create an account</span>
               </Link>
             </p>
