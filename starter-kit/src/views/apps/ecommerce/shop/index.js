@@ -46,7 +46,7 @@ const Shop = () => {
   return (
     <Fragment>
       <Breadcrumbs breadCrumbTitle='Shop' breadCrumbParent='eCommerce' breadCrumbActive='Shop' />
-      <Products
+      {/* <Products
         store={store}
         dispatch={dispatch}
         addToCart={addToCart}
@@ -59,7 +59,7 @@ const Shop = () => {
         setSidebarOpen={setSidebarOpen}
         deleteCartItem={deleteCartItem}
         deleteWishlistItem={deleteWishlistItem}
-      />
+      /> */}
       <Sidebar sidebarOpen={sidebarOpen} />
     </Fragment>
   )
