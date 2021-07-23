@@ -30,9 +30,16 @@ const Shop = () => {
   // ** Vars
   const dispatch = useDispatch()
   const store = useSelector(state => state.ecommerce)
+  
+  // const store = useSelector(state => {
+  //   console.log('State: ', state)
+  //   return state.ecommerce
+  // })
+
 
   // ** Get products
   useEffect(() => {
+    console.log(store)
     dispatch(
       getProducts({
         q: '',
@@ -46,7 +53,7 @@ const Shop = () => {
   return (
     <Fragment>
       <Breadcrumbs breadCrumbTitle='Shop' breadCrumbParent='eCommerce' breadCrumbActive='Shop' />
-      {/* <Products
+      <Products
         store={store}
         dispatch={dispatch}
         addToCart={addToCart}
@@ -59,7 +66,7 @@ const Shop = () => {
         setSidebarOpen={setSidebarOpen}
         deleteCartItem={deleteCartItem}
         deleteWishlistItem={deleteWishlistItem}
-      /> */}
+      />
       <Sidebar sidebarOpen={sidebarOpen} />
     </Fragment>
   )
