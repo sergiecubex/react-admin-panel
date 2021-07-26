@@ -14,83 +14,71 @@ const Routes = [
     component: lazy(() => import('../../views/Home'))
   },
   {
-    path: '/apps/invoice/list',
+    path: '/apps/sales/list',
     component: lazy(() => import('../../views/apps/invoice/list'))
   },
   {
-    path: '/apps/invoice/preview/:id',
+    path: '/apps/sales/preview/:id',
     component: lazy(() => import('../../views/apps/invoice/preview')),
     meta: {
-      navLink: '/apps/invoice/preview'
+      navLink: '/apps/sales/preview'
     }
   },
   {
-    path: '/apps/invoice/preview',
+    path: '/apps/sales/preview',
     exact: true,
-    component: () => <Redirect to='/apps/invoice/preview/4987' />
+    component: () => <Redirect to='/apps/sales/preview/4987' />
   },
-  {
-    path: '/apps/invoice/edit/:id',
-    component: lazy(() => import('../../views/apps/invoice/edit')),
-    meta: {
-      navLink: '/apps/invoice/edit'
-    }
-  },
-  {
-    path: '/apps/invoice/edit',
-    exact: true,
-    component: () => <Redirect to='/apps/invoice/edit/4987' />
-  },
-  {
-    path: '/apps/invoice/add',
-    component: lazy(() => import('../../views/apps/invoice/add'))
-  },
+  // {
+  //   path: '/apps/invoice/edit/:id',
+  //   component: lazy(() => import('../../views/apps/invoice/edit')),
+  //   meta: {
+  //     navLink: '/apps/invoice/edit'
+  //   }
+  // },
+  // {
+  //   path: '/apps/invoice/edit',
+  //   exact: true,
+  //   component: () => <Redirect to='/apps/invoice/edit/4987' />
+  // },
+  // {
+  //   path: '/apps/invoice/add',
+  //   component: lazy(() => import('../../views/apps/invoice/add'))
+  // },
   {
     path: '/apps/invoice/print',
     layout: 'BlankLayout',
     component: lazy(() => import('../../views/apps/invoice/print'))
   },
   {
-    path: '/apps/ecommerce/shop',
+    path: '/apps/gigs-management/gigs',
     className: 'ecommerce-application',
     component: lazy(() => import('../../views/apps/ecommerce/shop'))
   },
   {
-    path: '/apps/ecommerce/wishlist',
+    path: '/apps/gigs-management/featured',
     className: 'ecommerce-application',
     component: lazy(() => import('../../views/apps/ecommerce/wishlist'))
   },
   {
-    path: '/apps/ecommerce/product-detail',
+    path: '/apps/gigs-management/details',
     exact: true,
     className: 'ecommerce-application',
-    component: () => <Redirect to='/apps/ecommerce/product-detail/apple-i-phone-11-64-gb-black-26' />
+    component: () => <Redirect to='/apps/gigs-management/details/apple-i-phone-11-64-gb-black-26' />
   },
   {
-    path: '/apps/ecommerce/product-detail/:product',
+    path: '/apps/gigs-management/details/:product',
     exact: true,
     className: 'ecommerce-application',
     component: lazy(() => import('../../views/apps/ecommerce/detail')),
     meta: {
-      navLink: '/apps/ecommerce/product-detail'
+      navLink: '/apps/gigs-management/details'
     }
   },
-  {
-    path: '/apps/ecommerce/checkout',
-    className: 'ecommerce-application',
-    component: lazy(() => import('../../views/apps/ecommerce/checkout'))
-  },
   // {
-  //   path: '/second-page',
-  //   component: lazy(() => import('../../views/SecondPage'))
-  // },
-  // {
-  //   path: '/gigs-management',
-  //   component: lazy(() => import('../../views/apps/ecommerce/shop'))
-  // },
-  // {
-  //   path: '/sales-management',
-  //   component: lazy(() => import('../../views/apps/invoice/list'))
+  //   path: '/apps/ecommerce/checkout',
+  //   className: 'ecommerce-application',
+  //   component: lazy(() => import('../../views/apps/ecommerce/checkout'))
   // },
   {
     path: '/login',

@@ -3,7 +3,7 @@ import { Mail, Home, FileText, Circle, ShoppingCart } from 'react-feather'
 export default [
   {
     id: 'home',
-    title: 'Home',
+    title: 'Dashboard',
     icon: <Home size={20} />,
     navLink: '/home'
   },
@@ -16,26 +16,26 @@ export default [
         id: 'invoiceList',
         title: 'List',
         icon: <Circle size={12} />,
-        navLink: '/apps/invoice/list'
+        navLink: '/apps/sales/list'
       },
       {
         id: 'invoicePreview',
         title: 'Preview',
         icon: <Circle size={12} />,
-        navLink: '/apps/invoice/preview'
-      },
-      {
-        id: 'invoiceEdit',
-        title: 'Edit',
-        icon: <Circle size={12} />,
-        navLink: '/apps/invoice/edit'
-      },
-      {
-        id: 'invoiceAdd',
-        title: 'Add',
-        icon: <Circle size={12} />,
-        navLink: '/apps/invoice/add'
+        navLink: '/apps/sales/preview'
       }
+      // {
+      //   id: 'invoiceEdit',
+      //   title: 'Edit',
+      //   icon: <Circle size={12} />,
+      //   navLink: '/apps/invoice/edit'
+      // }
+      // {
+      //   id: 'invoiceAdd',
+      //   title: 'Add',
+      //   icon: <Circle size={12} />,
+      //   navLink: '/apps/invoice/add'
+      // }
     ]
   },
   {
@@ -45,28 +45,34 @@ export default [
     children: [
       {
         id: 'shop',
-        title: 'Shop',
+        title: 'Gigs',
         icon: <Circle size={12} />,
-        navLink: '/apps/ecommerce/shop'
+        navLink: '/apps/gigs-management/gigs'
       },
       {
         id: 'detail',
-        title: 'Details',
+        title: 'Gig Details',
         icon: <Circle size={12} />,
-        navLink: '/apps/ecommerce/product-detail'
+        navLink: '/apps/gigs-management/details'
       },
       {
-        id: 'wishList',
-        title: 'Wish List',
+        id: 'fetured',
+        title: 'Featured Gigs',
         icon: <Circle size={12} />,
-        navLink: '/apps/ecommerce/wishlist'
-      },
-      {
-        id: 'checkout',
-        title: 'Checkout',
-        icon: <Circle size={12} />,
-        navLink: '/apps/ecommerce/checkout'
+        navLink: '/apps/gigs-management/featured'
       }
+      // {
+      //   id: 'wishList',
+      //   title: 'Wish List',
+      //   icon: <Circle size={12} />,
+      //   navLink: '/apps/ecommerce/wishlist'
+      // }
+      // {
+      //   id: 'checkout',
+      //   title: 'Checkout',
+      //   icon: <Circle size={12} />,
+      //   navLink: '/apps/ecommerce/checkout'
+      // }
     ]
   }
 ]

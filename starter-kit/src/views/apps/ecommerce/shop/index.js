@@ -30,11 +30,6 @@ const Shop = () => {
   // ** Vars
   const dispatch = useDispatch()
   const store = useSelector(state => state.ecommerce)
-  
-  // const store = useSelector(state => {
-  //   console.log('State: ', state)
-  //   return state.ecommerce
-  // })
 
 
   // ** Get products
@@ -52,7 +47,7 @@ const Shop = () => {
 
   return (
     <Fragment>
-      <Breadcrumbs breadCrumbTitle='Shop' breadCrumbParent='eCommerce' breadCrumbActive='Shop' />
+      <Breadcrumbs breadCrumbTitle='Gigs' breadCrumbParent='Gigs Management' breadCrumbActive='Gigs' />
       <Products
         store={store}
         dispatch={dispatch}

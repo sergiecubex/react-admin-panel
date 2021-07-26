@@ -48,7 +48,7 @@ const ProductCards = props => {
         return (
           <Card className='ecommerce-card' key={item.name}>
             <div className='item-img text-center mx-auto'>
-              <Link to={`/apps/ecommerce/product-detail/${item.slug}`}>
+              <Link to={`/apps/gigs-management/details/${item.slug}`}>
                 <img className='img-fluid card-img-top' src={item.image} alt={item.name} />
               </Link>
             </div>
@@ -75,7 +75,7 @@ const ProductCards = props => {
                 </div>
               </div>
               <h6 className='item-name'>
-                <Link className='text-body' to={`/apps/ecommerce/product-detail/${item.slug}`}>
+                <Link className='text-body' to={`/apps/gigs-management/details/${item.slug}`}>
                   {item.name}
                 </Link>
                 <CardText tag='span' className='item-company'>
@@ -110,22 +110,6 @@ const ProductCards = props => {
                   size={14}
                 />
                 <span>Wishlist</span>
-              </Button>
-              <Button
-                color='primary'
-                tag={CartBtnTag}
-                className='btn-cart move-cart'
-                onClick={() => handleCartBtn(item.id, item.isInCart)}
-                /*eslint-disable */
-                {...(item.isInCart
-                  ? {
-                      to: '/apps/ecommerce/checkout'
-                    }
-                  : {})}
-                /*eslint-enable */
-              >
-                <ShoppingCart className='mr-50' size={14} />
-                <span>{item.isInCart ? 'View In Cart' : 'Add To Cart'}</span>
               </Button>
             </div>
           </Card>

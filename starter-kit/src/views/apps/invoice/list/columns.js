@@ -64,7 +64,7 @@ export const columns = [
     name: '#',
     minWidth: '107px',
     selector: 'id',
-    cell: row => <Link to={`/apps/invoice/preview/${row.id}`}>{`#${row.id}`}</Link>
+    cell: row => <Link to={`/apps/sales/preview/${row.id}`}>{`#${row.id}`}</Link>
   },
   {
     name: <TrendingUp size={14} />,
@@ -147,7 +147,7 @@ export const columns = [
         <UncontrolledTooltip placement='top' target={`send-tooltip-${row.id}`}>
           Send Mail
         </UncontrolledTooltip>
-        <Link to={`/apps/invoice/preview/${row.id}`} id={`pw-tooltip-${row.id}`}>
+        <Link to={`/apps/sales/preview/${row.id}`} id={`pw-tooltip-${row.id}`}>
           <Eye size={17} className='mx-1' />
         </Link>
         <UncontrolledTooltip placement='top' target={`pw-tooltip-${row.id}`}>

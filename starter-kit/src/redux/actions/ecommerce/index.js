@@ -22,7 +22,7 @@ export const addToCart = id => {
 // ** GET Wishlist Items
 export const getWishlistItems = () => {
   return dispatch => {
-    return axios.get('/apps/ecommerce/wishlist').then(res => {
+    return axios.get('/apps/gigs-management/featured').then(res => {
       dispatch({ type: 'GET_WISHLIST', data: res.data })
     })
   }
@@ -31,7 +31,7 @@ export const getWishlistItems = () => {
 // ** DELETE Wishlist Item
 export const deleteWishlistItem = id => {
   return dispatch => {
-    return axios.delete(`/apps/ecommerce/wishlist/${id}`).then(res => {
+    return axios.delete(`/apps/gigs-management/featured/${id}`).then(res => {
       dispatch({ type: 'DELETE_WISHLIST_ITEM', data: res.data })
       dispatch(getWishlistItems())
     })
@@ -59,7 +59,7 @@ export const getProduct = slug => {
 // ** Add Item to Wishlist
 export const addToWishlist = id => {
   return dispatch => {
-    return axios.post('/apps/ecommerce/wishlist', { productId: id }).then(() => {
+    return axios.post('/apps/gigs-management/featured', { productId: id }).then(() => {
       dispatch({ type: 'ADD_TO_WISHLIST' })
     })
   }

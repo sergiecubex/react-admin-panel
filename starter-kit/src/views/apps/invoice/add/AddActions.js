@@ -13,7 +13,7 @@ const AddActions = () => {
           <Button.Ripple color='primary' block className='mb-75' disabled>
             Send Invoice
           </Button.Ripple>
-          <Button.Ripple tag={Link} to='/apps/invoice/preview' color='primary' block outline className='mb-75'>
+          <Button.Ripple tag={Link} to='/apps/sales/preview' color='primary' block outline className='mb-75'>
             Preview
           </Button.Ripple>
           <Button.Ripple color='primary' block outline>

@@ -440,7 +440,7 @@ mock.onGet(/\/apps\/ecommerce\/products\/\d+/).reply(config => {
 // ------------------------------------------------
 // GET: Return Wishlist Products
 // ------------------------------------------------
-mock.onGet('/apps/ecommerce/wishlist').reply(() => {
+mock.onGet('/apps/gigs-management/featured').reply(() => {
   const products = data.userWishlist.map(wishlistProduct => {
     const product = data.products.find(p => p.id === wishlistProduct.productId)
     product.isInCart = data.userCart.findIndex(p => p.productId === wishlistProduct.productId) > -1
@@ -509,7 +509,7 @@ mock.onDelete(/\/apps\/ecommerce\/cart\/\d+/).reply(config => {
 // ------------------------------------------------
 // POST: Add Item in user Wishlist
 // ------------------------------------------------
-mock.onPost('/apps/ecommerce/wishlist').reply(config => {
+mock.onPost('/apps/gigs-management/featured').reply(config => {
   // Get product from post data
   const { productId } = JSON.parse(config.data)
 

@@ -42,7 +42,7 @@ const Wishlist = () => {
       return (
         <Card className='ecommerce-card' key={item.name}>
           <div className='item-img text-center mx-auto'>
-            <Link to={`/apps/ecommerce/product-detail/${item.slug}`}>
+            <Link to={`/apps/gigs-management/details/${item.slug}`}>
               <img className='img-fluid' src={item.image} alt={item.name} />
             </Link>
           </div>
@@ -108,14 +108,14 @@ const Wishlist = () => {
 
   return (
     <Fragment>
-      <BreadCrumbs breadCrumbTitle='Wishlist' breadCrumbParent='eCommerce' breadCrumbActive='Wishlist' />
+      <BreadCrumbs breadCrumbTitle='Featured Gigs' breadCrumbParent='Gigs Management' breadCrumbActive='Featured' />
       {store.wishlist.length ? (
         <section className='grid-view wishlist-items'>{renderWishlist()}</section>
       ) : (
         <Alert color='info'>
           <div className='alert-body'>
             <Info size={14} />
-            <span className='align-middle ml-50'>Your Wishlist is empty</span>
+            <span className='align-middle ml-50'>No fetured Gigs</span>
           </div>
         </Alert>
       )}
