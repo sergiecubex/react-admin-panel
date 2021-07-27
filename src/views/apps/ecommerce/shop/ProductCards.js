@@ -15,6 +15,7 @@ const ProductCards = props => {
     addToCart,
     dispatch,
     getProducts,
+    deleteGig,
     getCartItems,
     addToWishlist,
     deleteWishlistItem
@@ -36,6 +37,11 @@ const ProductCards = props => {
     } else {
       dispatch(addToWishlist(id))
     }
+    dispatch(getProducts(store.params))
+  }
+  
+  const handleDeleteBtn = id => {
+    dispatch(deleteGig(id))
     dispatch(getProducts(store.params))
   }
 
@@ -108,7 +114,7 @@ const ProductCards = props => {
               <Button
                 className='btn-wishlist'
                 color='dark'
-                onClick={() => console.log("will be deleted")}
+                onClick={() => handleDeleteBtn(item.id)}
               >
                 <span>Delete</span>
               </Button>

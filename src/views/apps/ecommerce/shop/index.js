@@ -16,7 +16,8 @@ import {
   getCartItems,
   addToWishlist,
   deleteCartItem,
-  deleteWishlistItem
+  deleteWishlistItem,
+  deleteGig
 } from '../store/actions'
 
 // ** Styles
@@ -60,6 +61,7 @@ const Shop = () => {
         setSidebarOpen={setSidebarOpen}
         deleteCartItem={deleteCartItem}
         deleteWishlistItem={deleteWishlistItem}
+        deleteGig={deleteGig}
       />
       {/* <Sidebar sidebarOpen={sidebarOpen} /> */}
     </Fragment>

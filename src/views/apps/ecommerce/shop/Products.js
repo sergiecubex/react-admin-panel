@@ -24,6 +24,7 @@ const ProductsPage = props => {
     getCartItems,
     deleteWishlistItem,
     deleteCartItem,
+    deleteGig,
     setSidebarOpen
   } = props
 
@@ -92,6 +93,7 @@ const ProductsPage = props => {
               activeView={activeView}
               products={store.products}
               getProducts={getProducts}
+              deleteGig={deleteGig}
               getCartItems={getCartItems}
               addToWishlist={addToWishlist}
               deleteCartItem={deleteCartItem}

@@ -35,7 +35,7 @@ const Details = () => {
 
   return (
     <Fragment>
-      <BreadCrumbs breadCrumbTitle='Product Details' breadCrumbParent='eCommerce' breadCrumbActive='Details' />
+      <BreadCrumbs breadCrumbTitle='Gig Details' breadCrumbParent='Gigs Management' breadCrumbActive='Details' />
       <div className='app-ecommerce-details'>
         {Object.keys(store.productDetail).length ? (
           <Card>
@@ -50,8 +50,11 @@ const Details = () => {
                 deleteWishlistItem={deleteWishlistItem}
               />
             </CardBody>
-            <ItemFeatures />
+            {/* <ItemFeatures /> */}
             <CardBody>
+            <div>
+              other gigs of this freelancer?
+            </div>
               <RelatedProducts />
             </CardBody>
           </Card>

@@ -73,14 +73,15 @@ const Product = props => {
       <Col md='7' xs='12'>
         <h4>{data.name}</h4>
         <CardText tag='span' className='item-company'>
-          By
+          Freelance group?
           <a className='company-name' href='/' onClick={e => e.preventDefault()}>
             {data.brand}
           </a>
         </CardText>
         <div className='ecommerce-details-price d-flex flex-wrap mt-1'>
-          <h4 className='item-price mr-1'>${data.price}</h4>
+          <h4 className='item-price mr-1'>Maybe total cost of Gig ${data.price}</h4>
           <ul className='unstyled-list list-inline'>
+          Rating of a freelancer?
             {new Array(5).fill().map((listItem, index) => {
               return (
                 <li key={index} className='ratings-list-item mr-25'>
@@ -96,10 +97,10 @@ const Product = props => {
           </ul>
         </div>
         <CardText>
-          Available -<span className='text-success ml-25'>In stock</span>
+          Some<span className='text-success ml-25'>Text</span>
         </CardText>
         <CardText>{data.description}</CardText>
-        <ul className='product-features list-unstyled'>
+        {/* <ul className='product-features list-unstyled'>
           {data.hasFreeShipping ? (
             <li>
               <ShoppingCart size={19} />
@@ -115,25 +116,10 @@ const Product = props => {
         <div className='product-color-options'>
           <h6>Colors</h6>
           <ul className='list-unstyled mb-0'>{renderColorOptions()}</ul>
-        </div>
+        </div> */}
         <hr />
         <div className='d-flex flex-column flex-sm-row pt-1'>
-          <Button
-            tag={CartBtnTag}
-            className='btn-cart mr-0 mr-sm-1 mb-1 mb-sm-0'
-            color='primary'
-            onClick={() => handleCartBtn(data.id, data.isInCart)}
-            /*eslint-disable */
-            {...(data.isInCart
-              ? {
-                  to: '/apps/ecommerce/checkout'
-                }
-              : {})}
-            /*eslint-enable */
-          >
-            <ShoppingCart className='mr-50' size={14} />
-            {data.isInCart ? 'View in cart' : 'Move to cart'}
-          </Button>
+
           <Button
             className='btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0'
             color='secondary'
@@ -146,9 +132,17 @@ const Product = props => {
                 'text-danger': data.isInWishlist
               })}
             />
-            <span>Wishlist</span>
+            <span>To Featured</span>
           </Button>
-          <UncontrolledButtonDropdown className='dropdown-icon-wrapper btn-share'>
+          <Button
+            className='btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0'
+            color='secondary'
+            outline
+            onClick={() => handleWishlist(data.isInWishlist)}
+          >
+            <span>Change something</span>
+          </Button>
+          {/* <UncontrolledButtonDropdown className='dropdown-icon-wrapper btn-share'>
             <DropdownToggle className='btn-icon hide-arrow' color='secondary' caret outline>
               <Share2 size={14} />
             </DropdownToggle>
@@ -166,7 +160,7 @@ const Product = props => {
                 <Instagram size={14} />
               </DropdownItem>
             </DropdownMenu>
-          </UncontrolledButtonDropdown>
+          </UncontrolledButtonDropdown> */}
         </div>
       </Col>
     </Row>

@@ -3,7 +3,7 @@ import axios from 'axios'
 // ** GET Products
 export const getProducts = params => {
   return dispatch => {
-    return axios.get('/apps/ecommerce/products', { params }).then(res => {
+    return axios.get('/apps/gigs-management/gigs', { params }).then(res => {
       dispatch({ type: 'GET_PRODUCTS', data: res.data, params })
     })
   }
@@ -46,6 +46,16 @@ export const deleteWishlistItem = id => {
   }
 }
 
+// ** DELETE Item from BD
+export const deleteGig = id => {
+  return dispatch => {
+    return axios.delete(`/apps/gigs-management/gigs/${id}`).then(res => {
+      dispatch({ type: 'DELETE_GIG_ITEM', data: res.data })
+      dispatch(getProducts())
+    })
+  }
+}
+
 // ** GET Cart Items
 // export const getCartItems = () => {
 //   return dispatch => {
@@ -58,7 +68,7 @@ export const deleteWishlistItem = id => {
 // ** GET Single Product
 export const getProduct = slug => {
   return dispatch => {
-    return axios.get(`/apps/ecommerce/products/${slug}`).then(res => {
+    return axios.get(`/apps/gigs-management/gigs/${slug}`).then(res => {
       dispatch({ type: 'GET_PRODUCT', data: res.data })
     })
   }

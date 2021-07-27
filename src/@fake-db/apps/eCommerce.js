@@ -367,7 +367,7 @@ const data = {
 // ------------------------------------------------
 // GET: Return products
 // ------------------------------------------------
-mock.onGet('/apps/ecommerce/products').reply(config => {
+mock.onGet('/apps/gigs-management/gigs').reply(config => {
   // eslint-disable-next-line object-curly-newline
   const { q = '', sortBy = 'featured', perPage = 9, page = 1 } = config.params
 
@@ -414,7 +414,7 @@ mock.onGet('/apps/ecommerce/products').reply(config => {
 // ------------------------------------------------
 // GET: Return Single Product
 // ------------------------------------------------
-mock.onGet(/\/apps\/ecommerce\/products\/\d+/).reply(config => {
+mock.onGet(/\/apps\/gigs-management\/gigs\/\d+/).reply(config => {
   // Get product id from URL
   let productId = config.url.substring(config.url.lastIndexOf('/') + 1)
 
@@ -448,6 +448,57 @@ mock.onGet('/apps/gigs-management/featured').reply(() => {
   })
 
   return [200, { products }]
+})
+
+// ------------------------------------------------
+// POST: Add Item in user Wishlist
+// ------------------------------------------------
+mock.onPost('/apps/gigs-management/featured').reply(config => {
+  // Get product from post data
+  const { productId } = JSON.parse(config.data)
+
+  const { length } = data.userWishlist
+  let lastId = 0
+  if (length) lastId = data.userWishlist[length - 1].i
+
+  data.userWishlist.push({
+    id: lastId + 1,
+    productId: Number(productId)
+  })
+
+  return [201]
+})
+
+// ------------------------------------------------
+// DELETE: Remove Item from user Wishlist
+// ------------------------------------------------
+mock.onDelete(/\/apps\/gigs-management\/featured\/\d+/).reply(config => {
+  // Get product id from URL
+  let productId = config.url.substring(config.url.lastIndexOf('/') + 1)
+
+  // Convert Id to number
+  productId = Number(productId)
+
+  const productIndex = data.userWishlist.findIndex(i => i.productId === productId)
+  if (productIndex > -1) data.userWishlist.splice(productIndex, 1)
+
+  return [200]
+})
+
+// ------------------------------------------------
+// DELETE: Remove Item from DB
+// ------------------------------------------------
+mock.onDelete(/\/apps\/gigs-management\/gigs\/\d+/).reply(config => {
+  // Get product id from URL
+  let productId = config.url.substring(config.url.lastIndexOf('/') + 1)
+
+  // Convert Id to number
+  productId = Number(productId)
+
+  const productIndex = data.products.findIndex(i => i.productId === productId)
+  if (productIndex > -1) data.products.splice(productIndex, 1)
+
+  return [200]
 })
 
 // ------------------------------------------------
@@ -502,41 +553,6 @@ mock.onDelete(/\/apps\/ecommerce\/cart\/\d+/).reply(config => {
 
   const productIndex = data.userCart.findIndex(i => i.productId === productId)
   if (productIndex > -1) data.userCart.splice(productIndex, 1)
-
-  return [200]
-})
-
-// ------------------------------------------------
-// POST: Add Item in user Wishlist
-// ------------------------------------------------
-mock.onPost('/apps/gigs-management/featured').reply(config => {
-  // Get product from post data
-  const { productId } = JSON.parse(config.data)
-
-  const { length } = data.userWishlist
-  let lastId = 0
-  if (length) lastId = data.userWishlist[length - 1].i
-
-  data.userWishlist.push({
-    id: lastId + 1,
-    productId: Number(productId)
-  })
-
-  return [201]
-})
-
-// ------------------------------------------------
-// DELETE: Remove Item from user Wishlist
-// ------------------------------------------------
-mock.onDelete(/\/apps\/gigs-management\/featured\/\d+/).reply(config => {
-  // Get product id from URL
-  let productId = config.url.substring(config.url.lastIndexOf('/') + 1)
-
-  // Convert Id to number
-  productId = Number(productId)
-
-  const productIndex = data.userWishlist.findIndex(i => i.productId === productId)
-  if (productIndex > -1) data.userWishlist.splice(productIndex, 1)
 
   return [200]
 })

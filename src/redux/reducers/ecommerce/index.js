@@ -25,6 +25,8 @@ const ecommerceReducer = (state = initialState, action) => {
       return { ...state }
     case 'GET_PRODUCT':
       return { ...state, productDetail: action.data.product }
+    case 'DELETE_GIG_ITEM':
+      return { ...state }
     default:
       return state
   }
