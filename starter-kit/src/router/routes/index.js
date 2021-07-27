@@ -45,11 +45,11 @@ const Routes = [
   //   path: '/apps/invoice/add',
   //   component: lazy(() => import('../../views/apps/invoice/add'))
   // },
-  {
-    path: '/apps/invoice/print',
-    layout: 'BlankLayout',
-    component: lazy(() => import('../../views/apps/invoice/print'))
-  },
+  // {
+  //   path: '/apps/invoice/print',
+  //   layout: 'BlankLayout',
+  //   component: lazy(() => import('../../views/apps/invoice/print'))
+  // },
   {
     path: '/apps/gigs-management/gigs',
     className: 'ecommerce-application',
