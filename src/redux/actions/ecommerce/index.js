@@ -10,14 +10,14 @@ export const getProducts = params => {
 }
 
 // ** Add Item to Cart
-export const addToCart = id => {
-  return (dispatch, getState) => {
-    return axios.post('/apps/ecommerce/cart', { productId: id }).then(res => {
-      dispatch({ type: 'ADD_TO_CART', data: res.data })
-      dispatch(getProducts(getState().ecommerce.params))
-    })
-  }
-}
+// export const addToCart = id => {
+//   return (dispatch, getState) => {
+//     return axios.post('/apps/ecommerce/cart', { productId: id }).then(res => {
+//       dispatch({ type: 'ADD_TO_CART', data: res.data })
+//       dispatch(getProducts(getState().ecommerce.params))
+//     })
+//   }
+// }
 
 // ** GET Wishlist Items
 export const getWishlistItems = () => {
@@ -47,13 +47,13 @@ export const deleteWishlistItem = id => {
 }
 
 // ** GET Cart Items
-export const getCartItems = () => {
-  return dispatch => {
-    return axios.get('/apps/ecommerce/cart').then(res => {
-      dispatch({ type: 'GET_CART', data: res.data })
-    })
-  }
-}
+// export const getCartItems = () => {
+//   return dispatch => {
+//     return axios.get('/apps/ecommerce/cart').then(res => {
+//       dispatch({ type: 'GET_CART', data: res.data })
+//     })
+//   }
+// }
 
 // ** GET Single Product
 export const getProduct = slug => {
@@ -65,11 +65,11 @@ export const getProduct = slug => {
 }
 
 // ** DELETE Cart Items
-export const deleteCartItem = id => {
-  return dispatch => {
-    return axios.delete(`/apps/ecommerce/cart/${id}`).then(res => {
-      dispatch({ type: 'DELETE_CART_ITEM', data: res.data })
-      dispatch(getCartItems())
-    })
-  }
-}
+// export const deleteCartItem = id => {
+//   return dispatch => {
+//     return axios.delete(`/apps/ecommerce/cart/${id}`).then(res => {
+//       dispatch({ type: 'DELETE_CART_ITEM', data: res.data })
+//       dispatch(getCartItems())
+//     })
+//   }
+// }

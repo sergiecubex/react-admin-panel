@@ -528,7 +528,7 @@ mock.onPost('/apps/gigs-management/featured').reply(config => {
 // ------------------------------------------------
 // DELETE: Remove Item from user Wishlist
 // ------------------------------------------------
-mock.onDelete(/\/apps\/ecommerce\/wishlist\/\d+/).reply(config => {
+mock.onDelete(/\/apps\/gigs-management\/featured\/\d+/).reply(config => {
   // Get product id from URL
   let productId = config.url.substring(config.url.lastIndexOf('/') + 1)
 
