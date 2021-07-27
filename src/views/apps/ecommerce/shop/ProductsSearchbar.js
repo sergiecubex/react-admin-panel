@@ -13,7 +13,7 @@ const ProductsSearchbar = props => {
           <InputGroup className='input-group-merge'>
             <Input
               className='search-product'
-              placeholder='Search Product'
+              placeholder='Search Gigs'
               onChange={e => dispatch(getProducts({ ...store.params, q: e.target.value }))}
             />
             <InputGroupAddon addonType='append'>

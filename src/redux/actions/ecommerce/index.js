@@ -28,6 +28,14 @@ export const getWishlistItems = () => {
   }
 }
 
+// ** Add Item to Wishlist
+export const addToWishlist = id => {
+  return dispatch => {
+    return axios.post('/apps/gigs-management/featured', { productId: id }).then(() => {
+      dispatch({ type: 'ADD_TO_WISHLIST' })
+    })
+  }
+}
 // ** DELETE Wishlist Item
 export const deleteWishlistItem = id => {
   return dispatch => {
@@ -52,15 +60,6 @@ export const getProduct = slug => {
   return dispatch => {
     return axios.get(`/apps/ecommerce/products/${slug}`).then(res => {
       dispatch({ type: 'GET_PRODUCT', data: res.data })
-    })
-  }
-}
-
-// ** Add Item to Wishlist
-export const addToWishlist = id => {
-  return dispatch => {
-    return axios.post('/apps/gigs-management/featured', { productId: id }).then(() => {
-      dispatch({ type: 'ADD_TO_WISHLIST' })
     })
   }
 }

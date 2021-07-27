@@ -84,22 +84,6 @@ const Wishlist = () => {
               <X className='mr-25' size={14} />
               <span>Remove</span>
             </Button>
-            <Button
-              color='primary'
-              tag={CartBtnTag}
-              className='btn-cart move-cart'
-              onClick={() => handleCartBtn(item.id, item.isInCart)}
-              /*eslint-disable */
-              {...(item.isInCart
-                ? {
-                    to: '/apps/ecommerce/checkout'
-                  }
-                : {})}
-              /*eslint-enable */
-            >
-              <ShoppingCart className='mr-50' size={14} />
-              <span>{item.isInCart ? 'View In Cart' : 'Add To Cart'}</span>
-            </Button>
           </div>
         </Card>
       )
@@ -115,7 +99,7 @@ const Wishlist = () => {
         <Alert color='info'>
           <div className='alert-body'>
             <Info size={14} />
-            <span className='align-middle ml-50'>No fetured Gigs</span>
+            <span className='align-middle ml-50'>No featured Gigs</span>
           </div>
         </Alert>
       )}

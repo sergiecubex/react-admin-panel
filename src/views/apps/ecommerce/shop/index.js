@@ -34,7 +34,6 @@ const Shop = () => {
 
   // ** Get products
   useEffect(() => {
-    console.log(store)
     dispatch(
       getProducts({
         q: '',
@@ -62,7 +61,7 @@ const Shop = () => {
         deleteCartItem={deleteCartItem}
         deleteWishlistItem={deleteWishlistItem}
       />
-      <Sidebar sidebarOpen={sidebarOpen} />
+      {/* <Sidebar sidebarOpen={sidebarOpen} /> */}
     </Fragment>
   )
 }

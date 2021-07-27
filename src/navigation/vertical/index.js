@@ -49,12 +49,12 @@ export default [
         icon: <Circle size={12} />,
         navLink: '/apps/gigs-management/gigs'
       },
-      {
-        id: 'detail',
-        title: 'Gig Details',
-        icon: <Circle size={12} />,
-        navLink: '/apps/gigs-management/details'
-      },
+      // {
+      //   id: 'detail',
+      //   title: 'Gig Details',
+      //   icon: <Circle size={12} />,
+      //   navLink: '/apps/gigs-management/details'
+      // },
       {
         id: 'fetured',
         title: 'Featured Gigs',

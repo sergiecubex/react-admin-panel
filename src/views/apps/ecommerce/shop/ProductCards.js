@@ -103,13 +103,14 @@ const ProductCards = props => {
                 color='light'
                 onClick={() => handleWishlistClick(item.id, item.isInWishlist)}
               >
-                <Heart
-                  className={classnames('mr-50', {
-                    'text-danger': item.isInWishlist
-                  })}
-                  size={14}
-                />
-                <span>Wishlist</span>
+                <span>To Featured</span>
+              </Button>
+              <Button
+                className='btn-wishlist'
+                color='dark'
+                onClick={() => console.log("will be deleted")}
+              >
+                <span>Delete</span>
               </Button>
             </div>
           </Card>

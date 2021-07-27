@@ -67,7 +67,7 @@ const ProductsPage = props => {
 
   return (
     <div className='content-detached content-right'>
-      <div className='content-body'>
+      <div className='content-body1'>
         <ProductsHeader
           store={store}
           dispatch={dispatch}
