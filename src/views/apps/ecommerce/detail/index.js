@@ -50,11 +50,7 @@ const Details = () => {
                 deleteWishlistItem={deleteWishlistItem}
               />
             </CardBody>
-            {/* <ItemFeatures /> */}
             <CardBody>
-            <div>
-              other gigs of this freelancer?
-            </div>
               <RelatedProducts />
             </CardBody>
           </Card>

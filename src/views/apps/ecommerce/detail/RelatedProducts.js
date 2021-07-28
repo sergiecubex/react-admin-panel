@@ -8,12 +8,6 @@ import { CardText } from 'reactstrap'
 import SwiperCore, { Navigation } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-// ** Related products images
-import img1 from '@src/assets/images/elements/apple-watch.png'
-import img2 from '@src/assets/images/elements/macbook-pro.png'
-import img3 from '@src/assets/images/elements/homepod.png'
-import img4 from '@src/assets/images/elements/magic-mouse.png'
-import img5 from '@src/assets/images/elements/iphone-x.png'
 
 // ** Styles
 import '@styles/react/libs/swiper/swiper.scss'
@@ -27,36 +21,19 @@ const RelatedProducts = () => {
       name: 'Apple Watch Series 6',
       brand: 'Apple',
       ratings: 4,
-      price: 399.98,
-      img: img1
+      price: 399.98
     },
     {
       name: 'Apple MacBook Pro - Silver',
       brand: 'Apple',
       ratings: 2,
-      price: 2449.49,
-      img: img2
+      price: 2449.49
     },
     {
       name: 'Apple HomePod (Space Grey)',
       brand: 'Apple',
       ratings: 3,
-      price: 229.29,
-      img: img3
-    },
-    {
-      name: 'Magic Mouse 2 - Black',
-      brand: 'Apple',
-      ratings: 3,
-      price: 90.98,
-      img: img4
-    },
-    {
-      name: 'iPhone 12 Pro',
-      brand: 'Apple',
-      ratings: 4,
-      price: 1559.99,
-      img: img5
+      price: 229.29
     }
   ]
 
@@ -89,8 +66,8 @@ const RelatedProducts = () => {
   return (
     <Fragment>
       <div className='mt-4 mb-2 text-center'>
-        <h4>Related Products</h4>
-        <CardText>People also search for this items</CardText>
+        <h4>Other Gigs of this freelancer</h4>
+        <CardText>Try to find something special...</CardText>
       </div>
       <Swiper {...params}>
         {slides.map(slide => {
@@ -101,9 +78,9 @@ const RelatedProducts = () => {
                   <h5 className='text-truncate mb-0'>{slide.name}</h5>
                   <small className='text-body'>by {slide.brand}</small>
                 </div>
-                <div className='img-container w-50 mx-auto py-75'>
+                {/* <div className='img-container w-50 mx-auto py-75'>
                   <img src={slide.img} alt='swiper 1' className='img-fluid' />
-                </div>
+                </div> */}
                 <div className='item-meta'>
                   <ul className='unstyled-list list-inline mb-25'>
                     {new Array(5).fill().map((listItem, index) => {

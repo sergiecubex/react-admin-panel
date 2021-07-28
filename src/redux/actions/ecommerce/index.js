@@ -12,7 +12,7 @@ export const getProducts = params => {
 // ** GET Single Product
 export const getProduct = slug => {
   return dispatch => {
-    return axios.get(`/apps/gigs-management/gigs/${slug}`).then(res => {
+    return axios.get(`/apps/gigs-management/gigs/${id}`).then(res => {
       dispatch({ type: 'GET_PRODUCT', data: res.data })
     })
   }

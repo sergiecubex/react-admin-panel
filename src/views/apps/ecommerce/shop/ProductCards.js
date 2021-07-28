@@ -39,11 +39,6 @@ const ProductCards = props => {
     }
     dispatch(getProducts(store.params))
   }
-  
-  const handleDeleteBtn = id => {
-    dispatch(deleteGig(id))
-    dispatch(getProducts(store.params))
-  }
 
   // ** Renders products
   const renderProducts = () => {
@@ -97,26 +92,22 @@ const ProductCards = props => {
               <div className='item-wrapper'>
                 <div className='item-cost'>
                   <h4 className='item-price'>${item.price}</h4>
-                  {item.hasFreeShipping ? (
-                    <CardText className='shipping'>
-                      <Badge color='light-success'>Free Shipping</Badge>
-                    </CardText>
-                  ) : null}
                 </div>
               </div>
               <Button
                 className='btn-wishlist'
-                color='light'
+                color='dark'
                 onClick={() => handleWishlistClick(item.id, item.isInWishlist)}
               >
                 <span>To Featured</span>
               </Button>
               <Button
                 className='btn-wishlist'
-                color='dark'
-                onClick={() => handleDeleteBtn(item.id)}
+                color='light'
               >
-                <span>Delete</span>
+                <Link to={`/apps/gigs-management/details/${item.id}`}>
+                  <span>Change Gig</span>
+                </Link>  
               </Button>
             </div>
           </Card>
