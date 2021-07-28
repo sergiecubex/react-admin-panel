@@ -132,6 +132,7 @@ $font-family-monospace: 'Montserrat', Helvetica, Arial, serif !default;
 
 // stylelint-enable value-keyword-case
 $font-size-base: 1rem !default;
+$font-size-superlarge: 3rem;
 $font-size-lg: ceil($font-size-base * 1.25) !default;
 $font-size-sm: ceil($font-size-base * 0.85) !default;
 

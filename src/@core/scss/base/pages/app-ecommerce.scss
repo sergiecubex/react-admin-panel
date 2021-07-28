@@ -294,13 +294,15 @@ $search-bar-height: 48px;
       // Item Description
       .item-description {
         overflow: hidden;
-        white-space: nowrap;
+        font-size: $font-size-base * 1.2;
+        font-weight: $font-weight-bold;
         text-overflow: ellipsis;
-        margin-top: 0.2rem;
+        margin: 0.8rem 0;
       }
 
       .item-price {
         font-weight: $font-weight-bolder;
+        font-size: $font-size-superlarge;
       }
 
       .card-body {

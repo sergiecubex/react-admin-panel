@@ -60,7 +60,7 @@ const ProductCards = props => {
             </Link>
               <CardBody>
                 <div className='item-wrapper'>
-                  <div className='item-rating'>
+                  {/* <div className='item-rating'>
                     <ul className='unstyled-list list-inline'>
                       {new Array(5).fill().map((listItem, index) => {
                         return (
@@ -75,22 +75,22 @@ const ProductCards = props => {
                         )
                       })}
                     </ul>
-                  </div>
+                  </div> */}
                   <div className='item-cost'>
                     <h6 className='item-price'>${item.price}</h6>
                   </div>
                 </div>
-                <h6 className='item-name'>
-                  <Link className='text-body' to={`/apps/gigs-management/details/${item.slug}`}>
-                    {item.name}
+                <h2 className='item-name'>
+                  <Link className='text-body' to={`/apps/gigs-management/details/${item.id}`}>
+                    {item.title}
                   </Link>
-                  <CardText tag='span' className='item-company'>
+                  {/* <CardText tag='span' className='item-company'>
                     By{' '}
                     <a className='company-name' href='/' onClick={e => e.preventDefault()}>
                       {item.brand}
                     </a>
-                  </CardText>
-                </h6>
+                  </CardText> */}
+                </h2>
                 <CardText className='item-description'>{item.description}</CardText>
               </CardBody>
             <div className='item-options text-center'>
