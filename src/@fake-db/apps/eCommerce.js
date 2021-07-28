@@ -6,6 +6,40 @@ const nextDay = new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
 const nextWeek = new Date(nextDay.getTime() + 7 * 24 * 60 * 60 * 1000)
 
 const data = {
+  gigs: [
+    { 
+      id: 1, 
+      title: 'I will copywriters and content writers',
+      description: 'Hi, Welcome to my GIG: Do you want to take your blog writing and articles writing to next level? Then you have come to the right place My Services: Article writing / rewriting Blog writing',
+      category: ['Writers', 'Marketing', 'Social Media'],
+      searchTags: ['copywriting', 'data entry', 'article rewriter'],
+      price: 17
+    },
+    { 
+      id: 2, 
+      title: 'I will copywriters and content writers',
+      description: 'Hi, Welcome to my GIG: Do you want to take your blog writing and articles writing to next level? Then you have come to the right place My Services: Article writing / rewriting Blog writing',
+      category: ['Writers', 'Marketing', 'Social Media'],
+      searchTags: ['copywriting', 'data entry', 'article rewriter'],
+      price: 43
+    },
+    { 
+      id: 3, 
+      title: 'I will copywriters and content writers',
+      description: 'Hi, Welcome to my GIG: Do you want to take your blog writing and articles writing to next level? Then you have come to the right place My Services: Article writing / rewriting Blog writing',
+      category: ['Writers', 'Marketing', 'Social Media'],
+      searchTags: ['copywriting', 'data entry', 'article rewriter'],
+      price: 65
+    },
+    { 
+      id: 4,
+      title: 'I will copywriters and content writers',
+      description: 'Hi, Welcome to my GIG: Do you want to take your blog writing and articles writing to next level? Then you have come to the right place My Services: Article writing / rewriting Blog writing',
+      category: ['Writers', 'Marketing', 'Social Media'],
+      searchTags: ['copywriting', 'data entry', 'article rewriter'],
+      price: 9
+    },
+  ],
   products: [
     {
       id: 1,
@@ -351,8 +385,8 @@ const data = {
     }
   ],
   userWishlist: [
-    { id: 1, productId: 26 },
-    { id: 2, productId: 23 }
+    { id: 1, productId: 1 },
+    { id: 2, productId: 2 }
   ],
   userCart: [
     { id: 1, productId: 27, qty: 1 },
@@ -373,7 +407,7 @@ mock.onGet('/apps/gigs-management/gigs').reply(config => {
 
   const queryLowered = q.toLowerCase()
 
-  const filteredData = data.products.filter(product => product.name.toLowerCase().includes(queryLowered))
+  const filteredData = data.gigs.filter(product => product.title.toLowerCase().includes(queryLowered))
 
   let sortDesc = false
   const sortByKey = (() => {
@@ -421,8 +455,8 @@ mock.onGet(/\/apps\/gigs-management\/gigs\/\d+/).reply(config => {
   // Convert Id to number
   productId = Number(productId)
 
-  const productIndex = data.products.findIndex(p => p.id === productId)
-  const product = data.products[productIndex]
+  const productIndex = data.gigs.findIndex(p => p.id === productId)
+  const product = data.gigs[productIndex]
 
   if (product) {
     // Add data of wishlist and cart
@@ -442,7 +476,7 @@ mock.onGet(/\/apps\/gigs-management\/gigs\/\d+/).reply(config => {
 // ------------------------------------------------
 mock.onGet('/apps/gigs-management/featured').reply(() => {
   const products = data.userWishlist.map(wishlistProduct => {
-    const product = data.products.find(p => p.id === wishlistProduct.productId)
+    const product = data.gigs.find(p => p.id === wishlistProduct.productId)
     product.isInCart = data.userCart.findIndex(p => p.productId === wishlistProduct.productId) > -1
     return product
   })
@@ -495,8 +529,8 @@ mock.onDelete(/\/apps\/gigs-management\/gigs\/\d+/).reply(config => {
   // Convert Id to number
   productId = Number(productId)
 
-  const productIndex = data.products.findIndex(i => i.productId === productId)
-  if (productIndex > -1) data.products.splice(productIndex, 1)
+  const productIndex = data.gigs.findIndex(i => i.productId === productId)
+  if (productIndex > -1) data.gigs.splice(productIndex, 1)
 
   return [200]
 })

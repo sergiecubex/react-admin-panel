@@ -52,10 +52,11 @@ const ProductCards = props => {
         const CartBtnTag = item.isInCart ? Link : 'button'
 
         return (
-          <Card className='ecommerce-card' key={item.name}>
+          <Card className='ecommerce-card' key={item.id}>
             <div className='item-img text-center mx-auto'>
-              <Link to={`/apps/gigs-management/details/${item.slug}`}>
-                <img className='img-fluid card-img-top' src={item.image} alt={item.name} />
+              <Link to={`/apps/gigs-management/details/${item.id}`}>
+                <h2>{item.description}</h2>
+                {/* <img className='img-fluid card-img-top' src={item.image} alt={item.name} /> */}
               </Link>
             </div>
             <CardBody>

@@ -9,6 +9,25 @@ export const getProducts = params => {
   }
 }
 
+// ** GET Single Product
+export const getProduct = slug => {
+  return dispatch => {
+    return axios.get(`/apps/gigs-management/gigs/${slug}`).then(res => {
+      dispatch({ type: 'GET_PRODUCT', data: res.data })
+    })
+  }
+}
+
+// ** DELETE Item from BD
+export const deleteGig = id => {
+  return dispatch => {
+    return axios.delete(`/apps/gigs-management/gigs/${id}`).then(res => {
+      dispatch({ type: 'DELETE_GIG_ITEM', data: res.data })
+      dispatch(getProducts())
+    })
+  }
+}
+
 // ** Add Item to Cart
 // export const addToCart = id => {
 //   return (dispatch, getState) => {
@@ -46,15 +65,6 @@ export const deleteWishlistItem = id => {
   }
 }
 
-// ** DELETE Item from BD
-export const deleteGig = id => {
-  return dispatch => {
-    return axios.delete(`/apps/gigs-management/gigs/${id}`).then(res => {
-      dispatch({ type: 'DELETE_GIG_ITEM', data: res.data })
-      dispatch(getProducts())
-    })
-  }
-}
 
 // ** GET Cart Items
 // export const getCartItems = () => {
@@ -65,14 +75,6 @@ export const deleteGig = id => {
 //   }
 // }
 
-// ** GET Single Product
-export const getProduct = slug => {
-  return dispatch => {
-    return axios.get(`/apps/gigs-management/gigs/${slug}`).then(res => {
-      dispatch({ type: 'GET_PRODUCT', data: res.data })
-    })
-  }
-}
 
 // ** DELETE Cart Items
 // export const deleteCartItem = id => {
