@@ -53,47 +53,46 @@ const ProductCards = props => {
 
         return (
           <Card className='ecommerce-card' key={item.id}>
-            <div className='item-img text-center mx-auto'>
-              <Link to={`/apps/gigs-management/details/${item.id}`}>
-                <h2>{item.description}</h2>
-                {/* <img className='img-fluid card-img-top' src={item.image} alt={item.name} /> */}
-              </Link>
-            </div>
-            <CardBody>
-              <div className='item-wrapper'>
-                <div className='item-rating'>
-                  <ul className='unstyled-list list-inline'>
-                    {new Array(5).fill().map((listItem, index) => {
-                      return (
-                        <li key={index} className='ratings-list-item mr-25'>
-                          <Star
-                            className={classnames({
-                              'filled-star': index + 1 <= item.rating,
-                              'unfilled-star': index + 1 > item.rating
-                            })}
-                          />
-                        </li>
-                      )
-                    })}
-                  </ul>
-                </div>
-                <div className='item-cost'>
-                  <h6 className='item-price'>${item.price}</h6>
-                </div>
+            <Link to={`/apps/gigs-management/details/${item.id}`}>
+              <div className='item-img text-center mx-auto'>
+                {item.image ? <img className='img-fluid card-img-top' src={item.image} alt={item.name} /> : <h2 className='mx-auto'>No Image</h2>}
               </div>
-              <h6 className='item-name'>
-                <Link className='text-body' to={`/apps/gigs-management/details/${item.slug}`}>
-                  {item.name}
-                </Link>
-                <CardText tag='span' className='item-company'>
-                  By{' '}
-                  <a className='company-name' href='/' onClick={e => e.preventDefault()}>
-                    {item.brand}
-                  </a>
-                </CardText>
-              </h6>
-              <CardText className='item-description'>{item.description}</CardText>
-            </CardBody>
+            </Link>
+              <CardBody>
+                <div className='item-wrapper'>
+                  <div className='item-rating'>
+                    <ul className='unstyled-list list-inline'>
+                      {new Array(5).fill().map((listItem, index) => {
+                        return (
+                          <li key={index} className='ratings-list-item mr-25'>
+                            <Star
+                              className={classnames({
+                                'filled-star': index + 1 <= item.rating,
+                                'unfilled-star': index + 1 > item.rating
+                              })}
+                            />
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </div>
+                  <div className='item-cost'>
+                    <h6 className='item-price'>${item.price}</h6>
+                  </div>
+                </div>
+                <h6 className='item-name'>
+                  <Link className='text-body' to={`/apps/gigs-management/details/${item.slug}`}>
+                    {item.name}
+                  </Link>
+                  <CardText tag='span' className='item-company'>
+                    By{' '}
+                    <a className='company-name' href='/' onClick={e => e.preventDefault()}>
+                      {item.brand}
+                    </a>
+                  </CardText>
+                </h6>
+                <CardText className='item-description'>{item.description}</CardText>
+              </CardBody>
             <div className='item-options text-center'>
               <div className='item-wrapper'>
                 <div className='item-cost'>

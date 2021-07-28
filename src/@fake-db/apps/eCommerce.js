@@ -10,6 +10,7 @@ const data = {
     { 
       id: 1, 
       title: 'I will copywriters and content writers',
+      image: "https://hwdev.web-ai.studio/api/images/gallery-0a370891-353f-48fd-a714-fd561e44b77c.jpg",
       description: 'Hi, Welcome to my GIG: Do you want to take your blog writing and articles writing to next level? Then you have come to the right place My Services: Article writing / rewriting Blog writing',
       category: ['Writers', 'Marketing', 'Social Media'],
       searchTags: ['copywriting', 'data entry', 'article rewriter'],
@@ -18,6 +19,7 @@ const data = {
     { 
       id: 2, 
       title: 'I will copywriters and content writers',
+      image: "https://hwdev.web-ai.studio/api/images/gallery-87bae388-611b-42b2-a8a0-f5b8bff40d2a.jpg",
       description: 'Hi, Welcome to my GIG: Do you want to take your blog writing and articles writing to next level? Then you have come to the right place My Services: Article writing / rewriting Blog writing',
       category: ['Writers', 'Marketing', 'Social Media'],
       searchTags: ['copywriting', 'data entry', 'article rewriter'],
@@ -26,6 +28,7 @@ const data = {
     { 
       id: 3, 
       title: 'I will copywriters and content writers',
+      image: "https://hwdev.web-ai.studio/api/images/gallery-87bae388-611b-42b2-a8a0-f5b8bff40d2a.jpg",
       description: 'Hi, Welcome to my GIG: Do you want to take your blog writing and articles writing to next level? Then you have come to the right place My Services: Article writing / rewriting Blog writing',
       category: ['Writers', 'Marketing', 'Social Media'],
       searchTags: ['copywriting', 'data entry', 'article rewriter'],
@@ -34,6 +37,7 @@ const data = {
     { 
       id: 4,
       title: 'I will copywriters and content writers',
+      image: "https://hwdev.web-ai.studio/api/images/gallery-0a370891-353f-48fd-a714-fd561e44b77c.jpg",
       description: 'Hi, Welcome to my GIG: Do you want to take your blog writing and articles writing to next level? Then you have come to the right place My Services: Article writing / rewriting Blog writing',
       category: ['Writers', 'Marketing', 'Social Media'],
       searchTags: ['copywriting', 'data entry', 'article rewriter'],
