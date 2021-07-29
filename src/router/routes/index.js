@@ -21,13 +21,13 @@ const Routes = [
     path: '/apps/sales/intended',
     component: lazy(() => import('../../views/apps/invoice/intended'))
   },
-  // {
-  //   path: '/apps/sales/preview/:id',
-  //   component: lazy(() => import('../../views/apps/invoice/preview')),
-  //   meta: {
-  //     navLink: '/apps/sales/preview'
-  //   }
-  // },
+  {
+    path: '/apps/sales/preview/:id',
+    component: lazy(() => import('../../views/apps/invoice/preview')),
+    meta: {
+      navLink: '/apps/sales/preview'
+    }
+  },
   // {
   //   path: '/apps/sales/preview',
   //   exact: true,

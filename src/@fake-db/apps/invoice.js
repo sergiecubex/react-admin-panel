@@ -24,7 +24,7 @@ const data = {
         confirmation_method: "automatic",
         created: 1546670057,
         currency: "usd",
-        customer: null,
+        customer: "Some client",
         description: "Red fish #34640",
         invoice: null,
         last_payment_error: null,
@@ -259,7 +259,7 @@ const data = {
 // ------------------------------------------------
 mock.onGet('/apps/payouts/intended').reply(config => {
   // eslint-disable-next-line object-curly-newline
-  const { q = '', perPage = 10, page = 1, status = null } = config
+  const { perPage = 10, page = 1 } = config
   /* eslint-enable */
 
   const filteredData = data.intendedPayments
@@ -296,7 +296,6 @@ mock.onGet('/apps/invoice/invoices').reply(config => {
     .sort(sortCompare('id'))
     .reverse()
   /* eslint-enable  */
-  //intendedPayments
   return [
     200,
     {
