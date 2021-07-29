@@ -14,15 +14,15 @@ export default [
     children: [
       {
         id: 'invoiceList',
-        title: 'List',
+        title: 'Completed payouts',
         icon: <Circle size={12} />,
-        navLink: '/apps/sales/list'
+        navLink: '/apps/sales/completed'
       },
       {
         id: 'invoicePreview',
-        title: 'Preview',
+        title: 'Intended payouts',
         icon: <Circle size={12} />,
-        navLink: '/apps/sales/preview'
+        navLink: '/apps/sales/intended'
       }
       // {
       //   id: 'invoiceEdit',

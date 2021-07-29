@@ -38,10 +38,7 @@ const data = {
           action: 'read',
           subject: 'Auth'
         }
-      ],
-      extras: {
-        eCommerceCartItemsCount: 5
-      }
+      ]
     }
   ]
 }
@@ -54,6 +51,7 @@ const jwtConfig = {
   refreshTokenExpireTime: '10m'
 }
 
+//change to api/login
 mock.onPost('/jwt/login').reply(request => {
   const { email, password } = JSON.parse(request.data)
 
