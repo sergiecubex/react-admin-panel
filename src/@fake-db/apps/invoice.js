@@ -4,7 +4,7 @@ import { paginateArray, sortCompare } from '../utils'
 const data = {
   intendedPayments: [
     {
-        id: "pi_1Dp8jd2eZvKYlo2CbUmqLWUA",
+        id: 5478,
         object: "payment_intent",
         amount: 1000,
         amount_capturable: 0,
@@ -86,7 +86,7 @@ const data = {
       status: "requires_payment_method",
       transfer_data: null,
       transfer_group: null
-  }
+    }
   ],
   invoices: [
     {
@@ -255,9 +255,9 @@ const data = {
 }
 
 // ------------------------------------------------
-// GET: Return Invoice List
+// GET: Return Intended Payments list
 // ------------------------------------------------
-mock.onGet('/apps/payouts/intended').reply(config => {
+mock.onGet('/apps/sales/intended').reply(config => {
   // eslint-disable-next-line object-curly-newline
   const { perPage = 10, page = 1 } = config
   /* eslint-enable */
@@ -309,21 +309,45 @@ mock.onGet('/apps/invoice/invoices').reply(config => {
 // ------------------------------------------------
 // GET: Return Single Invoice
 // ------------------------------------------------
-mock.onGet(/\/api\/invoice\/invoices\/\d+/).reply(config => {
+// mock.onGet(/\/api\/invoice\/invoices\/\d+/).reply(config => {
+//   const invoiceId = Number(config.url.substring(config.url.lastIndexOf('/') + 1))
+//   const invoiceIndex = data.invoices.findIndex(e => e.id === invoiceId)
+//   const intendedIndex = data.intendedPayments.findIndex(e => e.id === invoiceId)
+  
+//   const responseData = {
+//     invoice: data.invoices[invoiceIndex] || data.intendedPayments[intendedIndex],
+//     paymentDetails: {
+//       totalDue: '',
+//       bankName: '',
+//       country: '',
+//       iban: '',
+//       swiftCode: ''
+//     }
+//   }
+//   console.log(responseData)
+//   return [200, responseData]
+// })
+
+mock.onGet(/\/api\/invoice\/invoices\/\d/).reply(config => {
   // // Get event id from URL
+  const stringId = String(config.url.substring(config.url.lastIndexOf('/') + 1))
   const invoiceId = Number(config.url.substring(config.url.lastIndexOf('/') + 1))
 
+  
   const invoiceIndex = data.invoices.findIndex(e => e.id === invoiceId)
+  const intendedIndex = data.intendedPayments.findIndex(e => e.id === invoiceId)
+  
   const responseData = {
-    invoice: data.invoices[invoiceIndex],
+    invoice: data.invoices[invoiceIndex] || data.intendedPayments[intendedIndex],
     paymentDetails: {
-      totalDue: '$12,110.55',
-      bankName: 'American Bank',
-      country: 'United States',
-      iban: 'ETD95476213874685',
-      swiftCode: 'BR91905'
+      totalDue: '',
+      bankName: '',
+      country: '',
+      iban: '',
+      swiftCode: ''
     }
   }
+  console.log(responseData)
   return [200, responseData]
 })
 

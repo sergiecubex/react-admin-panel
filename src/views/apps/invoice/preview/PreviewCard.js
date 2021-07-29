@@ -70,12 +70,12 @@ const PreviewCard = ({ data }) => {
             </h4>
             <div className='invoice-date-wrapper'>
               <p className='invoice-date-title'>Date Issued:</p>
-              <p className='invoice-date'>{data.invoice.issuedDate}</p>
+              <p className='invoice-date'>{data.invoice.created}</p>
             </div>
-            <div className='invoice-date-wrapper'>
+            {/* <div className='invoice-date-wrapper'>
               <p className='invoice-date-title'>Due Date:</p>
               <p className='invoice-date'>{data.invoice.dueDate}</p>
-            </div>
+            </div> */}
           </div>
         </div>
         {/* /Header */}
@@ -88,11 +88,11 @@ const PreviewCard = ({ data }) => {
         <Row className='invoice-spacing'>
           <Col className='p-0' lg='8'>
             <h6 className='mb-2'>Invoice To:</h6>
-            <h6 className='mb-25'>{data.invoice.client.name}</h6>
-            <CardText className='mb-25'>{data.invoice.client.company}</CardText>
-            <CardText className='mb-25'>{data.invoice.client.address}</CardText>
-            <CardText className='mb-25'>{data.invoice.client.contact}</CardText>
-            <CardText className='mb-0'>{data.invoice.client.companyEmail}</CardText>
+            <h6 className='mb-25'>{data.invoice.customer}</h6>
+            {/* <CardText className='mb-25'>{data.intendedPayments.client.company}</CardText>
+            <CardText className='mb-25'>{data.intendedPayments.client.address}</CardText>
+            <CardText className='mb-25'>{data.intendedPayments.client.contact}</CardText>
+            <CardText className='mb-0'>{data.intendedPayments.client.companyEmail}</CardText> */}
           </Col>
           <Col className='p-0 mt-xl-0 mt-2' lg='4'>
             <h6 className='mb-2'>Payment Details:</h6>

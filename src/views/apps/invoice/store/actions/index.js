@@ -18,7 +18,7 @@ export const getData = params => {
 // ** Get intended payouts
 export const getIntendedPayouts = params => {
   return dispatch => {
-    axios.get('/apps/payouts/intended', params).then(response => {
+    axios.get('/apps/sales/intended', params).then(response => {
       dispatch({
         type: 'GET_DATA',
         allData: response.data.allData,

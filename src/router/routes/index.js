@@ -18,16 +18,24 @@ const Routes = [
     component: lazy(() => import('../../views/apps/invoice/list'))
   },
   {
-    path: '/apps/sales/intended',
-    component: lazy(() => import('../../views/apps/invoice/intended'))
-  },
-  {
     path: '/apps/sales/preview/:id',
     component: lazy(() => import('../../views/apps/invoice/preview')),
     meta: {
       navLink: '/apps/sales/preview'
     }
   },
+  {
+    path: '/apps/sales/intended',
+    component: lazy(() => import('../../views/apps/invoice/intended'))
+  },
+  {
+    path: '/apps/sales/intended/:id',
+    component: lazy(() => import('../../views/apps/invoice/preview')),
+    meta: {
+      navLink: '/apps/sales/intended'
+    }
+  },
+
   // {
   //   path: '/apps/sales/preview',
   //   exact: true,
