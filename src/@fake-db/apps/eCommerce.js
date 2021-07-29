@@ -429,14 +429,14 @@ mock.onGet('/apps/gigs-management/gigs').reply(config => {
     /* eslint-enable */
   })
   
-  const fetchGigs = async () => {
-    const res = await fetch(`${process.env.REACT_APP_BASE_URL}/api/gigs`)
-    const response = await res.json()
-    const textResponse = await re.text()
-    console.log(await response)
-    console.log(await textResponse)
-  }
-  fetchGigs()
+  // const fetchGigs = async () => {
+  //   const res = await fetch(`${process.env.REACT_APP_BASE_URL}/api/gigs`)
+  //   const response = await res.json()
+  //   const textResponse = await re.text()
+  //   console.log(await response)
+  //   console.log(await textResponse)
+  // }
+  // fetchGigs()
 
   return [
     200,

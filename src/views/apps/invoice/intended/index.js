@@ -12,7 +12,8 @@ import DataTable from 'react-data-table-component'
 import { Button, Label, Input, CustomInput, Row, Col, Card } from 'reactstrap'
 
 // ** Store & Actions
-import { getData } from '../store/actions'
+// import { getData } from '../store/actions'
+import { getIntendedPayouts } from '../store/actions'
 import { useDispatch, useSelector } from 'react-redux'
 
 // ** Styles
@@ -38,9 +39,6 @@ const CustomHeader = ({ handleFilter, value, handleStatusValue, statusValue, han
               <option value='50'>50</option>
             </CustomInput>
           </div>
-          <Button.Ripple tag={Link} to='/apps/invoice/add' color='primary'>
-            Add Record
-          </Button.Ripple>
         </Col>
         <Col
           lg='6'
@@ -75,6 +73,7 @@ const CustomHeader = ({ handleFilter, value, handleStatusValue, statusValue, han
 const InvoiceList = () => {
   const dispatch = useDispatch()
   const store = useSelector(state => state.invoice)
+  console.log(store)
 
   const [value, setValue] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
@@ -91,11 +90,33 @@ const InvoiceList = () => {
   //     })
   //   )
   // }, [dispatch, store.data.length])
+  
+  useEffect(() => {
+    dispatch(
+      getIntendedPayouts({
+        page: currentPage,
+        perPage: rowsPerPage,
+        status: statusValue,
+        q: value
+      })
+    )
+  }, [dispatch, store.data.length])
 
+  // const handleFilter = val => {
+  //   setValue(val)
+  //   dispatch(
+  //     getData({
+  //       page: currentPage,
+  //       perPage: rowsPerPage,
+  //       status: statusValue,
+  //       q: val
+  //     })
+  //   )
+  // }
   const handleFilter = val => {
     setValue(val)
     dispatch(
-      getData({
+      getIntendedPayouts({
         page: currentPage,
         perPage: rowsPerPage,
         status: statusValue,
@@ -104,9 +125,21 @@ const InvoiceList = () => {
     )
   }
 
+  // const handlePerPage = e => {
+  //   dispatch(
+  //     getData({
+  //       page: currentPage,
+  //       perPage: parseInt(e.target.value),
+  //       status: statusValue,
+  //       q: value
+  //     })
+  //   )
+  //   setRowsPerPage(parseInt(e.target.value))
+  // }
+  
   const handlePerPage = e => {
     dispatch(
-      getData({
+      getIntendedPayouts({
         page: currentPage,
         perPage: parseInt(e.target.value),
         status: statusValue,
@@ -116,10 +149,22 @@ const InvoiceList = () => {
     setRowsPerPage(parseInt(e.target.value))
   }
 
+  // const handleStatusValue = e => {
+  //   setStatusValue(e.target.value)
+  //   dispatch(
+  //     getData({
+  //       page: currentPage,
+  //       perPage: rowsPerPage,
+  //       status: e.target.value,
+  //       q: value
+  //     })
+  //   )
+  // }
+  
   const handleStatusValue = e => {
     setStatusValue(e.target.value)
     dispatch(
-      getData({
+      getIntendedPayouts({
         page: currentPage,
         perPage: rowsPerPage,
         status: e.target.value,
@@ -128,9 +173,21 @@ const InvoiceList = () => {
     )
   }
 
+  // const handlePagination = page => {
+  //   dispatch(
+  //     getData({
+  //       page: page.selected + 1,
+  //       perPage: rowsPerPage,
+  //       status: statusValue,
+  //       q: value
+  //     })
+  //   )
+  //   setCurrentPage(page.selected + 1)
+  // }
+  
   const handlePagination = page => {
     dispatch(
-      getData({
+      getIntendedPayouts({
         page: page.selected + 1,
         perPage: rowsPerPage,
         status: statusValue,
@@ -164,7 +221,8 @@ const InvoiceList = () => {
       />
     )
   }
-
+  
+  //render data
   const dataToRender = () => {
     const filters = {
       status: statusValue,
@@ -175,13 +233,13 @@ const InvoiceList = () => {
       return filters[k].length > 0
     })
 
-    // if (store.data.length > 0) {
-    //   return store.data
-    // } else if (store.data.length === 0 && isFiltered) {
-    //   return []
-    // } else {
-    //   return store.allData.slice(0, rowsPerPage)
-    // }
+    if (store.data.length > 0) {
+      return store.data
+    } else if (store.data.length === 0 && isFiltered) {
+      return []
+    } else {
+      return store.allData.slice(0, rowsPerPage)
+    }
   }
 
   return (
@@ -200,7 +258,7 @@ const InvoiceList = () => {
             defaultSortField='invoiceId'
             paginationDefaultPage={currentPage}
             paginationComponent={CustomPagination}
-            data={dataToRender()}
+            data={dataToRender()}  //this line renders data
             subHeaderComponent={
               <CustomHeader
                 value={value}

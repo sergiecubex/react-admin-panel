@@ -51,11 +51,11 @@ const renderClient = row => {
     states = ['light-success', 'light-danger', 'light-warning', 'light-info', 'light-primary', 'light-secondary'],
     color = states[stateNum]
 
-  if (row.avatar.length) {
-    return <Avatar className='mr-50' img={row.avatar} width='32' height='32' />
-  } else {
-    return <Avatar color={color} className='mr-50' content={row.client ? row.client.name : 'John Doe'} initials />
-  }
+  // if (row.avatar.length) {
+  //   return <Avatar className='mr-50' img={row.avatar} width='32' height='32' />
+  // } else {
+  //   return <Avatar color={color} className='mr-50' content={row.client ? row.client.name : 'John Doe'} initials />
+  // }
 }
 
 // ** Table columns
