@@ -106,7 +106,7 @@ const ProductCards = props => {
                 color='light'
               >
                 <Link to={`/apps/gigs-management/details/${item.id}`}>
-                  <span>Change Gig</span>
+                  <span>View Gig</span>
                 </Link>  
               </Button>
             </div>

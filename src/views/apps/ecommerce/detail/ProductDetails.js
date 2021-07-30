@@ -1,6 +1,6 @@
 // ** React Imports
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 
 // ** Third Party Components
 import classnames from 'classnames'
@@ -134,14 +134,16 @@ const Product = props => {
             />
             <span>To Featured</span>
           </Button>
-          <Button
-            className='btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0'
-            color='secondary'
-            outline
-            onClick={() => handleWishlist(data.isInWishlist)}
-          >
-            <span>Change something</span>
-          </Button>
+          <Link to={`/apps/gigs-management/form/${data.id}`}>
+            <Button
+              className='btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0'
+              color='secondary'
+              outline
+            >
+              <span>Change Gig</span>
+            </Button>
+          </Link>
+
           {/* <UncontrolledButtonDropdown className='dropdown-icon-wrapper btn-share'>
             <DropdownToggle className='btn-icon hide-arrow' color='secondary' caret outline>
               <Share2 size={14} />

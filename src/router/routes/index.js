@@ -35,7 +35,6 @@ const Routes = [
       navLink: '/apps/sales/intended'
     }
   },
-
   // {
   //   path: '/apps/sales/preview',
   //   exact: true,
@@ -77,6 +76,16 @@ const Routes = [
     exact: true,
     className: 'ecommerce-application',
     component: () => <Redirect to='/apps/gigs-management/details/apple-i-phone-11-64-gb-black-26' />
+  },
+   ///apps/gigs-management/form/${id}
+   {
+    path: '/apps/gigs-management/form/:id',
+    exact: true,
+    className: 'ecommerce-application',
+    component: lazy(() => import('../../views/apps/ecommerce/form')),
+    meta: {
+      navLink: '/apps/gigs-management/form'
+    }
   },
   {
     path: '/apps/gigs-management/details/:product',

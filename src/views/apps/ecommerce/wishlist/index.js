@@ -40,10 +40,10 @@ const Wishlist = () => {
     return store.wishlist.map(item => {
       const CartBtnTag = item.isInCart ? Link : 'button'
       return (
-        <Card className='ecommerce-card' key={item.name}>
+        <Card className='ecommerce-card' key={item.title}>
           <div className='item-img text-center mx-auto'>
-            <Link to={`/apps/gigs-management/details/${item.slug}`}>
-              <img className='img-fluid' src={item.image} alt={item.name} />
+            <Link to={`/apps/gigs-management/details/${item.id}`}>
+              <img className='img-fluid' src={item.image} alt={item.title} />
             </Link>
           </div>
           <CardBody>
@@ -69,7 +69,7 @@ const Wishlist = () => {
               </div>
             </div>
             <div className='item-name'>
-              <Link to={`/apps/ecommerce/product/${item.slug}`}>{item.name}</Link>
+              <Link to={`/apps/gigs-management/details/${item.id}`}>{item.title}</Link>
             </div>
             <CardText className='item-description'>{item.description}</CardText>
           </CardBody>
