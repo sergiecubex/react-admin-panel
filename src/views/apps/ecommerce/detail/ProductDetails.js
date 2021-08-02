@@ -41,7 +41,7 @@ const Product = props => {
   if (gig === null) return (
   <Row>
     <h2 style={{margin: "0 5%"}}>Gig was deleted</h2>
-    <Link to={`/apps/gigs-management/gigs`}>
+    <Link to={`/apps/gigs`}>
       <Button
         className='btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0'
         color='secondary'
@@ -62,12 +62,6 @@ const Product = props => {
       </Col>
       <Col md='7' xs='12'>
         <h4>{gig.name}</h4>
-        <CardText tag='span' className='item-company'>
-          Freelance group?
-          <a className='company-name' href='/' onClick={e => e.preventDefault()}>
-            {gig.brand}
-          </a>
-        </CardText>
         <div className='ecommerce-details-price d-flex flex-wrap mt-1'>
           <h4 className='item-price mr-1'>${gig.price}</h4>
         </div>
@@ -108,26 +102,6 @@ const Product = props => {
               >
                 <span>Delete Gig</span>
               </Button>
-
-          {/* <UncontrolledButtonDropdown className='dropdown-icon-wrapper btn-share'>
-            <DropdownToggle className='btn-icon hide-arrow' color='secondary' caret outline>
-              <Share2 size={14} />
-            </DropdownToggle>
-            <DropdownMenu right>
-              <DropdownItem tag='a' href='/' onClick={e => e.preventDefault()}>
-                <Facebook size={14} />
-              </DropdownItem>
-              <DropdownItem tag='a' href='/' onClick={e => e.preventDefault()}>
-                <Twitter size={14} />
-              </DropdownItem>
-              <DropdownItem tag='a' href='/' onClick={e => e.preventDefault()}>
-                <Youtube size={14} />
-              </DropdownItem>
-              <DropdownItem tag='a' href='/' onClick={e => e.preventDefault()}>
-                <Instagram size={14} />
-              </DropdownItem>
-            </DropdownMenu>
-          </UncontrolledButtonDropdown> */}
         </div>
       </Col>
     </Row>

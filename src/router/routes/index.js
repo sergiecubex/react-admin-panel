@@ -14,6 +14,10 @@ const Routes = [
     component: lazy(() => import('../../views/Home'))
   },
   {
+    path: '/apps/gigs',
+    component: lazy(() => import('../../views/apps/gigs/list'))
+  },
+  {
     path: '/apps/sales/completed',
     component: lazy(() => import('../../views/apps/invoice/list'))
   },
@@ -35,32 +39,6 @@ const Routes = [
       navLink: '/apps/sales/intended'
     }
   },
-  // {
-  //   path: '/apps/sales/preview',
-  //   exact: true,
-  //   component: () => <Redirect to='/apps/sales/preview/4987' />
-  // },
-  // {
-  //   path: '/apps/invoice/edit/:id',
-  //   component: lazy(() => import('../../views/apps/invoice/edit')),
-  //   meta: {
-  //     navLink: '/apps/invoice/edit'
-  //   }
-  // },
-  // {
-  //   path: '/apps/invoice/edit',
-  //   exact: true,
-  //   component: () => <Redirect to='/apps/invoice/edit/4987' />
-  // },
-  // {
-  //   path: '/apps/invoice/add',
-  //   component: lazy(() => import('../../views/apps/invoice/add'))
-  // },
-  // {
-  //   path: '/apps/invoice/print',
-  //   layout: 'BlankLayout',
-  //   component: lazy(() => import('../../views/apps/invoice/print'))
-  // },
   {
     path: '/apps/gigs-management/gigs',
     className: 'ecommerce-application',
@@ -71,12 +49,12 @@ const Routes = [
     className: 'ecommerce-application',
     component: lazy(() => import('../../views/apps/ecommerce/wishlist'))
   },
-  {
-    path: '/apps/gigs-management/details',
-    exact: true,
-    className: 'ecommerce-application',
-    component: () => <Redirect to='/apps/gigs-management/details/apple-i-phone-11-64-gb-black-26' />
-  },
+  // {
+  //   path: '/apps/gigs-management/details',
+  //   exact: true,
+  //   className: 'ecommerce-application',
+  //   component: () => <Redirect to='/apps/gigs-management/details/apple-i-phone-11-64-gb-black-26' />
+  // },
    ///apps/gigs-management/form/${id}
    {
     path: '/apps/gigs-management/form/:id',
@@ -96,11 +74,6 @@ const Routes = [
       navLink: '/apps/gigs-management/details'
     }
   },
-  // {
-  //   path: '/apps/ecommerce/checkout',
-  //   className: 'ecommerce-application',
-  //   component: lazy(() => import('../../views/apps/ecommerce/checkout'))
-  // },
   {
     path: '/login',
     component: lazy(() => import('../../views/Login')),

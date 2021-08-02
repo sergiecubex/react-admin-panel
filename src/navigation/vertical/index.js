@@ -44,16 +44,16 @@ export default [
     icon: <ShoppingCart size={20} />,
     children: [
       {
-        id: 'shop',
+        id: 'gigs',
         title: 'Gigs',
         icon: <Circle size={12} />,
-        navLink: '/apps/gigs-management/gigs'
+        navLink: '/apps/gigs'
       },
       // {
-      //   id: 'detail',
-      //   title: 'Gig Details',
+      //   id: 'shop',
+      //   title: 'Gigs',
       //   icon: <Circle size={12} />,
-      //   navLink: '/apps/gigs-management/details'
+      //   navLink: '/apps/gigs-management/gigs'
       // },
       {
         id: 'fetured',
@@ -61,18 +61,6 @@ export default [
         icon: <Circle size={12} />,
         navLink: '/apps/gigs-management/featured'
       }
-      // {
-      //   id: 'wishList',
-      //   title: 'Wish List',
-      //   icon: <Circle size={12} />,
-      //   navLink: '/apps/ecommerce/wishlist'
-      // }
-      // {
-      //   id: 'checkout',
-      //   title: 'Checkout',
-      //   icon: <Circle size={12} />,
-      //   navLink: '/apps/ecommerce/checkout'
-      // }
     ]
   }
 ]

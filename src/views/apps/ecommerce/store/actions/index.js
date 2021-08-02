@@ -9,6 +9,20 @@ export const getProducts = params => {
   }
 }
 
+export const getData = params => {
+  return dispatch => {
+    axios.get('/apps/gigs', params).then(response => {
+      dispatch({
+        type: 'GET_DATA',
+        allData: response.data.allData,
+        data: response.data,
+        totalPages: response.data.total,
+        params
+      })
+    })
+  }
+}
+
 // ** Add Item to Cart
 export const addToCart = id => {
   return (dispatch, getState) => {
