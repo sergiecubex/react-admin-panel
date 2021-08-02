@@ -185,11 +185,11 @@ mock.onDelete(/\/apps\/gigs-management\/featured\/\d+/).reply(config => {
 mock.onDelete(/\/apps\/gigs-management\/gigs\/\d+/).reply(config => {
   // Get product id from URL
   let productId = config.url.substring(config.url.lastIndexOf('/') + 1)
-
   // Convert Id to number
   productId = Number(productId)
 
-  const productIndex = data.gigs.findIndex(i => i.productId === productId)
+  const productIndex = data.gigs.findIndex(i => i.id === productId)
+  console.log("Index:", productIndex, "ID:", productId)
   if (productIndex > -1) data.gigs.splice(productIndex, 1)
 
   return [200]

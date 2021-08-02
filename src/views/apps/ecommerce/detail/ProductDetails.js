@@ -19,6 +19,8 @@ import {
 const Product = props => {
   // ** Props
   const { data, deleteWishlistItem, dispatch, addToWishlist, getProduct, deleteGig, productId } = props
+  //state
+  const [gig, setGig] = useState(data)
 
   // ** Handle Wishlist item toggle
   const handleWishlist = val => {
@@ -31,42 +33,48 @@ const Product = props => {
   }
 
   const handleDelete = (id) => {
-    console.log(`will be deleted item ${id}`)
+    alert(`Are you sure you want to delete item ${id}?`)
     dispatch(deleteGig(id))
+    setGig(null)
   }
-  // ** Handle Move/Add to cart
-  // const handleCartBtn = (id, val) => {
-  //   if (val === false) {
-  //     dispatch(addToCart(id))
-  //   }
-  //   dispatch(getProduct(productId))
-  // }
 
-  // ** Condition btn tag
-  // const CartBtnTag = data.isInCart ? Link : 'button'
-
+  if (gig === null) return (
+  <Row>
+    <h2 style={{margin: "0 5%"}}>Gig was deleted</h2>
+    <Link to={`/apps/gigs-management/gigs`}>
+      <Button
+        className='btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0'
+        color='secondary'
+        outline
+      >
+        <span>Go Back</span>
+      </Button>
+    </Link>
+  </Row>
+  )
+  
   return (
     <Row className='my-2'>
       <Col className='d-flex align-items-center justify-content-center mb-2 mb-md-0' md='5' xs='12'>
         <div className='d-flex align-items-center justify-content-center'>
-          <img className='img-fluid product-img' src={data.image} alt={data.name} />
+          <img className='img-fluid product-img' src={gig.image} alt={gig.name} />
         </div>
       </Col>
       <Col md='7' xs='12'>
-        <h4>{data.name}</h4>
+        <h4>{gig.name}</h4>
         <CardText tag='span' className='item-company'>
           Freelance group?
           <a className='company-name' href='/' onClick={e => e.preventDefault()}>
-            {data.brand}
+            {gig.brand}
           </a>
         </CardText>
         <div className='ecommerce-details-price d-flex flex-wrap mt-1'>
-          <h4 className='item-price mr-1'>${data.price}</h4>
+          <h4 className='item-price mr-1'>${gig.price}</h4>
         </div>
         <CardText>
-          <span className='ml-25'>{data.title}</span>
+          <span className='ml-25'>{gig.title}</span>
         </CardText>
-        <CardText>{data.description}</CardText>
+        <CardText>{gig.description}</CardText>
         <hr />
         <div className='d-flex flex-column flex-sm-row pt-1'>
 
@@ -74,17 +82,17 @@ const Product = props => {
             className='btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0'
             color='secondary'
             outline
-            onClick={() => handleWishlist(data.isInWishlist)}
+            onClick={() => handleWishlist(gig.isInWishlist)}
           >
             <Heart
               size={14}
               className={classnames('mr-50', {
-                'text-danger': data.isInWishlist
+                'text-danger': gig.isInWishlist
               })}
             />
             <span>To Featured</span>
           </Button>
-          <Link to={`/apps/gigs-management/form/${data.id}`}>
+          <Link to={`/apps/gigs-management/form/${gig.id}`}>
             <Button
               className='btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0'
               color='secondary'
@@ -96,7 +104,7 @@ const Product = props => {
           <Button
                 className='btn-wishlist'
                 color='danger'
-                onClick={() => handleDelete(data.id)}
+                onClick={() => handleDelete(gig.id)}
               >
                 <span>Delete Gig</span>
               </Button>
