@@ -18,7 +18,7 @@ import {
 
 const Product = props => {
   // ** Props
-  const { data, deleteWishlistItem, dispatch, addToWishlist, getProduct, productId, addToCart } = props
+  const { data, deleteWishlistItem, dispatch, addToWishlist, getProduct, deleteGig, productId } = props
 
   // ** Handle Wishlist item toggle
   const handleWishlist = val => {
@@ -32,6 +32,7 @@ const Product = props => {
 
   const handleDelete = (id) => {
     console.log(`will be deleted item ${id}`)
+    dispatch(deleteGig(id))
   }
   // ** Handle Move/Add to cart
   // const handleCartBtn = (id, val) => {
@@ -95,7 +96,7 @@ const Product = props => {
           <Button
                 className='btn-wishlist'
                 color='danger'
-                onClick={(id) => handleDelete(data.id)}
+                onClick={() => handleDelete(data.id)}
               >
                 <span>Delete Gig</span>
               </Button>

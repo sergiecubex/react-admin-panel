@@ -80,7 +80,7 @@ export const deleteGig = id => {
   return dispatch => {
     return axios.delete(`/apps/gigs-management/gigs/${id}`).then(res => {
       console.log("Item id", id, "deleted!")
-      dispatch({ type: 'DELETE_GIG', data: res.data })
+      dispatch({ type: 'DELETE_GIG_ITEM', data: res.data })
       // dispatch(getProducts())
     })
   }
