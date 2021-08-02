@@ -24,7 +24,7 @@ const Form = () => {
   const dispatch = useDispatch()
   const store = useSelector(state => state.ecommerce)
   const gig = store.productDetail
-  console.log(gig)
+
   // ** ComponentDidMount : Get product
   useEffect(() => {
     dispatch(getProduct(id))
@@ -34,6 +34,10 @@ const Form = () => {
       alert('Gig saved')
       history.push(`/apps/gigs-management/details/${id}`)
   }
+  
+  const handleCancel = () => {
+    history.push(`/apps/gigs-management/details/${id}`)
+}
 
   return (
     <Fragment>
@@ -86,7 +90,10 @@ const Form = () => {
                         // onChange={handleInputChange}
                     />
                 </InputGroup>
-                <Button color='success' onClick={handleSave}>Save Gig</Button>
+                <InputGroup className={classes.buttons}>
+                    <Button color='danger' onClick={handleCancel}>Cancel</Button>
+                    <Button color='success' onClick={handleSave}>Save Gig</Button>
+                </InputGroup>
             </CardBody>
         </Card>
       </div>

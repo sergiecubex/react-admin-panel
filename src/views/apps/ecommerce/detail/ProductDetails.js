@@ -4,7 +4,7 @@ import { useHistory, Link } from 'react-router-dom'
 
 // ** Third Party Components
 import classnames from 'classnames'
-import { Star, ShoppingCart, DollarSign, Heart, Share2, Facebook, Twitter, Youtube, Instagram } from 'react-feather'
+import { Star, Heart} from 'react-feather'
 import {
   Row,
   Col,
@@ -20,28 +20,6 @@ const Product = props => {
   // ** Props
   const { data, deleteWishlistItem, dispatch, addToWishlist, getProduct, productId, addToCart } = props
 
-  // ** State
-  const [selectedColor, setSelectedColor] = useState('primary')
-
-  // ** Renders color options
-  const renderColorOptions = () => {
-    return data.colorOptions.map(color => {
-      return (
-        <li
-          key={color}
-          className={classnames('d-inline-block', {
-            selected: selectedColor === color
-          })}
-          onClick={() => setSelectedColor(color)}
-        >
-          <div className={`color-option b-${color}`}>
-            <div className={`filloption bg-${color}`}></div>
-          </div>
-        </li>
-      )
-    })
-  }
-
   // ** Handle Wishlist item toggle
   const handleWishlist = val => {
     if (val) {
@@ -52,16 +30,19 @@ const Product = props => {
     dispatch(getProduct(productId))
   }
 
-  // ** Handle Move/Add to cart
-  const handleCartBtn = (id, val) => {
-    if (val === false) {
-      dispatch(addToCart(id))
-    }
-    dispatch(getProduct(productId))
+  const handleDelete = (id) => {
+    console.log(`will be deleted item ${id}`)
   }
+  // ** Handle Move/Add to cart
+  // const handleCartBtn = (id, val) => {
+  //   if (val === false) {
+  //     dispatch(addToCart(id))
+  //   }
+  //   dispatch(getProduct(productId))
+  // }
 
   // ** Condition btn tag
-  const CartBtnTag = data.isInCart ? Link : 'button'
+  // const CartBtnTag = data.isInCart ? Link : 'button'
 
   return (
     <Row className='my-2'>
@@ -79,44 +60,12 @@ const Product = props => {
           </a>
         </CardText>
         <div className='ecommerce-details-price d-flex flex-wrap mt-1'>
-          <h4 className='item-price mr-1'>Maybe total cost of Gig ${data.price}</h4>
-          <ul className='unstyled-list list-inline'>
-          Rating of a freelancer?
-            {new Array(5).fill().map((listItem, index) => {
-              return (
-                <li key={index} className='ratings-list-item mr-25'>
-                  <Star
-                    className={classnames({
-                      'filled-star': index + 1 <= data.rating,
-                      'unfilled-star': index + 1 > data.rating
-                    })}
-                  />
-                </li>
-              )
-            })}
-          </ul>
+          <h4 className='item-price mr-1'>${data.price}</h4>
         </div>
         <CardText>
-          Some<span className='text-success ml-25'>Text</span>
+          <span className='ml-25'>{data.title}</span>
         </CardText>
         <CardText>{data.description}</CardText>
-        {/* <ul className='product-features list-unstyled'>
-          {data.hasFreeShipping ? (
-            <li>
-              <ShoppingCart size={19} />
-              <span>Free Shipping</span>
-            </li>
-          ) : null}
-          <li>
-            <DollarSign size={19} />
-            <span>EMI options available</span>
-          </li>
-        </ul>
-        <hr />
-        <div className='product-color-options'>
-          <h6>Colors</h6>
-          <ul className='list-unstyled mb-0'>{renderColorOptions()}</ul>
-        </div> */}
         <hr />
         <div className='d-flex flex-column flex-sm-row pt-1'>
 
@@ -143,6 +92,13 @@ const Product = props => {
               <span>Change Gig</span>
             </Button>
           </Link>
+          <Button
+                className='btn-wishlist'
+                color='danger'
+                onClick={(id) => handleDelete(data.id)}
+              >
+                <span>Delete Gig</span>
+              </Button>
 
           {/* <UncontrolledButtonDropdown className='dropdown-icon-wrapper btn-share'>
             <DropdownToggle className='btn-icon hide-arrow' color='secondary' caret outline>
