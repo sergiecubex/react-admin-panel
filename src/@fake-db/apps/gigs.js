@@ -10,7 +10,10 @@ const data = {
       description: 'Hi, Welcome to my GIG: Do you want to take your blog writing and articles writing to next level? Then you have come to the right place My Services: Article writing / rewriting Blog writing',
       category: ['Writers', 'Marketing', 'Social Media'],
       searchTags: ['copywriting', 'data entry', 'article rewriter'],
-      price: 17
+      price: 27,
+      turnAroundTimeInDays: 4,
+      approved: false,
+      waitlisted: false
     },
     { 
       id: 2, 
@@ -19,7 +22,10 @@ const data = {
       description: 'Hi, Welcome to my GIG: Do you want to take your blog writing and articles writing to next level? Then you have come to the right place My Services: Article writing / rewriting Blog writing',
       category: ['Writers', 'Marketing', 'Social Media'],
       searchTags: ['copywriting', 'data entry', 'article rewriter'],
-      price: 43
+      price: 43,
+      turnAroundTimeInDays: 6, 
+      approved: false,
+      waitlisted: false
     },
     { 
       id: 3, 
@@ -28,7 +34,10 @@ const data = {
       description: 'Hi, Welcome to my GIG: Do you want to take your blog writing and articles writing to next level? Then you have come to the right place My Services: Article writing / rewriting Blog writing',
       category: ['Writers', 'Marketing', 'Social Media'],
       searchTags: ['copywriting', 'data entry', 'article rewriter'],
-      price: 65
+      price: 65,
+      turnAroundTimeInDays: 14,
+      approved: false,
+      waitlisted: false
     },
     { 
       id: 4,
@@ -37,7 +46,10 @@ const data = {
       description: 'Hi, Welcome to my GIG: Do you want to take your blog writing and articles writing to next level? Then you have come to the right place My Services: Article writing / rewriting Blog writing',
       category: ['Writers', 'Marketing', 'Social Media'],
       searchTags: ['copywriting', 'data entry', 'article rewriter'],
-      price: 9
+      price: 9,
+      turnAroundTimeInDays: 2,
+      approved: false,
+      waitlisted: false
     }
   ]
 }
@@ -67,31 +79,38 @@ mock.onGet('/apps/gigs').reply(config => {
 // ------------------------------------------------
 // GET: Return Single Gig
 // ------------------------------------------------
-mock.onGet(/\/api\/gigs\/\d/).reply(config => {
-  // // Get event id from URL
-  const gigId = Number(config.url.substring(config.url.lastIndexOf('/') + 1))
+mock.onGet(/\/apps\/gigs\/\d+/).reply(config => {
+  // Get product id from URL
+  let productId = config.url.substring(config.url.lastIndexOf('/') + 1)
 
-  const gigIndex = data.gigs.findIndex(e => e.id === gigId)
-  
-  const responseData = {
-    invoice: data.gigs[gigIndex]
+  // Convert Id to number
+  productId = Number(productId)
+
+  const productIndex = data.gigs.findIndex(p => p.id === productId)
+  const product = data.gigs[productIndex]
+
+  if (product) {
+
+    // * Add Dummy data for details page
+    product.colorOptions = ['primary', 'success', 'warning', 'danger', 'info']
+
+    return [200, { product }]
   }
-  
-  return [200, responseData]
+  return [404]
 })
 
 // ------------------------------------------------
-// DELETE: Deletes Gig
+// DELETE: Remove Item from DB
 // ------------------------------------------------
-mock.onDelete('/apps/gigs/delete').reply(config => {
-  // Get invoice id from URL
-  let gigId = config.id
-
+mock.onDelete(/\/apps\/gigs\/\d+/).reply(config => {
+  // Get product id from URL
+  let productId = config.url.substring(config.url.lastIndexOf('/') + 1)
   // Convert Id to number
-  gigId = Number(gigId)
+  productId = Number(productId)
 
-  const gigIndex = data.gigs.findIndex(t => t.id === gigId)
-  data.gigs.splice(gigIndex, 1)
+  const productIndex = data.gigs.findIndex(i => i.id === productId)
+  console.log("Index:", productIndex, "ID:", productId)
+  if (productIndex > -1) data.gigs.splice(productIndex, 1)
 
   return [200]
 })

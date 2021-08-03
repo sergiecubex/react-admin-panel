@@ -15,7 +15,7 @@ const invoiceReducer = (state = initialState, action) => {
         total: action.totalPages,
         params: action.params
       }
-    case 'DELETE_INVOICE':
+    case 'DELETE_GIG_ITEM':
       return { ...state }
     default:
       return { ...state }

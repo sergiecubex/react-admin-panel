@@ -16,16 +16,12 @@ export const getData = params => {
 }
 
 
-// ** Delete Gig
-export const deleteData = id => {
-  return (dispatch, getStore) => {
-    axios
-      .delete('/apps/gigs/delete', { id })
-      .then(response => {
-        dispatch({
-          type: 'DELETE_INVOICE'
-        })
-      })
-      .then(() => dispatch(getData(getStore().invoice.params)))
+// ** DELETE GIG
+export const deleteGig = id => {
+  return dispatch => {
+    return axios.delete(`/apps/gigs/${id}`).then(res => {
+      console.log(res)
+      dispatch({ type: 'DELETE_GIG_ITEM', data: res.data })
+    })
   }
 }

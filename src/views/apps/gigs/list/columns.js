@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom'
 
 // ** Store & Actions
-import { deleteInvoice } from '../store/actions'
+import { deleteGig } from '../store/actions'
 import { store } from '@store/storeConfig/store'
 
 // ** Third Party Components
@@ -34,36 +34,29 @@ const renderClient = row => {
 // ** Table columns
 export const columns = [
   {
-    name: '#',
-    minWidth: '107px',
-    selector: 'id',
-    cell: row => <Link to={`/apps/gigs-management/details/${row.id}`}>{`#${row.id}`}</Link>
+    name: 'User',
+    minWidth: '100px',
+    selector: 'user',
+    cell: row => <Link to={`/apps/gigs-management/details/${row.id}`}>{`#${row.id}`}</Link> // users list
   },
   {
-    name: 'User',
-    minWidth: '350px',
+    name: 'Created',
+    minWidth: '100px',
     selector: 'user',
     sortable: true,
     cell: row => {
-      const name = row.client ? row.client.name : 'Unknown',
-        email = row.client ? row.client.email : 'johnDoe@email.com'
+      const today = new Date()
+      const date = `${today.getDate()}:${(today.getMonth() + 1)}:${today.getFullYear()}`
+      const created = row.date ? row.created : date
+      
       return (
         <div className='d-flex justify-content-left align-items-center'>
-          {renderClient(row)}
           <div className='d-flex flex-column'>
-            <h6 className='user-name text-truncate mb-0'>{name}</h6>
-            <small className='text-truncate text-muted mb-0'>{email}</small>
+            <h6 className='user-name text-truncate mb-0'>{created}</h6>
           </div>
         </div>
       )
     }
-  },
-  {
-    name: 'Price',
-    selector: 'price',
-    sortable: true,
-    minWidth: '150px',
-    cell: row => <span>${row.price || 0}</span>
   },
   {
     name: 'Title',
@@ -72,21 +65,20 @@ export const columns = [
     minWidth: '200px',
     cell: row => row.title
   },
-  // {
-  //   name: 'Balance',
-  //   selector: 'balance',
-  //   sortable: true,
-  //   minWidth: '164px',
-  //   cell: row => {
-  //     return row.balance !== 0 ? (
-  //       <span>{row.balance}</span>
-  //     ) : (
-  //       <Badge color='light-success' pill>
-  //         Paid
-  //       </Badge>
-  //     )
-  //   }
-  // },
+  {
+    name: 'Price',
+    selector: 'price',
+    sortable: true,
+    minWidth: '100px',
+    cell: row => <span>${row.price || 0}</span>
+  },
+  {
+    name: 'Days left',
+    selector: 'execution-time',
+    sortable: true,
+    minWidth: '100px',
+    cell: row => row.turnAroundTimeInDays
+  },
   {
     name: 'Action',
     minWidth: '110px',
@@ -111,27 +103,29 @@ export const columns = [
           <DropdownMenu right>
             <DropdownItem tag='a' href='/' className='w-100' onClick={e => e.preventDefault()}>
               <Download size={14} className='mr-50' />
-              <span className='align-middle'>Download</span>
+              <span className='align-middle'>Approve</span>
             </DropdownItem>
             <DropdownItem tag={Link} to={`/apps/gigs/form/${row.id}`} className='w-100'>
               <Edit size={14} className='mr-50' />
               <span className='align-middle'>Edit</span>
             </DropdownItem>
+            <DropdownItem tag='a' href='/' className='w-100' onClick={e => e.preventDefault()}>
+              <Copy size={14} className='mr-50' />
+              <span className='align-middle'>Add to waitlist</span>
+            </DropdownItem>
             <DropdownItem
               tag='a'
-              href='/'
+              href='/apps/gigs'
               className='w-100'
               onClick={e => {
                 e.preventDefault()
+                alert(`Are you sure you want to delete item # ${row.id}`)
                 store.dispatch(deleteGig(row.id))
+                alert(`Item # ${row.id} deleted`)
               }}
             >
               <Trash size={14} className='mr-50' />
               <span className='align-middle'>Delete</span>
-            </DropdownItem>
-            <DropdownItem tag='a' href='/' className='w-100' onClick={e => e.preventDefault()}>
-              <Copy size={14} className='mr-50' />
-              <span className='align-middle'>Duplicate</span>
             </DropdownItem>
           </DropdownMenu>
         </UncontrolledDropdown>

@@ -18,6 +18,15 @@ const Routes = [
     component: lazy(() => import('../../views/apps/gigs/list'))
   },
   {
+    path: '/apps/gigs/:product',
+    exact: true,
+    className: 'ecommerce-application',
+    component: lazy(() => import('../../views/apps/ecommerce/detail')),
+    meta: {
+      navLink: '/apps/gigs-management/details'
+    }
+  },
+  {
     path: '/apps/sales/completed',
     component: lazy(() => import('../../views/apps/invoice/list'))
   },
