@@ -13,7 +13,7 @@ import { Card, CardBody } from 'reactstrap'
 
 // ** Store & Actions
 import { useDispatch, useSelector } from 'react-redux'
-import { getProduct, deleteGig, deleteWishlistItem, addToWishlist, addToCart } from '../store/actions'
+import { getUser, deleteGig } from '../store/actions'
 
 import '@styles/base/pages/app-ecommerce-details.scss'
 
@@ -24,12 +24,10 @@ const Details = () => {
 
   // ** Store Vars
   const dispatch = useDispatch()
-  const store = useSelector(state => state.ecommerce)
-
-  
+  const store = useSelector(state => state.users)
   // ** ComponentDidMount : Get product
   useEffect(() => {
-    dispatch(getProduct(productId))
+    dispatch(getUser(productId))
   }, [])
 
   return (

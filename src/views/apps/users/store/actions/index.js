@@ -15,6 +15,14 @@ export const getData = params => {
   }
 }
 
+// ** GET Products
+export const getUser = params => {
+  return dispatch => {
+    return axios.get('/apps/users', { params }).then(res => {
+      dispatch({ type: 'GET_USER', data: res.data, params })
+    })
+  }
+}
 
 // ** DELETE GIG
 export const deleteGig = id => {

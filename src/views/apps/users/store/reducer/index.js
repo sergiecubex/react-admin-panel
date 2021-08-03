@@ -15,6 +15,8 @@ const invoiceReducer = (state = initialState, action) => {
         total: action.totalPages,
         params: action.params
       }
+    case 'GET_USER':
+      return { ...state, productDetail: action.data.user }
     case 'DELETE_USER':
       return { ...state }
     default:

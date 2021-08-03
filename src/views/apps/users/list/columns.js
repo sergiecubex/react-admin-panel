@@ -37,7 +37,7 @@ export const columns = [
     name: 'User',
     minWidth: '100px',
     selector: 'user',
-    cell: row => <Link to={`/apps/gigs-management/details/${row.id}`}>{`#${row.id}`}</Link> // users list
+    cell: row => <Link to={`/apps/users/details/${row.id}`}>{`#${row.id}`}</Link> // users list
   },
   {
     name: 'Created',
@@ -59,26 +59,26 @@ export const columns = [
     }
   },
   {
-    name: 'Title',
-    selector: 'title',
+    name: 'Name',
+    selector: 'name',
     sortable: true,
     minWidth: '200px',
-    cell: row => row.title
+    cell: row => row.name
   },
-  {
-    name: 'Price',
-    selector: 'price',
-    sortable: true,
-    minWidth: '100px',
-    cell: row => <span>${row.price || 0}</span>
-  },
-  {
-    name: 'Days left',
-    selector: 'execution-time',
-    sortable: true,
-    minWidth: '100px',
-    cell: row => row.turnAroundTimeInDays
-  },
+  // {
+  //   name: 'Price',
+  //   selector: 'price',
+  //   sortable: true,
+  //   minWidth: '100px',
+  //   cell: row => <span>${row.price || 0}</span>
+  // },
+  // {
+  //   name: 'Days left',
+  //   selector: 'execution-time',
+  //   sortable: true,
+  //   minWidth: '100px',
+  //   cell: row => row.turnAroundTimeInDays
+  // },
   {
     name: 'Action',
     minWidth: '110px',
@@ -90,7 +90,7 @@ export const columns = [
         <UncontrolledTooltip placement='top' target={`send-tooltip-${row.id}`}>
           Send Mail
         </UncontrolledTooltip>
-        <Link to={`/apps/gigs-management/details/${row.id}`} id={`pw-tooltip-${row.id}`}>
+        <Link to={`/apps/users/details/${row.id}`} id={`pw-tooltip-${row.id}`}>
           <Eye size={17} className='mx-1' />
         </Link>
         <UncontrolledTooltip placement='top' target={`pw-tooltip-${row.id}`}>
