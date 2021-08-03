@@ -24,23 +24,24 @@ export default [
         icon: <Circle size={12} />,
         navLink: '/apps/sales/intended'
       }
-      // {
-      //   id: 'invoiceEdit',
-      //   title: 'Edit',
-      //   icon: <Circle size={12} />,
-      //   navLink: '/apps/invoice/edit'
-      // }
-      // {
-      //   id: 'invoiceAdd',
-      //   title: 'Add',
-      //   icon: <Circle size={12} />,
-      //   navLink: '/apps/invoice/add'
-      // }
+    ]
+  },
+  {
+    id: 'userManagement',
+    title: 'User Management',
+    icon: <FileText size={20} />,
+    children: [
+      {
+        id: 'users',
+        title: 'Users',
+        icon: <Circle size={12} />,
+        navLink: '/apps/users'
+      }
     ]
   },
   {
     id: 'gigs',
-    title: 'Gigs Management',
+    title: 'Gig Management',
     icon: <ShoppingCart size={20} />,
     children: [
       {
