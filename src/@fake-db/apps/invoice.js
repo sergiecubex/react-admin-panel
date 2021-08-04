@@ -4,7 +4,7 @@ import { paginateArray, sortCompare } from '../utils'
 const data = {
   intendedPayments: [
     {
-        id: 5478,
+        id: "pi_1Dp8jd2eZvKYlo2CbOmqLWUP",
         object: "payment_intent",
         amount: 1000,
         amount_capturable: 0,
@@ -328,11 +328,10 @@ mock.onGet('/apps/invoice/invoices').reply(config => {
 //   return [200, responseData]
 // })
 
-mock.onGet(/\/api\/invoice\/invoices\/\d/).reply(config => {
+mock.onGet(/\/api\/invoice\/invoices\/?.*/).reply(config => {
   // // Get event id from URL
-  const stringId = String(config.url.substring(config.url.lastIndexOf('/') + 1))
-  const invoiceId = Number(config.url.substring(config.url.lastIndexOf('/') + 1))
-
+  // const stringId = String(config.url.substring(config.url.lastIndexOf('/') + 1))
+  const invoiceId = config.url.substring(config.url.lastIndexOf('/') + 1)
   
   const invoiceIndex = data.invoices.findIndex(e => e.id === invoiceId)
   const intendedIndex = data.intendedPayments.findIndex(e => e.id === invoiceId)

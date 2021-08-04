@@ -71,19 +71,20 @@ export const getCartItems = () => {
   }
 }
 
-// ** GET Single Product
-// export const getProduct = id => {
-//   return dispatch => {
-//     return axios.get(`/apps/gigs-management/gigs/${id}`).then(res => {
-//       dispatch({ type: 'GET_PRODUCT', data: res.data })
-//     })
-//   }
-// }
+// ** GET Single GIG
 
 export const getProduct = id => {
   return dispatch => {
     return axios.get(`/apps/gigs/${id}`).then(res => {
       dispatch({ type: 'GET_PRODUCT', data: res.data })
+    })
+  }
+}
+// ** GET User
+export const getUser = id => {
+  return dispatch => {
+    return axios.get(`/apps/user-details/${id}`).then(res => {
+      dispatch({ type: 'GET_USER', data: res.data })
     })
   }
 }
@@ -106,4 +107,3 @@ export const deleteCartItem = id => {
     })
   }
 }
-

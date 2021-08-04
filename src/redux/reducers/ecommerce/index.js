@@ -3,6 +3,7 @@ const initialState = {
   wishlist: [],
   cart: [],
   productDetail: {},
+  userDetail: {},
   params: {},
   totalProducts: 0
 }
@@ -27,8 +28,8 @@ const ecommerceReducer = (state = initialState, action) => {
       return { ...state }
     case 'GET_PRODUCT':
       return { ...state, productDetail: action.data.product }
-    case 'DELETE_GIG_ITEM':
-      return { ...state }
+    case 'GET_USER':
+      return { ...state, userDetail: action.data.user }
     default:
       return state
   }

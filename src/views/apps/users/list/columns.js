@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom'
 
 // ** Store & Actions
-import { deleteGig } from '../store/actions'
+import { deleteUser } from '../store/actions'
 import { store } from '@store/storeConfig/store'
 
 // ** Third Party Components
@@ -37,7 +37,7 @@ export const columns = [
     name: 'User',
     minWidth: '100px',
     selector: 'user',
-    cell: row => <Link to={`/apps/users/details/${row.id}`}>{`#${row.id}`}</Link> // users list
+    cell: row => <Link to={`/apps/user-details/${row.id}`}>{`#${row.id}`}</Link> // users list
   },
   {
     name: 'Created',
@@ -90,7 +90,7 @@ export const columns = [
         <UncontrolledTooltip placement='top' target={`send-tooltip-${row.id}`}>
           Send Mail
         </UncontrolledTooltip>
-        <Link to={`/apps/users/details/${row.id}`} id={`pw-tooltip-${row.id}`}>
+        <Link to={`/apps/gigs-management/details/${row.id}`} id={`pw-tooltip-${row.id}`}>
           <Eye size={17} className='mx-1' />
         </Link>
         <UncontrolledTooltip placement='top' target={`pw-tooltip-${row.id}`}>

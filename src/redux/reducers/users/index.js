@@ -3,7 +3,8 @@ const initialState = {
   total: 1,
   params: {},
   allData: [],
-  productDetail: {}
+  productDetail: {},
+  usertDetail: {}
 }
 
 const userReducer = (state = initialState, action) => {
@@ -16,6 +17,10 @@ const userReducer = (state = initialState, action) => {
         total: action.totalPages,
         params: action.params
       }
+    case 'GET_USER':
+      return { ...state, usertDetail: action.data.user }
+    case 'DELETE_USER':
+      return { ...state }
     default:
       return { ...state }
   }

@@ -16,32 +16,22 @@ import {
   DropdownMenu
 } from 'reactstrap'
 
-const Product = props => {
+const UserDetails = props => {
   // ** Props
-  const { data, deleteWishlistItem, dispatch, addToWishlist, getProduct, deleteGig, productId } = props
+  const { data, dispatch, getUser, deleteGig, userId } = props
   //state
-  const [gig, setGig] = useState(data)
-
-  // ** Handle Wishlist item toggle
-  const handleWishlist = val => {
-    if (val) {
-      dispatch(deleteWishlistItem(productId))
-    } else {
-      dispatch(addToWishlist(productId))
-    }
-    dispatch(getProduct(productId))
-  }
+  const [user, setUser] = useState(data)
 
   const handleDelete = (id) => {
     alert(`Are you sure you want to delete item ${id}?`)
-    dispatch(deleteGig(id))
-    setGig(null)
+    // dispatch(deleteGig(id))
+    setUser(null)
   }
 
-  if (gig === null) return (
+  if (user === null) return (
   <Row>
-    <h2 style={{margin: "0 5%"}}>Gig was deleted</h2>
-    <Link to={`/apps/gigs`}>
+    <h2 style={{margin: "0 5%"}}>User was deleted</h2>
+    <Link to={`/apps/users`}>
       <Button
         className='btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0'
         color='secondary'
@@ -57,50 +47,35 @@ const Product = props => {
     <Row className='my-2'>
       <Col className='d-flex align-items-center justify-content-center mb-2 mb-md-0' md='5' xs='12'>
         <div className='d-flex align-items-center justify-content-center'>
-          <img className='img-fluid product-img' src={gig.image} alt={gig.name} />
+          <img className='img-fluid product-img' src={user.avatar} alt={user.name} />
         </div>
       </Col>
       <Col md='7' xs='12'>
-        <h4>{gig.name}</h4>
+        <h4>{user.name}</h4>
         <div className='ecommerce-details-price d-flex flex-wrap mt-1'>
-          <h4 className='item-price mr-1'>${gig.price}</h4>
+          <h4 className='item-price mr-1'>{user.email}</h4>
         </div>
         <CardText>
-          <span className='ml-25'>{gig.title}</span>
+          {/* <span className='ml-25'>{gig.title}</span> */}
         </CardText>
-        <CardText>{gig.description}</CardText>
+        {/* <CardText>{gig.description}</CardText> */}
         <hr />
         <div className='d-flex flex-column flex-sm-row pt-1'>
-
-          <Button
-            className='btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0'
-            color='secondary'
-            outline
-            onClick={() => handleWishlist(gig.isInWishlist)}
-          >
-            <Heart
-              size={14}
-              className={classnames('mr-50', {
-                'text-danger': gig.isInWishlist
-              })}
-            />
-            <span>To Featured</span>
-          </Button>
-          <Link to={`/apps/gigs-management/form/${gig.id}`}>
+          <Link to={`/apps/user-details/form/${user.id}`}>
             <Button
               className='btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0'
               color='secondary'
               outline
             >
-              <span>Change Gig</span>
+              <span>Change User</span>
             </Button>
           </Link>
           <Button
                 className='btn-wishlist'
                 color='danger'
-                onClick={() => handleDelete(gig.id)}
+                onClick={() => handleDelete(user.id)}
               >
-                <span>Delete Gig</span>
+                <span>Delete User</span>
               </Button>
         </div>
       </Col>
@@ -108,4 +83,4 @@ const Product = props => {
   )
 }
 
-export default Product
+export default UserDetails

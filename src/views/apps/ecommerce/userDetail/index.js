@@ -3,7 +3,7 @@ import { useEffect, Fragment } from 'react'
 import { useParams } from 'react-router-dom'
 
 // ** Product detail components
-import ProductDetails from './ProductDetails'
+import UserDetails from './UserDetails'
 
 // ** Custom Components
 import BreadCrumbs from '@components/breadcrumbs'
@@ -13,39 +13,39 @@ import { Card, CardBody } from 'reactstrap'
 
 // ** Store & Actions
 import { useDispatch, useSelector } from 'react-redux'
-import { getUser, deleteGig } from '../store/actions'
+import { getUser } from '../store/actions'
 
 import '@styles/base/pages/app-ecommerce-details.scss'
 
-const Details = () => {
+const User = () => {
   // ** Vars
-  const params = useParams().product
+  const params = useParams().user
   const productId = params.substring(params.lastIndexOf('-') + 1)
 
   // ** Store Vars
   const dispatch = useDispatch()
-  const store = useSelector(state => state.users)
+  const store = useSelector(state => state.ecommerce)
+
+  
   // ** ComponentDidMount : Get product
   useEffect(() => {
     dispatch(getUser(productId))
   }, [])
-
+  console.log(store.userDetail)
   return (
     <Fragment>
-      <BreadCrumbs breadCrumbTitle='Gig Details' breadCrumbParent='Gigs Management' breadCrumbActive='Details' />
+      <BreadCrumbs breadCrumbTitle='User Details' breadCrumbParent='User Management' breadCrumbActive='Details' />
       <div className='app-ecommerce-details'>
-        {Object.keys(store.productDetail).length ? (
+        USER
+        {Object.keys(store.userDetail).length ? (
           <Card>
             <CardBody>
-              <ProductDetails
+              <UserDetails
                 dispatch={dispatch}
-                addToCart={addToCart}
-                productId={productId}
-                getProduct={getProduct}
-                deleteGig={deleteGig}
-                data={store.productDetail}
-                addToWishlist={addToWishlist}
-                deleteWishlistItem={deleteWishlistItem}
+                userId={productId}
+                getUser={getUser}
+                // deleteGig={deleteGig}
+                data={store.userDetail}
               />
             </CardBody>
           </Card>
@@ -55,4 +55,4 @@ const Details = () => {
   )
 }
 
-export default Details
+export default User

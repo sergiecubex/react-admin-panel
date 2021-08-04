@@ -18,12 +18,11 @@ const Routes = [
     component: lazy(() => import('../../views/apps/users/list'))
   },
   {
-    path: '/apps/users/details/:user',
-    exact: true,
+    path: '/apps/user-details/:user',
     className: 'ecommerce-application',
-    component: lazy(() => import('../../views/apps/users/detail')),
+    component: lazy(() => import('../../views/apps/ecommerce/userDetail')),
     meta: {
-      navLink: '/apps/users/details'
+      navLink: '/apps/user-details'
     }
   },
   {
@@ -31,7 +30,16 @@ const Routes = [
     component: lazy(() => import('../../views/apps/gigs/list'))
   },
   {
-    path: '/apps/gigs/:product',
+    path: '/apps/gigs-management/form/:id',
+    exact: true,
+    className: 'ecommerce-application',
+    component: lazy(() => import('../../views/apps/ecommerce/form')),
+    meta: {
+      navLink: '/apps/gigs-management/form'
+    }
+  },
+  {
+    path: '/apps/gigs-management/details/:product',
     exact: true,
     className: 'ecommerce-application',
     component: lazy(() => import('../../views/apps/ecommerce/detail')),
@@ -70,31 +78,6 @@ const Routes = [
     path: '/apps/gigs-management/featured',
     className: 'ecommerce-application',
     component: lazy(() => import('../../views/apps/ecommerce/wishlist'))
-  },
-  // {
-  //   path: '/apps/gigs-management/details',
-  //   exact: true,
-  //   className: 'ecommerce-application',
-  //   component: () => <Redirect to='/apps/gigs-management/details/apple-i-phone-11-64-gb-black-26' />
-  // },
-   ///apps/gigs-management/form/${id}
-   {
-    path: '/apps/gigs-management/form/:id',
-    exact: true,
-    className: 'ecommerce-application',
-    component: lazy(() => import('../../views/apps/ecommerce/form')),
-    meta: {
-      navLink: '/apps/gigs-management/form'
-    }
-  },
-  {
-    path: '/apps/gigs-management/details/:product',
-    exact: true,
-    className: 'ecommerce-application',
-    component: lazy(() => import('../../views/apps/ecommerce/detail')),
-    meta: {
-      navLink: '/apps/gigs-management/details'
-    }
   },
   {
     path: '/login',

@@ -6,6 +6,29 @@ const nextDay = new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
 const nextWeek = new Date(nextDay.getTime() + 7 * 24 * 60 * 60 * 1000)
 
 const data = {
+  users: [
+    { 
+      id: '13sf24', 
+      name: 'Author',
+      email: 'author@example.com'
+    },
+    { 
+      id: '25fe346', 
+      name: 'Drawer',
+      email: 'drawer@example.com'
+
+    },
+    { 
+      id: '33geg46', 
+      name: 'Painter',
+      email: 'painter@example.com'
+    },
+    { 
+      id: '44ge474',
+      name: 'Freelancer',
+      email: 'freelancer@example.com'
+    }
+  ],
   gigs: [
     { 
       id: 1, 
@@ -48,6 +71,65 @@ const data = {
   userCart: []
 }
 /* eslint-enable */
+// ------------------------------------------------
+// GET: Return User's List
+// ------------------------------------------------
+mock.onGet('/apps/users').reply(config => {
+  // eslint-disable-next-line object-curly-newline
+  const { q = '', perPage = 10, page = 1 } = config
+  /* eslint-enable */
+
+  const filteredData = data.users
+    .sort(sortCompare('id'))
+    .reverse()
+  /* eslint-enable  */
+  return [
+    200,
+    {
+      allData: data.users,
+      users: paginateArray(filteredData, perPage, page),
+      total: filteredData.length
+    }
+  ]
+})
+
+// ------------------------------------------------
+// GET: Return Single User
+// ------------------------------------------------
+mock.onGet(/\/apps\/user-details\/?.*/).reply(config => {
+  // Get user id from URL
+  const userId = config.url.substring(config.url.lastIndexOf('/') + 1)
+  // Convert Id to number
+  // userId = Number(userId)
+
+  const userIndex = data.users.findIndex(user => user.id === userId)
+  const user = data.users[userIndex]
+  console.log(user)
+  if (user) {
+
+    // * Add Dummy data for details page
+    user.colorOptions = ['primary', 'success', 'warning', 'danger', 'info']
+
+    return [200, { user }]
+  }
+  return [404]
+})
+
+// ------------------------------------------------
+// DELETE: Remove User from DB
+// ------------------------------------------------
+mock.onDelete(/\/apps\/users\/?.*/).reply(config => {
+  // Get product id from URL
+  let userId = config.url.substring(config.url.lastIndexOf('/') + 1)
+  // Convert Id to number
+  userId = Number(userId)
+
+  const userIndex = data.users.findIndex(i => i.id === userId)
+  console.log("Index:", userIndex, "ID:", userId)
+  if (userIndex > -1) data.users.splice(userIndex, 1)
+
+  return [200]
+})
 
 // ------------------------------------------------
 // GET: Return products
@@ -108,12 +190,12 @@ mock.onGet('/apps/gigs-management/gigs').reply(config => {
 // ------------------------------------------------
 // GET: Return Single Product
 // ------------------------------------------------
-mock.onGet(/\/apps\/gigs-management\/gigs\/\d+/).reply(config => {
+mock.onGet(/\/apps\/gigs-management\/gigs\/?.*/).reply(config => {
   // Get product id from URL
-  let productId = config.url.substring(config.url.lastIndexOf('/') + 1)
+  const productId = config.url.substring(config.url.lastIndexOf('/') + 1)
 
   // Convert Id to number
-  productId = Number(productId)
+  // productId = Number(productId)
 
   const productIndex = data.gigs.findIndex(p => p.id === productId)
   const product = data.gigs[productIndex]
@@ -121,7 +203,6 @@ mock.onGet(/\/apps\/gigs-management\/gigs\/\d+/).reply(config => {
   if (product) {
     // Add data of wishlist and cart
     product.isInWishlist = data.userWishlist.findIndex(p => p.productId === product.id) > -1
-    product.isInCart = data.userCart.findIndex(p => p.productId === product.id) > -1
 
     // * Add Dummy data for details page
     product.colorOptions = ['primary', 'success', 'warning', 'danger', 'info']
@@ -166,12 +247,12 @@ mock.onPost('/apps/gigs-management/featured').reply(config => {
 // ------------------------------------------------
 // DELETE: Remove Item from user Wishlist
 // ------------------------------------------------
-mock.onDelete(/\/apps\/gigs-management\/featured\/\d+/).reply(config => {
+mock.onDelete(/\/apps\/gigs-management\/featured\/?.*/).reply(config => {
   // Get product id from URL
-  let productId = config.url.substring(config.url.lastIndexOf('/') + 1)
+  const productId = config.url.substring(config.url.lastIndexOf('/') + 1)
 
   // Convert Id to number
-  productId = Number(productId)
+  // productId = Number(productId)
 
   const productIndex = data.userWishlist.findIndex(i => i.productId === productId)
   if (productIndex > -1) data.userWishlist.splice(productIndex, 1)
@@ -182,11 +263,11 @@ mock.onDelete(/\/apps\/gigs-management\/featured\/\d+/).reply(config => {
 // ------------------------------------------------
 // DELETE: Remove Item from DB
 // ------------------------------------------------
-mock.onDelete(/\/apps\/gigs-management\/gigs\/\d+/).reply(config => {
+mock.onDelete(/\/apps\/gigs-management\/gigs\/?.*/).reply(config => {
   // Get product id from URL
-  let productId = config.url.substring(config.url.lastIndexOf('/') + 1)
+  const productId = config.url.substring(config.url.lastIndexOf('/') + 1)
   // Convert Id to number
-  productId = Number(productId)
+  // productId = Number(productId)
 
   const productIndex = data.gigs.findIndex(i => i.id === productId)
   console.log("Index:", productIndex, "ID:", productId)

@@ -50,12 +50,6 @@ export default [
         icon: <Circle size={12} />,
         navLink: '/apps/gigs'
       },
-      // {
-      //   id: 'shop',
-      //   title: 'Gigs',
-      //   icon: <Circle size={12} />,
-      //   navLink: '/apps/gigs-management/gigs'
-      // },
       {
         id: 'fetured',
         title: 'Featured Gigs',
