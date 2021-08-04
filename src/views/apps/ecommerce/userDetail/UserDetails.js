@@ -18,7 +18,7 @@ import {
 
 const UserDetails = props => {
   // ** Props
-  const { data, dispatch, getUser, deleteGig, userId } = props
+  const { data, dispatch, getUser, deleteUser, userId } = props
   //state
   const [user, setUser] = useState(data)
 

@@ -25,7 +25,6 @@ const User = () => {
   // ** Store Vars
   const dispatch = useDispatch()
   const store = useSelector(state => state.ecommerce)
-
   
   // ** ComponentDidMount : Get product
   useEffect(() => {
@@ -36,7 +35,6 @@ const User = () => {
     <Fragment>
       <BreadCrumbs breadCrumbTitle='User Details' breadCrumbParent='User Management' breadCrumbActive='Details' />
       <div className='app-ecommerce-details'>
-        USER
         {Object.keys(store.userDetail).length ? (
           <Card>
             <CardBody>
@@ -44,7 +42,7 @@ const User = () => {
                 dispatch={dispatch}
                 userId={productId}
                 getUser={getUser}
-                // deleteGig={deleteGig}
+                // deleteUser={deleteUser}
                 data={store.userDetail}
               />
             </CardBody>
