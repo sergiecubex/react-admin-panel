@@ -2,29 +2,26 @@
 import { useState } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 
-// ** Third Party Components
-import classnames from 'classnames'
-import { Star, Heart} from 'react-feather'
 import {
   Row,
   Col,
   CardText,
-  Button,
-  UncontrolledButtonDropdown,
-  DropdownToggle,
-  DropdownItem,
-  DropdownMenu
+  Button
+  // UncontrolledButtonDropdown,
+  // DropdownToggle,
+  // DropdownItem,
+  // DropdownMenu
 } from 'reactstrap'
 
 const UserDetails = props => {
   // ** Props
-  const { data, dispatch, getUser, deleteUser, userId } = props
+  const { data, dispatch, deleteUser, userId } = props
   //state
   const [user, setUser] = useState(data)
 
   const handleDelete = (id) => {
     alert(`Are you sure you want to delete item ${id}?`)
-    // dispatch(deleteGig(id))
+    dispatch(deleteUser(id))
     setUser(null)
   }
 
@@ -61,7 +58,7 @@ const UserDetails = props => {
         {/* <CardText>{gig.description}</CardText> */}
         <hr />
         <div className='d-flex flex-column flex-sm-row pt-1'>
-          <Link to={`/apps/user-details/form/${user.id}`}>
+          <Link to={`/apps/user-form/${user.id}`}>
             <Button
               className='btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0'
               color='secondary'

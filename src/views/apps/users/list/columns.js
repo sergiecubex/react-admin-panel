@@ -105,7 +105,7 @@ export const columns = [
               <Download size={14} className='mr-50' />
               <span className='align-middle'>Approve</span>
             </DropdownItem>
-            <DropdownItem tag={Link} to={`/apps/gigs/form/${row.id}`} className='w-100'>
+            <DropdownItem tag={Link} to={`/apps/user-form/${row.id}`} className='w-100'>
               <Edit size={14} className='mr-50' />
               <span className='align-middle'>Edit</span>
             </DropdownItem>
@@ -119,9 +119,9 @@ export const columns = [
               className='w-100'
               onClick={e => {
                 e.preventDefault()
-                alert(`Are you sure you want to delete item # ${row.id}`)
-                store.dispatch(deleteGig(row.id))
-                alert(`Item # ${row.id} deleted`)
+                alert(`Are you sure you want to delete user # ${row.id}`)
+                store.dispatch(deleteUser(row.id))
+                alert(`User # ${row.id} deleted`)
               }}
             >
               <Trash size={14} className='mr-50' />

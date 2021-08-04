@@ -71,6 +71,7 @@ const data = {
   userCart: []
 }
 /* eslint-enable */
+
 // ------------------------------------------------
 // GET: Return User's List
 // ------------------------------------------------
@@ -120,11 +121,9 @@ mock.onGet(/\/apps\/user-details\/?.*/).reply(config => {
 // ------------------------------------------------
 mock.onDelete(/\/apps\/users\/?.*/).reply(config => {
   // Get product id from URL
-  let userId = config.url.substring(config.url.lastIndexOf('/') + 1)
-  // Convert Id to number
-  userId = Number(userId)
+  const userId = config.url.substring(config.url.lastIndexOf('/') + 1)
 
-  const userIndex = data.users.findIndex(i => i.id === userId)
+  const userIndex = data.users.findIndex(user => user.id === userId)
   console.log("Index:", userIndex, "ID:", userId)
   if (userIndex > -1) data.users.splice(userIndex, 1)
 

@@ -26,6 +26,15 @@ const Routes = [
     }
   },
   {
+    path: '/apps/user-form/:user',
+    exact: true,
+    className: 'ecommerce-application',
+    component: lazy(() => import('../../views/apps/ecommerce/userForm')),
+    meta: {
+      navLink: '/apps/user-details/form'
+    }
+  },
+  {
     path: '/apps/gigs',
     component: lazy(() => import('../../views/apps/gigs/list'))
   },

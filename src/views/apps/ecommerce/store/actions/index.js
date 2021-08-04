@@ -19,20 +19,6 @@ export const deleteGig = id => {
   }
 }
 
-export const getData = params => {
-  return dispatch => {
-    axios.get('/apps/gigs', params).then(response => {
-      dispatch({
-        type: 'GET_DATA',
-        allData: response.data.allData,
-        data: response.data,
-        totalPages: response.data.total,
-        params
-      })
-    })
-  }
-}
-
 // ** Add Item to Cart
 export const addToCart = id => {
   return (dispatch, getState) => {
@@ -85,6 +71,15 @@ export const getUser = id => {
   return dispatch => {
     return axios.get(`/apps/user-details/${id}`).then(res => {
       dispatch({ type: 'GET_USER', data: res.data })
+    })
+  }
+}
+
+// ** DELETE User
+export const deleteUser = id => {
+  return dispatch => {
+    return axios.delete(`/apps/users/${id}`).then(res => {
+      dispatch({ type: 'DELETE_USER', data: res.data })
     })
   }
 }

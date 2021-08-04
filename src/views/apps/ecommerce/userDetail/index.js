@@ -13,7 +13,7 @@ import { Card, CardBody } from 'reactstrap'
 
 // ** Store & Actions
 import { useDispatch, useSelector } from 'react-redux'
-import { getUser } from '../store/actions'
+import { getUser, deleteUser } from '../store/actions'
 
 import '@styles/base/pages/app-ecommerce-details.scss'
 
@@ -30,7 +30,7 @@ const User = () => {
   useEffect(() => {
     dispatch(getUser(productId))
   }, [])
-  console.log(store.userDetail)
+ 
   return (
     <Fragment>
       <BreadCrumbs breadCrumbTitle='User Details' breadCrumbParent='User Management' breadCrumbActive='Details' />
@@ -42,7 +42,7 @@ const User = () => {
                 dispatch={dispatch}
                 userId={productId}
                 getUser={getUser}
-                // deleteUser={deleteUser}
+                deleteUser={deleteUser}
                 data={store.userDetail}
               />
             </CardBody>

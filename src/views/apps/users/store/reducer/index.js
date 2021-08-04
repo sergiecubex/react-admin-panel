@@ -16,6 +16,8 @@ const userReducer = (state = initialState, action) => {
         total: action.totalPages,
         params: action.params
       }
+    case 'DELETE_USER':
+      return { ...state }
     default:
       return { ...state }
   }
