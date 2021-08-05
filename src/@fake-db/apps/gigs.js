@@ -119,6 +119,13 @@ mock.onDelete(/\/apps\/gigs\/?.*/).reply(config => {
 })
 
 // ------------------------------------------------
+// SAVE: Change Gig
+// ------------------------------------------------
+mock.onPost(/\/apps\/gigs\/?.*/).reply(config => {
+  console.log(config)
+  return [201]
+})
+// ------------------------------------------------
 // GET: Return Waitlist Products
 // ------------------------------------------------
 mock.onGet('/apps/gigs-management/featured').reply(() => {

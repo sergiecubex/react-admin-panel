@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, useEffect, Fragment } from 'react'
+import { useState, useEffect, useCallback, Fragment } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 
 // ** Custom Components
@@ -10,7 +10,7 @@ import { InputGroup, InputGroupAddon, Input, Button, Card, CardBody } from 'reac
 
 // ** Store & Actions
 import { useDispatch, useSelector } from 'react-redux'
-import { getProduct } from '../store/actions'
+import { getProduct, saveGig } from '../store/actions'
 
 import '@styles/base/pages/app-ecommerce-details.scss'
 import classes from './form.module.css'
@@ -19,19 +19,39 @@ const Form = () => {
   // ** Vars
   const {id} = useParams()
   const history = useHistory()
+  const [item, setItem] = useState()
+  
 
   // ** Store Vars
   const dispatch = useDispatch()
   const store = useSelector(state => state.ecommerce)
   const gig = store.productDetail
 
-  // ** ComponentDidMount : Get product
-  useEffect(() => {
+  const getItem = useCallback(() => {
     dispatch(getProduct(id))
   }, [])
   
+  // ** ComponentDidMount : Get product
+  useEffect(() => {
+    getItem()
+  }, [])
+
+  const handleInputChange = useCallback((event) => {
+    setItem(prev => ({
+        ...prev,
+        title : event.target.value,
+        description : event.target.value,
+        category : event.target.value,
+        searchTags : event.target.value,
+        price : event.target.value
+      }))
+  }, [])
+  
+//   useEffect(handleInputChange, [])
+  
   const handleSave = () => {
       alert('Gig saved')
+      dispatch(saveGig(id, item))
       history.push(`/apps/gigs-management/details/${id}`)
   }
   
@@ -49,45 +69,45 @@ const Form = () => {
                 <InputGroup className={classes.input}>
                     <Input
                         type='text'
-                        value={gig.title}
-                        // disabled={disabled}
-                        // onChange={handleInputChange}
+                        name="title"
+                        defaultValue={gig.title}
+                        onChange={handleInputChange}
                     />
                 </InputGroup>
                 <h2>Description</h2>
                 <InputGroup className={classes.input}>
                     <Input
                         type='textarea'
-                        value={gig.description}
-                        // disabled={disabled}
-                        // onChange={handleInputChange}
+                        name="description"
+                        defaultValue={gig.description || ''}
+                        onChange={handleInputChange}
                     />
                 </InputGroup>
                 <h2>Categories</h2>
                 <InputGroup className={classes.input}>
                     <Input
                         type='text'
-                        value={gig.category}
-                        // disabled={disabled}
-                        // onChange={handleInputChange}
+                        name="category"
+                        defaultValue={gig.category || ''}
+                        onChange={handleInputChange}
                     />
                 </InputGroup>
                 <h2>Search Tags</h2>
                 <InputGroup className={classes.input}>
                     <Input
                         type='text'
-                        value={gig.searchTags}
-                        // disabled={disabled}
-                        // onChange={handleInputChange}
+                        name="searchTags"
+                        defaultValue={gig.searchTags || ''}
+                        onChange={handleInputChange}
                     />
                 </InputGroup>
                 <h2>Amount</h2>
                 <InputGroup className={classes.input}>
                     <Input
                         type='number'
-                        value={gig.price}
-                        // disabled={disabled}
-                        // onChange={handleInputChange}
+                        name="price"
+                        defaultValue={gig.price || ''}
+                        onChange={handleInputChange}
                     />
                 </InputGroup>
                 <InputGroup className={classes.buttons}>

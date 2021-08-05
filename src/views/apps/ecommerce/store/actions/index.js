@@ -18,11 +18,20 @@ export const getProduct = id => {
   }
 }
 
+// ** SAVE GIG
+export const saveGig = (id, item) => {
+  return dispatch => {
+    return axios.post(`/apps/gigs/${id}`).then((req, res) => {
+      console.log(item)
+      dispatch({ type: 'SAVE_GIG_ITEM', data: item})
+    })
+  }
+}
+
 // ** DELETE GIG
 export const deleteGig = id => {
   return dispatch => {
     return axios.delete(`/apps/gigs/${id}`).then(res => {
-      console.log(res)
       dispatch({ type: 'DELETE_GIG_ITEM', data: res.data })
     })
   }

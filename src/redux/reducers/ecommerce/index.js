@@ -13,6 +13,8 @@ const ecommerceReducer = (state = initialState, action) => {
       return { ...state, products: action.data.products, params: action.params, totalProducts: action.data.total }
     case 'DELETE_GIG_ITEM':
       return { ...state }
+    case 'SAVE_GIG_ITEM':
+      return { ...state }
     case 'GET_WISHLIST':
       return { ...state, waitlist: action.data.gigs }
     case 'DELETE_WISHLIST_ITEM':
