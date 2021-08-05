@@ -27,6 +27,14 @@ export const saveGig = (id, item) => {
     })
   }
 }
+// router.patch('/:id', auth, authz, async (ctx) => {
+//   try {
+//    await Company.findByIdAndUpdate(ctx.params.id, ctx.request.body, { runValidators: true });
+//    ctx.status = 200;
+//   } catch (error) {
+//    ctx.throw(400, error.message);
+//   }
+//  });
 
 // ** DELETE GIG
 export const deleteGig = id => {

@@ -122,7 +122,8 @@ mock.onDelete(/\/apps\/gigs\/?.*/).reply(config => {
 // SAVE: Change Gig
 // ------------------------------------------------
 mock.onPost(/\/apps\/gigs\/?.*/).reply(config => {
-  console.log(config)
+  const gig = JSON.parse(config.data)
+  console.log(gig)
   return [201]
 })
 // ------------------------------------------------

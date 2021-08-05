@@ -1,6 +1,7 @@
 // ** React Imports
 import { useState, useEffect, useCallback, Fragment } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
+import axios from 'axios'
 
 // ** Custom Components
 import BreadCrumbs from '@components/breadcrumbs'
@@ -37,21 +38,18 @@ const Form = () => {
   }, [])
 
   const handleInputChange = useCallback((event) => {
+    const value = event.target.value
     setItem(prev => ({
         ...prev,
-        title : event.target.value,
-        description : event.target.value,
-        category : event.target.value,
-        searchTags : event.target.value,
-        price : event.target.value
+        [event.target.name]: value
       }))
   }, [])
-  
 //   useEffect(handleInputChange, [])
   
-  const handleSave = () => {
-      alert('Gig saved')
-      dispatch(saveGig(id, item))
+  const handleSave = async () => {
+    const payload = {...gig, ...item}
+    await axios.post(`/apps/gigs/${id}`, payload)
+      
       history.push(`/apps/gigs-management/details/${id}`)
   }
   
@@ -79,7 +77,7 @@ const Form = () => {
                     <Input
                         type='textarea'
                         name="description"
-                        defaultValue={gig.description || ''}
+                        defaultValue={gig.description}
                         onChange={handleInputChange}
                     />
                 </InputGroup>
@@ -88,7 +86,7 @@ const Form = () => {
                     <Input
                         type='text'
                         name="category"
-                        defaultValue={gig.category || ''}
+                        defaultValue={gig.category}
                         onChange={handleInputChange}
                     />
                 </InputGroup>
@@ -97,7 +95,7 @@ const Form = () => {
                     <Input
                         type='text'
                         name="searchTags"
-                        defaultValue={gig.searchTags || ''}
+                        defaultValue={gig.searchTags}
                         onChange={handleInputChange}
                     />
                 </InputGroup>
@@ -106,7 +104,7 @@ const Form = () => {
                     <Input
                         type='number'
                         name="price"
-                        defaultValue={gig.price || ''}
+                        defaultValue={gig.price}
                         onChange={handleInputChange}
                     />
                 </InputGroup>

@@ -105,7 +105,7 @@ export const columns = [
               <Download size={14} className='mr-50' />
               <span className='align-middle'>Approve</span>
             </DropdownItem>
-            <DropdownItem tag={Link} to={`/apps/gigs/form/${row.id}`} className='w-100'>
+            <DropdownItem tag={Link} to={`/apps/gigs-management/form/${row.id}`} className='w-100'>
               <Edit size={14} className='mr-50' />
               <span className='align-middle'>Edit</span>
             </DropdownItem>
