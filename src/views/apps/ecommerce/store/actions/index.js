@@ -1,10 +1,19 @@
 import axios from 'axios'
 
-// ** GET Products
+// ** GET GIGs
 export const getProducts = params => {
   return dispatch => {
     return axios.get('/apps/gigs-management/gigs', { params }).then(res => {
       dispatch({ type: 'GET_PRODUCTS', data: res.data, params })
+    })
+  }
+}
+// ** GET Single GIG
+
+export const getProduct = id => {
+  return dispatch => {
+    return axios.get(`/apps/gigs/${id}`).then(res => {
+      dispatch({ type: 'GET_PRODUCT', data: res.data })
     })
   }
 }
@@ -19,21 +28,20 @@ export const deleteGig = id => {
   }
 }
 
-// ** Add Item to Cart
-export const addToCart = id => {
-  return (dispatch, getState) => {
-    return axios.post('/apps/ecommerce/cart', { productId: id }).then(res => {
-      dispatch({ type: 'ADD_TO_CART', data: res.data })
-      dispatch(getProducts(getState().ecommerce.params))
+// ** GET Wishlist Items
+export const getWaitlistItems = () => {
+  return dispatch => {
+    return axios.get('/apps/gigs-management/featured').then(res => {
+      dispatch({ type: 'GET_WISHLIST', data: res.data })
     })
   }
 }
 
-// ** GET Wishlist Items
-export const getWishlistItems = () => {
+// ** Add Item to Wishlist
+export const addToWishlist = id => {
   return dispatch => {
-    return axios.get('/apps/gigs-management/featured').then(res => {
-      dispatch({ type: 'GET_WISHLIST', data: res.data })
+    return axios.post('/apps/gigs-management/featured', { productId: id }).then(() => {
+      dispatch({ type: 'ADD_TO_WISHLIST' })
     })
   }
 }
@@ -48,24 +56,6 @@ export const deleteWishlistItem = id => {
   }
 }
 
-// ** GET Cart Items
-export const getCartItems = () => {
-  return dispatch => {
-    return axios.get('/apps/ecommerce/cart').then(res => {
-      dispatch({ type: 'GET_CART', data: res.data })
-    })
-  }
-}
-
-// ** GET Single GIG
-
-export const getProduct = id => {
-  return dispatch => {
-    return axios.get(`/apps/gigs/${id}`).then(res => {
-      dispatch({ type: 'GET_PRODUCT', data: res.data })
-    })
-  }
-}
 // ** GET User
 export const getUser = id => {
   return dispatch => {
@@ -80,25 +70,6 @@ export const deleteUser = id => {
   return dispatch => {
     return axios.delete(`/apps/users/${id}`).then(res => {
       dispatch({ type: 'DELETE_USER', data: res.data })
-    })
-  }
-}
-
-// ** Add Item to Wishlist
-export const addToWishlist = id => {
-  return dispatch => {
-    return axios.post('/apps/gigs-management/featured', { productId: id }).then(() => {
-      dispatch({ type: 'ADD_TO_WISHLIST' })
-    })
-  }
-}
-
-// ** DELETE Cart Items
-export const deleteCartItem = id => {
-  return dispatch => {
-    return axios.delete(`/apps/ecommerce/cart/${id}`).then(res => {
-      dispatch({ type: 'DELETE_CART_ITEM', data: res.data })
-      dispatch(getCartItems())
     })
   }
 }

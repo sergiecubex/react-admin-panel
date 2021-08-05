@@ -19,24 +19,31 @@ const Routes = [
   },
   {
     path: '/apps/user-details/:user',
+    exact: true,
     className: 'ecommerce-application',
     component: lazy(() => import('../../views/apps/ecommerce/userDetail')),
     meta: {
       navLink: '/apps/user-details'
     }
   },
-  {
-    path: '/apps/user-form/:user',
-    exact: true,
-    className: 'ecommerce-application',
-    component: lazy(() => import('../../views/apps/ecommerce/userForm')),
-    meta: {
-      navLink: '/apps/user-details/form'
-    }
-  },
+  // {
+  //   path: '/apps/user-form/:user',
+  //   exact: true,
+  //   className: 'ecommerce-application',
+  //   component: lazy(() => import('../../views/apps/ecommerce/userForm')),
+  //   meta: {
+  //     navLink: '/apps/user-details/form'
+  //   }
+  // },
   {
     path: '/apps/gigs',
     component: lazy(() => import('../../views/apps/gigs/list'))
+  },
+  {
+    path: '/apps/gigs-management/featured',
+    exact: true,
+    className: 'ecommerce-application',
+    component: lazy(() => import('../../views/apps/ecommerce/wishlist'))
   },
   {
     path: '/apps/gigs-management/form/:id',
@@ -58,10 +65,12 @@ const Routes = [
   },
   {
     path: '/apps/sales/completed',
+    exact: true,
     component: lazy(() => import('../../views/apps/invoice/list'))
   },
   {
     path: '/apps/sales/preview/:id',
+    exact: true,
     component: lazy(() => import('../../views/apps/invoice/preview')),
     meta: {
       navLink: '/apps/sales/preview'
@@ -69,25 +78,22 @@ const Routes = [
   },
   {
     path: '/apps/sales/intended',
+    exact: true,
     component: lazy(() => import('../../views/apps/invoice/intended'))
   },
   {
     path: '/apps/sales/intended/:id',
+    exact: true,
     component: lazy(() => import('../../views/apps/invoice/preview')),
     meta: {
       navLink: '/apps/sales/intended'
     }
   },
-  {
-    path: '/apps/gigs-management/gigs',
-    className: 'ecommerce-application',
-    component: lazy(() => import('../../views/apps/ecommerce/shop'))
-  },
-  {
-    path: '/apps/gigs-management/featured',
-    className: 'ecommerce-application',
-    component: lazy(() => import('../../views/apps/ecommerce/wishlist'))
-  },
+  // {
+  //   path: '/apps/gigs-management/gigs',
+  //   className: 'ecommerce-application',
+  //   component: lazy(() => import('../../views/apps/ecommerce/shop'))
+  // },
   {
     path: '/login',
     component: lazy(() => import('../../views/Login')),

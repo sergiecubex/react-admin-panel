@@ -23,7 +23,7 @@ const Product = props => {
   const [gig, setGig] = useState(data)
 
   // ** Handle Wishlist item toggle
-  const handleWishlist = val => {
+  const handleWaitlist = val => {
     if (val) {
       dispatch(deleteWishlistItem(productId))
     } else {
@@ -71,20 +71,13 @@ const Product = props => {
         <CardText>{gig.description}</CardText>
         <hr />
         <div className='d-flex flex-column flex-sm-row pt-1'>
-
           <Button
             className='btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0'
             color='secondary'
             outline
-            onClick={() => handleWishlist(gig.isInWishlist)}
+            onClick={() => handleWaitlist(gig.isInWaitlist)}
           >
-            <Heart
-              size={14}
-              className={classnames('mr-50', {
-                'text-danger': gig.isInWishlist
-              })}
-            />
-            <span>To Featured</span>
+            <span>To Waitlist</span>
           </Button>
           <Link to={`/apps/gigs-management/form/${gig.id}`}>
             <Button

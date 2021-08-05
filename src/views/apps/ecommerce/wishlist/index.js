@@ -7,12 +7,12 @@ import BreadCrumbs from '@components/breadcrumbs'
 
 // ** Third Party Components
 import classnames from 'classnames'
-import { Star, X, ShoppingCart, Info } from 'react-feather'
+import { Star, X, Info } from 'react-feather'
 import { Card, CardBody, CardText, Button, Alert } from 'reactstrap'
 
 // ** Store & Actions
 import { useDispatch, useSelector } from 'react-redux'
-import { getWishlistItems, deleteWishlistItem, addToCart } from '../store/actions'
+import { getWaitlistItems, deleteWishlistItem } from '../store/actions'
 
 // ** Styles
 import '@styles/base/pages/app-ecommerce.scss'
@@ -21,24 +21,15 @@ const Wishlist = () => {
   // ** Store Vars
   const dispatch = useDispatch()
   const store = useSelector(state => state.ecommerce)
-
+console.log(store)
   //** ComponentDidMount : get wishlist items
   useEffect(() => {
-    dispatch(getWishlistItems())
+    dispatch(getWaitlistItems())
   }, [])
-
-  // ** Handle Move/Add to cart
-  const handleCartBtn = (id, val) => {
-    if (val === false) {
-      dispatch(addToCart(id))
-    }
-    dispatch(getWishlistItems())
-  }
 
   // ** Renders wishlist products
   const renderWishlist = () => {
-    return store.wishlist.map(item => {
-      const CartBtnTag = item.isInCart ? Link : 'button'
+    return store.waitlist.map(item => {
       return (
         <Card className='ecommerce-card' key={item.title}>
           <div className='item-img text-center mx-auto'>
@@ -92,14 +83,14 @@ const Wishlist = () => {
 
   return (
     <Fragment>
-      <BreadCrumbs breadCrumbTitle='Featured Gigs' breadCrumbParent='Gigs Management' breadCrumbActive='Featured' />
-      {store.wishlist.length ? (
+      <BreadCrumbs breadCrumbTitle='Waitlisted Gigs' breadCrumbParent='Gigs Management' breadCrumbActive='Waitlist' />
+      {store.waitlist.length ? (
         <section className='grid-view wishlist-items'>{renderWishlist()}</section>
       ) : (
         <Alert color='info'>
           <div className='alert-body'>
             <Info size={14} />
-            <span className='align-middle ml-50'>No featured Gigs</span>
+            <span className='align-middle ml-50'>No waitlisted Gigs</span>
           </div>
         </Alert>
       )}

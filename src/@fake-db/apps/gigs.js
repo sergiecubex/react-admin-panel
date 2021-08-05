@@ -13,7 +13,7 @@ const data = {
       price: 27,
       turnAroundTimeInDays: 4,
       approved: false,
-      waitlisted: false
+      isInWaitlist: false
     },
     { 
       id: 2, 
@@ -25,10 +25,10 @@ const data = {
       price: 43,
       turnAroundTimeInDays: 6, 
       approved: false,
-      waitlisted: false
+      isInWaitlist: false
     },
     { 
-      id: 3, 
+      id: '3d', 
       title: 'I will copywriters and content writers',
       image: "https://hwdev.web-ai.studio/api/images/gallery-87bae388-611b-42b2-a8a0-f5b8bff40d2a.jpg",
       description: 'Hi, Welcome to my GIG: Do you want to take your blog writing and articles writing to next level? Then you have come to the right place My Services: Article writing / rewriting Blog writing',
@@ -37,7 +37,7 @@ const data = {
       price: 65,
       turnAroundTimeInDays: 14,
       approved: false,
-      waitlisted: false
+      isInWaitlist: false
     },
     { 
       id: 4,
@@ -49,7 +49,7 @@ const data = {
       price: 9,
       turnAroundTimeInDays: 2,
       approved: false,
-      waitlisted: false
+      isInWaitlist: true
     }
   ]
 }
@@ -79,14 +79,16 @@ mock.onGet('/apps/gigs').reply(config => {
 // ------------------------------------------------
 // GET: Return Single Gig
 // ------------------------------------------------
-mock.onGet(/\/apps\/gigs\/\d+/).reply(config => {
+mock.onGet(/\/apps\/gigs\/?.*/).reply(config => {
   // Get product id from URL
-  let productId = config.url.substring(config.url.lastIndexOf('/') + 1)
+  const productId = config.url.substring(config.url.lastIndexOf('/') + 1)
+  
+  const stringId = String(productId)
+  const numberId = Number(productId)
+  
+  console.log(productId, stringId)
 
-  // Convert Id to number
-  productId = Number(productId)
-
-  const productIndex = data.gigs.findIndex(p => p.id === productId)
+  const productIndex = data.gigs.findIndex(p => p.id === numberId || p.id === stringId)
   const product = data.gigs[productIndex]
 
   if (product) {
@@ -100,15 +102,16 @@ mock.onGet(/\/apps\/gigs\/\d+/).reply(config => {
 })
 
 // ------------------------------------------------
-// DELETE: Remove Item from DB
+// DELETE: Remove Gig from DB
 // ------------------------------------------------
-mock.onDelete(/\/apps\/gigs\/\d+/).reply(config => {
+mock.onDelete(/\/apps\/gigs\/?.*/).reply(config => {
   // Get product id from URL
-  let productId = config.url.substring(config.url.lastIndexOf('/') + 1)
-  // Convert Id to number
-  productId = Number(productId)
+  const productId = config.url.substring(config.url.lastIndexOf('/') + 1)
+  
+  const stringId = String(productId)
+  const numberId = Number(productId)
 
-  const productIndex = data.gigs.findIndex(i => i.id === productId)
+  const productIndex = data.gigs.findIndex(p => p.id === numberId || p.id === stringId)
   console.log("Index:", productIndex, "ID:", productId)
   if (productIndex > -1) data.gigs.splice(productIndex, 1)
 
@@ -116,9 +119,46 @@ mock.onDelete(/\/apps\/gigs\/\d+/).reply(config => {
 })
 
 // ------------------------------------------------
-// GET: Return Clients
+// GET: Return Waitlist Products
 // ------------------------------------------------
-mock.onGet('/api/invoice/clients').reply(() => {
-  const clients = data.invoices.map(invoice => invoice.client)
-  return [200, clients.slice(0, 5)]
+mock.onGet('/apps/gigs-management/featured').reply(() => {
+  console.log("Get Waitlist Products")
+  const gigs = data.gigs.map(gig => gig.isInWaitlist === true)
+  console.log(gigs)
+  return [200, { gigs }]
+})
+
+// ------------------------------------------------
+// POST: Add Item in user Wishlist
+// ------------------------------------------------
+mock.onPost('/apps/gigs-management/featured').reply(config => {
+  // Get product from post data
+  // const { productId } = JSON.parse(config.data)
+
+  // const { length } = data.userWishlist
+  // let lastId = 0
+  // if (length) lastId = data.userWishlist[length - 1].i
+
+  // data.userWishlist.push({
+  //   id: lastId + 1,
+  //   productId: Number(productId)
+  // })
+
+  return [201]
+})
+
+// ------------------------------------------------
+// DELETE: Remove Item from user Wishlist
+// ------------------------------------------------
+mock.onDelete(/\/apps\/gigs-management\/featured\/?.*/).reply(config => {
+  // Get product id from URL
+  const productId = config.url.substring(config.url.lastIndexOf('/') + 1)
+  
+  const stringId = String(productId)
+  const numberId = Number(productId)
+
+  const productIndex = data.gigs.findIndex(p => p.id === numberId || p.id === stringId)
+  if (productIndex > -1) data.userWishlist.splice(productIndex, 1)
+
+  return [200]
 })

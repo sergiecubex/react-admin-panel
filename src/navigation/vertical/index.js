@@ -52,7 +52,7 @@ export default [
       },
       {
         id: 'fetured',
-        title: 'Featured Gigs',
+        title: 'Waitlisted Gigs',
         icon: <Circle size={12} />,
         navLink: '/apps/gigs-management/featured'
       }

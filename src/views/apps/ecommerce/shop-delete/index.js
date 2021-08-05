@@ -11,11 +11,8 @@ import Breadcrumbs from '@components/breadcrumbs'
 // ** Store & Actions
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  addToCart,
   getProducts,
-  getCartItems,
   addToWishlist,
-  deleteCartItem,
   deleteWishlistItem,
   deleteGig
 } from '../store/actions'
@@ -51,15 +48,12 @@ const Shop = () => {
       <Products
         store={store}
         dispatch={dispatch}
-        addToCart={addToCart}
         activeView={activeView}
         getProducts={getProducts}
         sidebarOpen={sidebarOpen}
-        getCartItems={getCartItems}
         setActiveView={setActiveView}
         addToWishlist={addToWishlist}
         setSidebarOpen={setSidebarOpen}
-        deleteCartItem={deleteCartItem}
         deleteWishlistItem={deleteWishlistItem}
         deleteGig={deleteGig}
       />

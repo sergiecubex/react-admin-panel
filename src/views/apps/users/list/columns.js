@@ -94,34 +94,33 @@ export const columns = [
           <Eye size={17} className='mx-1' />
         </Link>
         <UncontrolledTooltip placement='top' target={`pw-tooltip-${row.id}`}>
-          Preview Gig
+          Preview User
         </UncontrolledTooltip>
         <UncontrolledDropdown>
           <DropdownToggle tag='span'>
             <MoreVertical size={17} className='cursor-pointer' />
           </DropdownToggle>
           <DropdownMenu right>
-            <DropdownItem tag='a' href='/' className='w-100' onClick={e => e.preventDefault()}>
+            <DropdownItem tag='a' href='/' className='w-100' onClick={e => {
+              e.preventDefault()
+              alert(`Are you sure you want to suspend user # ${row.name}`)
+              }}>
               <Download size={14} className='mr-50' />
-              <span className='align-middle'>Approve</span>
+              <span className='align-middle'>Suspend</span>
             </DropdownItem>
-            <DropdownItem tag={Link} to={`/apps/user-form/${row.id}`} className='w-100'>
+            {/* <DropdownItem tag={Link} to={`/apps/user-form/${row.id}`} className='w-100'>
               <Edit size={14} className='mr-50' />
               <span className='align-middle'>Edit</span>
-            </DropdownItem>
-            <DropdownItem tag='a' href='/' className='w-100' onClick={e => e.preventDefault()}>
-              <Copy size={14} className='mr-50' />
-              <span className='align-middle'>Add to waitlist</span>
-            </DropdownItem>
+            </DropdownItem> */}
             <DropdownItem
               tag='a'
               href='/apps/gigs'
               className='w-100'
               onClick={e => {
                 e.preventDefault()
-                alert(`Are you sure you want to delete user # ${row.id}`)
+                alert(`Are you sure you want to delete user ${row.name}`)
                 store.dispatch(deleteUser(row.id))
-                alert(`User # ${row.id} deleted`)
+                alert(`User ${row.name} deleted`)
               }}
             >
               <Trash size={14} className='mr-50' />

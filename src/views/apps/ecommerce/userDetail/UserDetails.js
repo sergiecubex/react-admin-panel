@@ -19,15 +19,15 @@ const UserDetails = props => {
   //state
   const [user, setUser] = useState(data)
 
-  const handleDelete = (id) => {
-    alert(`Are you sure you want to delete item ${id}?`)
+  const handleDelete = (id, name) => {
+    alert(`Are you sure you want to delete user ${name}?`)
     dispatch(deleteUser(id))
     setUser(null)
   }
 
   if (user === null) return (
   <Row>
-    <h2 style={{margin: "0 5%"}}>User was deleted</h2>
+    <h2 style={{margin: "0 5%"}}>{`User id #${userId} deleted!`}</h2>
     <Link to={`/apps/users`}>
       <Button
         className='btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0'
@@ -59,19 +59,18 @@ const UserDetails = props => {
         {/* <CardText>{gig.description}</CardText> */}
         <hr />
         <div className='d-flex flex-column flex-sm-row pt-1'>
-          <Link to={`/apps/user-form/${user.id}`}>
-            <Button
-              className='btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0'
-              color='secondary'
-              outline
-            >
-              <span>Change User</span>
-            </Button>
-          </Link>
+          <Button
+            className='btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0'
+            color='secondary'
+            outline
+            onClick={() => alert('User suspended')}
+          >
+            <span>Suspend User</span>
+          </Button>
           <Button
                 className='btn-wishlist'
                 color='danger'
-                onClick={() => handleDelete(user.id)}
+                onClick={() => handleDelete(user.id, user.name)}
               >
                 <span>Delete User</span>
               </Button>
