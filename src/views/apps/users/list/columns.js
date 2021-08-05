@@ -90,7 +90,7 @@ export const columns = [
         <UncontrolledTooltip placement='top' target={`send-tooltip-${row.id}`}>
           Send Mail
         </UncontrolledTooltip>
-        <Link to={`/apps/gigs-management/details/${row.id}`} id={`pw-tooltip-${row.id}`}>
+        <Link to={`/apps/user-details/${row.id}`} id={`pw-tooltip-${row.id}`}>
           <Eye size={17} className='mx-1' />
         </Link>
         <UncontrolledTooltip placement='top' target={`pw-tooltip-${row.id}`}>

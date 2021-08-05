@@ -44,7 +44,8 @@ const UserDetails = props => {
     <Row className='my-2'>
       <Col className='d-flex align-items-center justify-content-center mb-2 mb-md-0' md='5' xs='12'>
         <div className='d-flex align-items-center justify-content-center'>
-          <img className='img-fluid product-img' src={user.avatar} alt={user.name} />
+          {user.name}
+          {/* <img className='img-fluid product-img' src={user.avatar} alt={user.name} /> */}
         </div>
       </Col>
       <Col md='7' xs='12'>
