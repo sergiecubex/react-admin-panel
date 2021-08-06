@@ -18,6 +18,8 @@ const userReducer = (state = initialState, action) => {
       }
     case 'DELETE_USER':
       return { ...state }
+    case 'SAVE_USER':
+      return { ...state }
     default:
       return { ...state }
   }

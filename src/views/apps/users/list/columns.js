@@ -1,6 +1,6 @@
 // ** React Imports
 import { Link } from 'react-router-dom'
-
+import axios from 'axios'
 // ** Store & Actions
 import { deleteUser } from '../store/actions'
 import { store } from '@store/storeConfig/store'
@@ -23,14 +23,22 @@ import {
   Copy
 } from 'react-feather'
 
-
 // ** renders client column
-const renderClient = row => {
-  const stateNum = Math.floor(Math.random() * 6),
-    states = ['light-success', 'light-danger', 'light-warning', 'light-info', 'light-primary', 'light-secondary'],
-    color = states[stateNum]
+// const renderClient = row => {
+//   const stateNum = Math.floor(Math.random() * 6),
+//     states = ['light-success', 'light-danger', 'light-warning', 'light-info', 'light-primary', 'light-secondary'],
+//     color = states[stateNum]
+// }
+const suspendUser = async (row) => {
+  let user
+  if (row.userSuspended) {
+    user = {...row, userSuspended: false}
+  } else {
+    user = {...row, userSuspended: true}
+  }
+  await axios.post(`/apps/users/${row.id}`, user)  
+  alert(`User id #${row.id} was changed`)
 }
-
 // ** Table columns
 export const columns = [
   {
@@ -64,6 +72,18 @@ export const columns = [
     sortable: true,
     minWidth: '200px',
     cell: row => row.name
+  },
+  {
+    name: 'Status',
+    selector: 'status',
+    sortable: true,
+    minWidth: '100px',
+    cell: row => { 
+      if (row.userSuspended === true) {
+        return <p>Suspended</p> 
+      } 
+      return <p>Active</p>
+    }
   },
   // {
   //   name: 'Price',
@@ -103,10 +123,10 @@ export const columns = [
           <DropdownMenu right>
             <DropdownItem tag='a' href='/' className='w-100' onClick={e => {
               e.preventDefault()
-              alert(`Are you sure you want to suspend user # ${row.name}`)
+              suspendUser(row)
               }}>
               <Download size={14} className='mr-50' />
-              <span className='align-middle'>Suspend</span>
+              <span className='align-middle'>{ row.userSuspended ? 'Unsuspend' : 'Suspend'}</span>
             </DropdownItem>
             {/* <DropdownItem tag={Link} to={`/apps/user-form/${row.id}`} className='w-100'>
               <Edit size={14} className='mr-50' />

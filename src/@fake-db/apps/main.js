@@ -17,7 +17,7 @@ const data = {
       id: '25fe346', 
       name: 'Drawer',
       email: 'drawer@example.com',
-      userSuspended: false
+      userSuspended: true
 
     },
     { 
@@ -30,7 +30,7 @@ const data = {
       id: '44ge474',
       name: 'Freelancer',
       email: 'freelancer@example.com',
-      userSuspended: false
+      userSuspended: true
     }
   ]
 }
@@ -71,13 +71,27 @@ mock.onGet(/\/apps\/user-details\/?.*/).reply(config => {
   const user = data.users[userIndex]
   console.log(user)
   if (user) {
-
     // * Add Dummy data for details page
     user.colorOptions = ['primary', 'success', 'warning', 'danger', 'info']
 
     return [200, { user }]
   }
   return [404]
+})
+
+// ------------------------------------------------
+// SAVE: Save User in DB
+// ------------------------------------------------
+mock.onPost(/\/apps\/users\/?.*/).reply(config => {
+  //extract data from config
+  const user = JSON.parse(config.data)
+  //find index of extracted gig
+  const userIndex = data.users.findIndex(p => p.id === user.id)
+  //replace user in db
+  data.users.splice(userIndex, 1)
+  data.users.push(user)
+
+  return [201]
 })
 
 // ------------------------------------------------

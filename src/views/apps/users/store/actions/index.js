@@ -21,3 +21,12 @@ export const deleteUser = id => {
     })
   }
 }
+
+// ** Change User
+export const saveUser = (id, user) => {
+  return dispatch => {
+    return axios.post(`/apps/users/${id}`).then(() => {
+      dispatch({ type: 'SAVE_USER', data: user})
+    })
+  }
+}
