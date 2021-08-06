@@ -48,9 +48,8 @@ const Form = () => {
   
   const handleSave = async () => {
     const payload = {...gig, ...item}
-    await axios.post(`/apps/gigs/${id}`, payload)
-      
-      history.push(`/apps/gigs-management/details/${id}`)
+    await axios.post(`/apps/gigs/${id}`, payload)  
+    history.push(`/apps/gigs/details`)
   }
   
   const handleCancel = () => {
@@ -82,6 +81,7 @@ const Form = () => {
                     />
                 </InputGroup>
                 <h2>Categories</h2>
+                <p>{gig.category}</p>
                 <InputGroup className={classes.input}>
                     <Input
                         type='text'
@@ -91,6 +91,7 @@ const Form = () => {
                     />
                 </InputGroup>
                 <h2>Search Tags</h2>
+                <p>{gig.searchTags}</p>
                 <InputGroup className={classes.input}>
                     <Input
                         type='text'

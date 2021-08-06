@@ -21,7 +21,6 @@ const Details = () => {
   // ** Vars
   const params = useParams().product
   const productId = params.substring(params.lastIndexOf('-') + 1)
-
   // ** Store Vars
   const dispatch = useDispatch()
   const store = useSelector(state => state.ecommerce)

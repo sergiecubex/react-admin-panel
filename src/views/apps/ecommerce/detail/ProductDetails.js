@@ -1,10 +1,10 @@
 // ** React Imports
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 
 // ** Third Party Components
 import classnames from 'classnames'
-import { Star, Heart} from 'react-feather'
+
 import {
   Row,
   Col,
@@ -17,20 +17,25 @@ import {
 } from 'reactstrap'
 
 const Product = props => {
+  const history = useHistory()
   // ** Props
   const { data, deleteWishlistItem, dispatch, addToWishlist, getProduct, deleteGig, productId } = props
   //state
-  const [gig, setGig] = useState(data)
-
+  const [gig, setGig] = useState('')
+  
+  useEffect(() => {
+    setGig(data)
+  }, [data])
+  
   // ** Handle Wishlist item toggle
-  const handleWaitlist = val => {
-    if (val) {
-      dispatch(deleteWishlistItem(productId))
-    } else {
-      dispatch(addToWishlist(productId))
-    }
-    dispatch(getProduct(productId))
-  }
+  // const handleWaitlist = val => {
+  //   if (val) {
+  //     dispatch(deleteWishlistItem(productId))
+  //   } else {
+  //     dispatch(addToWishlist(productId))
+  //   }
+  //   dispatch(getProduct(productId))
+  // }
 
   const handleDelete = (id) => {
     alert(`Are you sure you want to delete item ${id}?`)
@@ -89,12 +94,19 @@ const Product = props => {
             </Button>
           </Link>
           <Button
-                className='btn-wishlist'
-                color='danger'
-                onClick={() => handleDelete(gig.id)}
-              >
-                <span>Delete Gig</span>
-              </Button>
+              className='btn-wishlist'
+              color='danger'
+              onClick={() => handleDelete(gig.id)}
+            >
+              <span>Delete Gig</span>
+          </Button>
+          <Button
+              className='btn-wishlist'
+              color='light'
+              onClick={() => history.push('/apps/gigs/details')}
+            >
+              <span>Back</span>
+          </Button>
         </div>
       </Col>
     </Row>
