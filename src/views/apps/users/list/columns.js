@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 // ** Store & Actions
-import { deleteUser } from '../store/actions'
+import { deleteUser, getData } from '../store/actions'
 import { store } from '@store/storeConfig/store'
 
 // ** Third Party Components
@@ -38,6 +38,7 @@ const suspendUser = async (row) => {
   }
   await axios.post(`/apps/users/${row.id}`, user)  
   alert(`User id #${row.id} was changed`)
+  store.dispatch(getData())
 }
 // ** Table columns
 export const columns = [
@@ -84,6 +85,13 @@ export const columns = [
       } 
       return <p>Active</p>
     }
+  },
+  {
+    name: 'Total earnings',
+    selector: 'total',
+    sortable: true,
+    minWidth: '100px',
+    cell: row => row.totalEarnings
   },
   // {
   //   name: 'Price',

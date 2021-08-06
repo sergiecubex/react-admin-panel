@@ -11,12 +11,14 @@ const data = {
       id: '13sf24', 
       name: 'Author',
       email: 'author@example.com',
+      totalEarnings: 100,
       userSuspended: false
     },
     { 
       id: '25fe346', 
       name: 'Drawer',
       email: 'drawer@example.com',
+      totalEarnings: 140,
       userSuspended: true
 
     },
@@ -24,12 +26,14 @@ const data = {
       id: '33geg46', 
       name: 'Painter',
       email: 'painter@example.com',
+      totalEarnings: 0,
       userSuspended: false
     },
     { 
       id: '44ge474',
       name: 'Freelancer',
       email: 'freelancer@example.com',
+      totalEarnings: 470,
       userSuspended: true
     }
   ]
