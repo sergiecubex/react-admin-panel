@@ -62,16 +62,11 @@ mock.onGet('/apps/gigs').reply(config => {
   const { q = '', perPage = 10, page = 1, status = null } = config
   const queryLowered = q.toLowerCase()
   const filteredData = data.gigs
-    // .filter(
-    //   gig =>
-    //   /* eslint-disable operator-linebreak, implicit-arrow-linebreak */
-    //     (gig.approved === true && status === 'approved') || (gig.isInWaitlist === true && status === 'isInWaitlist')
-    // )
     .filter(
       gig =>
       /* eslint-disable operator-linebreak, implicit-arrow-linebreak */
         (gig.title.toLowerCase().includes(queryLowered) ||
-        gig.description.toLowerCase().includes(queryLowered)) 
+        gig.description.toLowerCase().includes(queryLowered)) && ((gig.isInWaitlist === true && status === 'isInWaitlist') || (gig.approved === true && status === 'approved'))
     )
     .sort(sortCompare('id'))
     .reverse()

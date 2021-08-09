@@ -45,14 +45,14 @@ const data = {
 // ------------------------------------------------
 mock.onGet('/apps/users').reply(config => {
   // eslint-disable-next-line object-curly-newline
-  const { q = '', perPage = 10, page = 1 } = config
+  const { q = '', perPage = 10, page = 1, status = null } = config
   /* eslint-enable */
   const queryLowered = q.toLowerCase()
   const filteredData = data.users
     .filter(
       user =>
         /* eslint-disable operator-linebreak, implicit-arrow-linebreak */
-        (user.name.toLowerCase().includes(queryLowered))
+        (user.name.toLowerCase().includes(queryLowered) && (user.userSuspended === true && status === 'suspended'))
     )
     .sort(sortCompare('id'))
     .reverse()

@@ -56,8 +56,8 @@ const CustomHeader = ({ handleFilter, value, handleStatusValue, statusValue, han
           </div>
           <Input className='w-auto ' type='select' value={statusValue} onChange={handleStatusValue}>
             <option value=''>Select Status</option>
-            <option value='Approved'>Approved</option>
-            <option value='Suspended'>Suspended</option>
+            {/* <option value='approved'>Approved</option> */}
+            <option value='suspended'>Suspended</option>
           </Input>
         </Col>
       </Row>

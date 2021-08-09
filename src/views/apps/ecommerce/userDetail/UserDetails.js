@@ -14,6 +14,7 @@ import {
 } from 'reactstrap'
 
 const UserDetails = props => {
+  const history = useHistory()
   // ** Props
   const { data, dispatch, deleteUser, userId } = props
   //state
@@ -68,12 +69,19 @@ const UserDetails = props => {
             <span>Suspend User</span>
           </Button>
           <Button
-                className='btn-wishlist'
-                color='danger'
-                onClick={() => handleDelete(user.id, user.name)}
-              >
-                <span>Delete User</span>
-              </Button>
+              className='btn-wishlist'
+              color='danger'
+              onClick={() => handleDelete(user.id, user.name)}
+            >
+              <span>Delete User</span>
+          </Button>
+          <Button
+            className='btn-wishlist'
+            color='light'
+            onClick={() => history.push('/apps/users/details')}
+          >
+            <span>Back</span>
+        </Button>
         </div>
       </Col>
     </Row>

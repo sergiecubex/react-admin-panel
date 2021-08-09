@@ -66,14 +66,14 @@ const Product = props => {
         <CardText>{gig.description}</CardText>
         <hr />
         <div className='d-flex flex-column flex-sm-row pt-1'>
-          <Button
+          {/* <Button
             className='btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0'
             color='secondary'
             outline
             onClick={() => handleWaitlist(gig.isInWaitlist)}
           >
             <span>To Waitlist</span>
-          </Button>
+          </Button> */}
           <Link to={`/apps/gigs-management/form/${gig.id}`}>
             <Button
               className='btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0'
