@@ -17,18 +17,9 @@ import {
   Eye,
   Send,
   MoreVertical,
-  Download,
-  Edit,
-  Trash,
-  Copy
+  Trash
 } from 'react-feather'
 
-// ** renders client column
-// const renderClient = row => {
-//   const stateNum = Math.floor(Math.random() * 6),
-//     states = ['light-success', 'light-danger', 'light-warning', 'light-info', 'light-primary', 'light-secondary'],
-//     color = states[stateNum]
-// }
 const suspendUser = async (row) => {
   let user
   if (row.userSuspended) {
@@ -133,7 +124,7 @@ export const columns = [
               e.preventDefault()
               suspendUser(row)
               }}>
-              <Download size={14} className='mr-50' />
+              <Eye size={14} className='mr-50' />
               <span className='align-middle'>{ row.userSuspended ? 'Unsuspend' : 'Suspend'}</span>
             </DropdownItem>
             {/* <DropdownItem tag={Link} to={`/apps/user-form/${row.id}`} className='w-100'>

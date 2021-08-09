@@ -124,6 +124,7 @@ mock.onDelete(/\/apps\/gigs\/?.*/).reply(config => {
 mock.onPost(/\/apps\/gigs\/?.*/).reply(config => {
   //extract data from config
   const gig = JSON.parse(config.data)
+  console.log(gig)
   //find index of extracted gig
   const gigIndex = data.gigs.findIndex(p => p.id === gig.id)
   //replace gig in db

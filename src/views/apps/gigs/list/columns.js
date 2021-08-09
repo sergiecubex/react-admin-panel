@@ -1,8 +1,9 @@
 // ** React Imports
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 // ** Store & Actions
-import { deleteGig } from '../store/actions'
+import { deleteGig, getData } from '../store/actions'
 import { store } from '@store/storeConfig/store'
 
 // ** Third Party Components
@@ -29,6 +30,28 @@ const renderClient = row => {
   const stateNum = Math.floor(Math.random() * 6),
     states = ['light-success', 'light-danger', 'light-warning', 'light-info', 'light-primary', 'light-secondary'],
     color = states[stateNum]
+}
+
+const approveGig = async (row) => {
+  let gig
+  if (!row.approved) {
+    gig = {...row, approved: true}
+    alert(`Gig id #${row.id} approved`)
+  } 
+  await axios.post(`/apps/gigs/${row.id}`, gig) 
+  store.dispatch(getData()) 
+}
+
+const waitlistGig = async (row) => {
+  let gig
+  if (row.isInWaitlist) {
+    gig = {...row, isInWaitlist: false}
+  } else {
+    gig = {...row, isInWaitlist: true}
+  }
+  await axios.post(`/apps/gigs/${row.id}`, gig)  
+  alert(`Gig id #${row.id} was changed`)
+  store.dispatch(getData())
 }
 
 // ** Table columns
@@ -80,6 +103,29 @@ export const columns = [
     cell: row => row.turnAroundTimeInDays
   },
   {
+    name: 'Status',
+    selector: 'status',
+    sortable: true,
+    minWidth: '100px',
+    cell: row => { 
+      if (row.approved === true) {
+        return <p>Approved</p> 
+      } 
+      return <p>Not Approved</p>
+    }
+  },  {
+    name: 'Waitlist',
+    selector: 'waitlist',
+    sortable: true,
+    minWidth: '100px',
+    cell: row => { 
+      if (row.isInWaitlist === true) {
+        return <p>In waitlist</p> 
+      } 
+      return <p>Not waitlisted</p>
+    }
+  },
+  {
     name: 'Action',
     minWidth: '110px',
     selector: '',
@@ -101,7 +147,10 @@ export const columns = [
             <MoreVertical size={17} className='cursor-pointer' />
           </DropdownToggle>
           <DropdownMenu right>
-            <DropdownItem tag='a' href='/' className='w-100' onClick={e => e.preventDefault()}>
+            <DropdownItem tag='a' href='/' className='w-100' onClick={e => {
+              e.preventDefault()
+              approveGig(row)
+              }}>
               <Download size={14} className='mr-50' />
               <span className='align-middle'>Approve</span>
             </DropdownItem>
@@ -109,9 +158,12 @@ export const columns = [
               <Edit size={14} className='mr-50' />
               <span className='align-middle'>Edit</span>
             </DropdownItem>
-            <DropdownItem tag='a' href='/' className='w-100' onClick={e => e.preventDefault()}>
-              <Copy size={14} className='mr-50' />
-              <span className='align-middle'>Add to waitlist</span>
+            <DropdownItem tag='a' href='/' className='w-100' onClick={e => {
+              e.preventDefault()
+              waitlistGig(row)
+              }}>
+              <Eye size={14} className='mr-50' />
+              <span className='align-middle'>{ row.isInWaitlist ? 'Remove from waitlist' : 'Add to waitlist'}</span>
             </DropdownItem>
             <DropdownItem
               tag='a'
