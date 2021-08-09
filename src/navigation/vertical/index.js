@@ -49,13 +49,13 @@ export default [
         title: 'Gigs',
         icon: <Circle size={12} />,
         navLink: '/apps/gigs'
-      },
-      {
-        id: 'fetured',
-        title: 'Waitlisted Gigs',
-        icon: <Circle size={12} />,
-        navLink: '/apps/gigs-management/featured'
       }
+      // {
+      //   id: 'fetured',
+      //   title: 'Waitlisted Gigs',
+      //   icon: <Circle size={12} />,
+      //   navLink: '/apps/gigs-management/featured'
+      // }
     ]
   }
 ]

@@ -36,7 +36,7 @@ const data = {
       searchTags: ['copywriting', 'data entry', 'article rewriter'],
       price: 65,
       turnAroundTimeInDays: 14,
-      approved: false,
+      approved: true,
       isInWaitlist: false
     },
     { 
@@ -59,10 +59,20 @@ const data = {
 // ------------------------------------------------
 mock.onGet('/apps/gigs').reply(config => {
   // eslint-disable-next-line object-curly-newline
-  const { q = '', perPage = 10, page = 1 } = config
-  /* eslint-enable */
-
+  const { q = '', perPage = 10, page = 1, status = null } = config
+  const queryLowered = q.toLowerCase()
   const filteredData = data.gigs
+    // .filter(
+    //   gig =>
+    //   /* eslint-disable operator-linebreak, implicit-arrow-linebreak */
+    //     (gig.approved === true && status === 'approved') || (gig.isInWaitlist === true && status === 'isInWaitlist')
+    // )
+    .filter(
+      gig =>
+      /* eslint-disable operator-linebreak, implicit-arrow-linebreak */
+        (gig.title.toLowerCase().includes(queryLowered) ||
+        gig.description.toLowerCase().includes(queryLowered)) 
+    )
     .sort(sortCompare('id'))
     .reverse()
   /* eslint-enable  */
