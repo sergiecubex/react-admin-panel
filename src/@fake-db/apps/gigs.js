@@ -66,7 +66,7 @@ mock.onGet('/apps/gigs').reply(config => {
       gig =>
       /* eslint-disable operator-linebreak, implicit-arrow-linebreak */
         (gig.title.toLowerCase().includes(queryLowered) ||
-        gig.description.toLowerCase().includes(queryLowered)) && ((gig.isInWaitlist === true && status === 'isInWaitlist') || (gig.approved === true && status === 'approved'))
+        gig.description.toLowerCase().includes(queryLowered)) && ((gig.isInWaitlist === true && status === 'isInWaitlist') || (gig.approved === true && status === 'approved') || status === '')
     )
     .sort(sortCompare('id'))
     .reverse()

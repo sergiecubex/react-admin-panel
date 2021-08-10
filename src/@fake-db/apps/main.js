@@ -52,7 +52,7 @@ mock.onGet('/apps/users').reply(config => {
     .filter(
       user =>
         /* eslint-disable operator-linebreak, implicit-arrow-linebreak */
-        (user.name.toLowerCase().includes(queryLowered) && (user.userSuspended === true && status === 'suspended'))
+        (user.name.toLowerCase().includes(queryLowered) && ((user.userSuspended === true && status === 'suspended') || status === ''))
     )
     .sort(sortCompare('id'))
     .reverse()
