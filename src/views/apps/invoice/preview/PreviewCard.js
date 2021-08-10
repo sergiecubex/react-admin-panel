@@ -2,6 +2,9 @@
 import { Card, CardBody, CardText, Row, Col, Table } from 'reactstrap'
 
 const PreviewCard = ({ data }) => {
+  
+  const created = new Date(data.invoice.created).toLocaleString()
+  
   return data !== null ? (
     <Card className='invoice-preview-card'>
       <CardBody className='invoice-padding pb-0'>
@@ -70,7 +73,7 @@ const PreviewCard = ({ data }) => {
             </h4>
             <div className='invoice-date-wrapper'>
               <p className='invoice-date-title'>Date Issued:</p>
-              <p className='invoice-date'>{data.invoice.created}</p>
+              <p className='invoice-date'>{created}</p>
             </div>
             {/* <div className='invoice-date-wrapper'>
               <p className='invoice-date-title'>Due Date:</p>
@@ -88,7 +91,7 @@ const PreviewCard = ({ data }) => {
         <Row className='invoice-spacing'>
           <Col className='p-0' lg='8'>
             <h6 className='mb-2'>Invoice To:</h6>
-            <h6 className='mb-25'>{data.invoice.customer}</h6>
+            <h6 className='mb-25'>{data.invoice.object}</h6>
             {/* <CardText className='mb-25'>{data.intendedPayments.client.company}</CardText>
             <CardText className='mb-25'>{data.intendedPayments.client.address}</CardText>
             <CardText className='mb-25'>{data.intendedPayments.client.contact}</CardText>
@@ -96,7 +99,7 @@ const PreviewCard = ({ data }) => {
           </Col>
           <Col className='p-0 mt-xl-0 mt-2' lg='4'>
             <h6 className='mb-2'>Payment Details:</h6>
-            <table>
+            {/* <table>
               <tbody>
                 <tr>
                   <td className='pr-1'>Total Due:</td>
@@ -121,7 +124,7 @@ const PreviewCard = ({ data }) => {
                   <td>{data.paymentDetails.swiftCode}</td>
                 </tr>
               </tbody>
-            </table>
+            </table> */}
           </Col>
         </Row>
       </CardBody>

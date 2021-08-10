@@ -139,62 +139,6 @@ const data = {
       transfer_data: null,
       transfer_group: null
     }
-  ],
-  invoices: [
-    {
-      id: 4987,
-      issuedDate: '13 Dec 2019',
-      client: {
-        address: '7777 Mendez Plains',
-        company: 'Hall-Robbins PLC',
-        companyEmail: 'don85@johnson.com',
-        country: 'USA',
-        contact: '(616) 865-4180',
-        name: 'Jordan Stevenson'
-      },
-      service: 'Software Development',
-      total: 3428,
-      avatar: '',
-      invoiceStatus: 'Paid',
-      balance: '$724',
-      dueDate: '23 Apr 2019'
-    },
-    {
-      id: 4988,
-      issuedDate: '17 Jul 2019',
-      client: {
-        address: '04033 Wesley Wall Apt. 961',
-        company: 'Mccann LLC and Sons',
-        companyEmail: 'brenda49@taylor.info',
-        country: 'Haiti',
-        contact: '(226) 204-8287',
-        name: 'Stephanie Burns'
-      },
-      service: 'UI/UX Design & Development',
-      total: 5219,
-      avatar: require('@src/assets/images/avatars/10-small.png').default,
-      invoiceStatus: 'Downloaded',
-      balance: 0,
-      dueDate: '15 Dec 2019'
-    },
-    {
-      id: 4989,
-      issuedDate: '19 Oct 2019',
-      client: {
-        address: '5345 Robert Squares',
-        company: 'Leonard-Garcia and Sons',
-        companyEmail: 'smithtiffany@powers.com',
-        country: 'Denmark',
-        contact: '(955) 676-1076',
-        name: 'Tony Herrera'
-      },
-      service: 'Unlimited Extended License',
-      total: 3719,
-      avatar: require('@src/assets/images/avatars/1-small.png').default,
-      invoiceStatus: 'Paid',
-      balance: 0,
-      dueDate: '03 Nov 2019'
-    }
   ]
 }
 
@@ -251,44 +195,17 @@ mock.onGet('/apps/sales/intended').reply(config => {
 })
 
 // ------------------------------------------------
-// GET: Return Single Invoice
+// GET: Return Single Sale
 // ------------------------------------------------
-// mock.onGet(/\/api\/invoice\/invoices\/\d+/).reply(config => {
-//   const invoiceId = Number(config.url.substring(config.url.lastIndexOf('/') + 1))
-//   const invoiceIndex = data.invoices.findIndex(e => e.id === invoiceId)
-//   const intendedIndex = data.intendedPayments.findIndex(e => e.id === invoiceId)
-  
-//   const responseData = {
-//     invoice: data.invoices[invoiceIndex] || data.intendedPayments[intendedIndex],
-//     paymentDetails: {
-//       totalDue: '',
-//       bankName: '',
-//       country: '',
-//       iban: '',
-//       swiftCode: ''
-//     }
-//   }
-//   console.log(responseData)
-//   return [200, responseData]
-// })
-
 mock.onGet(/\/api\/invoice\/invoices\/?.*/).reply(config => {
   // // Get event id from URL
-  // const stringId = String(config.url.substring(config.url.lastIndexOf('/') + 1))
   const invoiceId = config.url.substring(config.url.lastIndexOf('/') + 1)
   
-  const invoiceIndex = data.invoices.findIndex(e => e.id === invoiceId)
+  const invoiceIndex = data.sales.findIndex(e => e.id === invoiceId)
   const intendedIndex = data.intendedPayments.findIndex(e => e.id === invoiceId)
   
   const responseData = {
-    invoice: data.invoices[invoiceIndex] || data.intendedPayments[intendedIndex],
-    paymentDetails: {
-      totalDue: '',
-      bankName: '',
-      country: '',
-      iban: '',
-      swiftCode: ''
-    }
+    invoice: data.sales[invoiceIndex] || data.intendedPayments[intendedIndex]
   }
   console.log(responseData)
   return [200, responseData]
@@ -304,8 +221,8 @@ mock.onDelete('/apps/invoice/delete').reply(config => {
   // Convert Id to number
   invoiceId = Number(invoiceId)
 
-  const invoiceIndex = data.invoices.findIndex(t => t.id === invoiceId)
-  data.invoices.splice(invoiceIndex, 1)
+  const invoiceIndex = data.sales.findIndex(t => t.id === invoiceId)
+  data.sales.splice(invoiceIndex, 1)
 
   return [200]
 })

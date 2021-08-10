@@ -88,25 +88,25 @@ export const columns = [
   //     )
   //   }
   // },
-  {
-    name: 'Client',
-    minWidth: '150px',
-    selector: 'client',
-    sortable: true,
-    cell: row => {
-      const name = row.client ? row.client.name : 'John Doe',
-        email = row.client ? row.client.companyEmail : 'johnDoe@email.com'
-      return (
-        <div className='d-flex justify-content-left align-items-center'>
-          {renderClient(row)}
-          <div className='d-flex flex-column'>
-            <h6 className='user-name text-truncate mb-0'>{name}</h6>
-            <small className='text-truncate text-muted mb-0'>{email}</small>
-          </div>
-        </div>
-      )
-    }
-  },
+  // {
+  //   name: 'Client',
+  //   minWidth: '150px',
+  //   selector: 'client',
+  //   sortable: true,
+  //   cell: row => {
+  //     const name = row.client ? row.client.name : 'John Doe',
+  //       email = row.client ? row.client.companyEmail : 'johnDoe@email.com'
+  //     return (
+  //       <div className='d-flex justify-content-left align-items-center'>
+  //         {renderClient(row)}
+  //         <div className='d-flex flex-column'>
+  //           <h6 className='user-name text-truncate mb-0'>{name}</h6>
+  //           <small className='text-truncate text-muted mb-0'>{email}</small>
+  //         </div>
+  //       </div>
+  //     )
+  //   }
+  // },
   {
     name: 'Description',
     selector: 'description',
@@ -155,6 +155,13 @@ export const columns = [
       const date = new Date(row.available_on).toLocaleString()
       return <span>{date}</span>
     }
+  },
+  {
+    name: 'Status',
+    selector: 'status',
+    sortable: true,
+    minWidth: '100px',
+    cell: row => <span>{row.status}</span>
   },
   {
     name: 'Action',
