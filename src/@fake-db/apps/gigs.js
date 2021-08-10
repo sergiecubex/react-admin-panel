@@ -11,6 +11,7 @@ const data = {
       category: ['Writers', 'Marketing', 'Social Media'],
       searchTags: ['copywriting', 'data entry', 'article rewriter'],
       price: 27,
+      created: 1385814763,
       turnAroundTimeInDays: 4,
       approved: false,
       isInWaitlist: false
@@ -23,6 +24,7 @@ const data = {
       category: ['Writers', 'Marketing', 'Social Media'],
       searchTags: ['copywriting', 'data entry', 'article rewriter'],
       price: 43,
+      created: 1385814763,
       turnAroundTimeInDays: 6, 
       approved: false,
       isInWaitlist: false
@@ -35,6 +37,7 @@ const data = {
       category: ['Writers', 'Marketing', 'Social Media'],
       searchTags: ['copywriting', 'data entry', 'article rewriter'],
       price: 65,
+      created: 1385814763,
       turnAroundTimeInDays: 14,
       approved: true,
       isInWaitlist: false
@@ -47,6 +50,7 @@ const data = {
       category: ['Writers', 'Marketing', 'Social Media'],
       searchTags: ['copywriting', 'data entry', 'article rewriter'],
       price: 9,
+      created: 1385814763,
       turnAroundTimeInDays: 2,
       approved: false,
       isInWaitlist: true

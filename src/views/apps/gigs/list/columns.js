@@ -68,17 +68,8 @@ export const columns = [
     selector: 'user',
     sortable: true,
     cell: row => {
-      const today = new Date()
-      const date = `${today.getDate()}:${(today.getMonth() + 1)}:${today.getFullYear()}`
-      const created = row.date ? row.created : date
-      
-      return (
-        <div className='d-flex justify-content-left align-items-center'>
-          <div className='d-flex flex-column'>
-            <h6 className='user-name text-truncate mb-0'>{created}</h6>
-          </div>
-        </div>
-      )
+      const date = new Date(row.created).toLocaleString()
+      return <span>{date}</span>
     }
   },
   {

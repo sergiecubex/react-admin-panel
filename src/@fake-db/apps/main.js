@@ -11,6 +11,7 @@ const data = {
       id: '13sf24', 
       name: 'Author',
       email: 'author@example.com',
+      created: 1385814763,
       totalEarnings: 100,
       userSuspended: false
     },
@@ -18,6 +19,7 @@ const data = {
       id: '25fe346', 
       name: 'Drawer',
       email: 'drawer@example.com',
+      created: 1385814763,
       totalEarnings: 140,
       userSuspended: true
 
@@ -26,6 +28,7 @@ const data = {
       id: '33geg46', 
       name: 'Painter',
       email: 'painter@example.com',
+      created: 1385814763,
       totalEarnings: 0,
       userSuspended: false
     },
@@ -33,6 +36,7 @@ const data = {
       id: '44ge474',
       name: 'Freelancer',
       email: 'freelancer@example.com',
+      created: 1385814763,
       totalEarnings: 470,
       userSuspended: true
     }

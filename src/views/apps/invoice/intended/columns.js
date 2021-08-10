@@ -111,7 +111,6 @@ export const columns = [
     selector: 'date',
     sortable: true,
     minWidth: '100px',
-    // cell: row => row.created
     cell: row => {
       const date = new Date(row.created).toLocaleString()
       return <span>{date}</span>
