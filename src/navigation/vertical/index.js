@@ -1,11 +1,30 @@
 import { Mail, Home, FileText, Circle, ShoppingCart } from 'react-feather'
 
 export default [
+  // {
+  //   id: 'home',
+  //   title: 'Dashboard',
+  //   icon: <Home size={20} />,
+  //   navLink: '/home'
+  // },
   {
-    id: 'home',
-    title: 'Dashboard',
+    id: 'dashboards',
+    title: 'Dashboards',
     icon: <Home size={20} />,
-    navLink: '/home'
+    children: [
+      {
+        id: 'analyticsDash',
+        title: 'Analytics',
+        icon: <Circle size={12} />,
+        navLink: '/dashboard/analytics'
+      },
+      {
+        id: 'eCommerceDash',
+        title: 'Statistics',
+        icon: <Circle size={12} />,
+        navLink: '/dashboard/ecommerce'
+      }
+    ]
   },
   {
     id: 'sales',
@@ -50,12 +69,6 @@ export default [
         icon: <Circle size={12} />,
         navLink: '/apps/gigs'
       }
-      // {
-      //   id: 'fetured',
-      //   title: 'Waitlisted Gigs',
-      //   icon: <Circle size={12} />,
-      //   navLink: '/apps/gigs-management/featured'
-      // }
     ]
   }
 ]

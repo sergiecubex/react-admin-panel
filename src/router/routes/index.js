@@ -14,6 +14,15 @@ const Routes = [
     component: lazy(() => import('../../views/Home'))
   },
   {
+    path: '/dashboard/analytics',
+    component: lazy(() => import('../../views/dashboard/analytics'))
+  },
+  {
+    path: '/dashboard/ecommerce',
+    component: lazy(() => import('../../views/dashboard/ecommerce')),
+    exact: true
+  },
+  {
     path: '/apps/users',
     component: lazy(() => import('../../views/apps/users/list'))
   },
