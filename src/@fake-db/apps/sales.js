@@ -2,6 +2,33 @@ import mock from '../mock'
 import { paginateArray, sortCompare } from '../utils'
 
 const data = {
+  sales: [
+    {
+      id: "txn_1032HU2eZvKYlo2CEPtcnUvl",
+      object: "balance_transaction",
+      amount: 400,
+      available_on: 1386374400,
+      created: 1385814763,
+      currency: "usd",
+      description: "Charge for test@example.com",
+      exchange_rate: null,
+      fee: 42,
+      fee_details: [
+        {
+          amount: 42,
+          application: null,
+          currency: "usd",
+          description: "Stripe processing fees",
+          type: "stripe_fee"
+        }
+      ],
+      net: 358,
+      reporting_category: "charge",
+      source: "ch_1032HU2eZvKYlo2C0FuZb3X7",
+      status: "available",
+      type: "charge"
+    }
+  ],
   intendedPayments: [
     {
         id: "pi_1Dp8jd2eZvKYlo2CbOmqLWUP",
@@ -14,12 +41,12 @@ const data = {
         canceled_at: null,
         cancellation_reason: null,
         capture_method: "automatic",
-        // charges: {
-        //   object: "list",
-        //   data: [],
-        //   has_more: false,
-        //   url: "/v1/chares?payment_intent=pi_1Dp8jd2eZvKYlo2CbUmqLWUA"
-        // },
+        charges: {
+          object: "list",
+          data: [],
+          has_more: false,
+          url: "/v1/chares?payment_intent=pi_1Dp8jd2eZvKYlo2CbUmqLWUA"
+        },
         client_secret: "pi_1Dp8jd2eZvKYlo2CbUmqLWUA_secret_cVlqXXuXI1cpcbxwwRS8hXQA6",
         confirmation_method: "automatic",
         created: 1546670057,
@@ -56,12 +83,12 @@ const data = {
       canceled_at: null,
       cancellation_reason: null,
       capture_method: "automatic",
-      // charges: {
-      //   object: "list",
-      //   data: [],
-      //   has_more: false,
-      //   url: "/v1/chares?payment_intent=pi_1Dp8jd2eZvKYlo2CbUmqLWUA"
-      // },
+      charges: {
+        object: "list",
+        data: [],
+        has_more: false,
+        url: "/v1/chares?payment_intent=pi_1Dp8jd2eZvKYlo2CbUmqLWUA"
+      },
       client_secret: "pi_1Dp8jd2eZvKYlo2CbUmqLWUA_secret_cVlqXXuXI1cpcbxwwRS8hXQA6",
       confirmation_method: "automatic",
       created: 1546670057,

@@ -110,8 +110,12 @@ export const columns = [
     name: 'Date',
     selector: 'date',
     sortable: true,
-    minWidth: '60px',
-    cell: row => row.created
+    minWidth: '100px',
+    // cell: row => row.created
+    cell: row => {
+      const date = new Date(row.created).toLocaleString()
+      return <span>{date}</span>
+    }
   },
   {
     name: 'Status',
