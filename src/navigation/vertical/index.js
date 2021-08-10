@@ -22,13 +22,13 @@ export default [
         id: 'supply',
         title: 'Supply (sellers)',
         icon: <Circle size={12} />,
-        navLink: '/dashboard/ecommerce'
+        navLink: '/dashboard/sellers'
       },
       {
         id: 'demand',
         title: 'Demand (buyers)',
         icon: <Circle size={12} />,
-        navLink: '/dashboard/ecommerce'
+        navLink: '/dashboard/buyers'
       }
     ]
   },

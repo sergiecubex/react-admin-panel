@@ -33,11 +33,18 @@ const suspendUser = async (row) => {
 }
 // ** Table columns
 export const columns = [
+  // {
+  //   name: 'User',
+  //   minWidth: '100px',
+  //   selector: 'user',
+  //   cell: row => <Link to={`/apps/user-details/${row.id}`}>{`#${row.id}`}</Link> // users list
+  // },
   {
-    name: 'User',
-    minWidth: '100px',
-    selector: 'user',
-    cell: row => <Link to={`/apps/user-details/${row.id}`}>{`#${row.id}`}</Link> // users list
+    name: 'Name',
+    selector: 'name',
+    sortable: true,
+    minWidth: '200px',
+    cell: row => row.name
   },
   {
     name: 'Created',
@@ -48,13 +55,6 @@ export const columns = [
       const date = new Date(row.created).toLocaleString()
       return <span>{date}</span>
     }
-  },
-  {
-    name: 'Name',
-    selector: 'name',
-    sortable: true,
-    minWidth: '200px',
-    cell: row => row.name
   },
   {
     name: 'Status',
