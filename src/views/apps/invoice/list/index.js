@@ -38,9 +38,9 @@ const CustomHeader = ({ handleFilter, value, handleStatusValue, statusValue, han
               <option value='50'>50</option>
             </CustomInput>
           </div>
-          <Button.Ripple tag={Link} to='/apps/invoice/add' color='primary'>
+          {/* <Button.Ripple tag={Link} to='/apps/invoice/add' color='primary'>
             Add Record
-          </Button.Ripple>
+          </Button.Ripple> */}
         </Col>
         <Col
           lg='6'

@@ -61,36 +61,36 @@ const renderClient = row => {
 // ** Table columns
 export const columns = [
   {
-    name: '#',
+    name: 'Source',
     minWidth: '107px',
-    selector: 'id',
-    cell: row => <Link to={`/apps/sales/preview/${row.id}`}>{`#${row.id}`}</Link>
+    selector: 'source',
+    cell: row => <Link to={`/apps/sales/preview/${row.id}`}>{`${row.source}`}</Link>
   },
-  {
-    name: <TrendingUp size={14} />,
-    minWidth: '102px',
-    selector: 'invoiceStatus',
-    sortable: true,
-    cell: row => {
-      const color = invoiceStatusObj[row.invoiceStatus] ? invoiceStatusObj[row.invoiceStatus].color : 'primary',
-        Icon = invoiceStatusObj[row.invoiceStatus] ? invoiceStatusObj[row.invoiceStatus].icon : Edit
-      return (
-        <Fragment>
-          <Avatar color={color} icon={<Icon size={14} />} id={`av-tooltip-${row.id}`} />
-          <UncontrolledTooltip placement='top' target={`av-tooltip-${row.id}`}>
-            <span className='font-weight-bold'>{row.invoiceStatus}</span>
-            <br />
-            <span className='font-weight-bold'>Balance:</span> {row.balance}
-            <br />
-            <span className='font-weight-bold'>Due Date:</span> {row.dueDate}
-          </UncontrolledTooltip>
-        </Fragment>
-      )
-    }
-  },
+  // {
+  //   name: <TrendingUp size={14} />,
+  //   minWidth: '102px',
+  //   selector: 'invoiceStatus',
+  //   sortable: true,
+  //   cell: row => {
+  //     const color = invoiceStatusObj[row.invoiceStatus] ? invoiceStatusObj[row.invoiceStatus].color : 'primary',
+  //       Icon = invoiceStatusObj[row.invoiceStatus] ? invoiceStatusObj[row.invoiceStatus].icon : Edit
+  //     return (
+  //       <Fragment>
+  //         <Avatar color={color} icon={<Icon size={14} />} id={`av-tooltip-${row.id}`} />
+  //         <UncontrolledTooltip placement='top' target={`av-tooltip-${row.id}`}>
+  //           <span className='font-weight-bold'>{row.invoiceStatus}</span>
+  //           <br />
+  //           <span className='font-weight-bold'>Balance:</span> {row.balance}
+  //           <br />
+  //           <span className='font-weight-bold'>Due Date:</span> {row.dueDate}
+  //         </UncontrolledTooltip>
+  //       </Fragment>
+  //     )
+  //   }
+  // },
   {
     name: 'Client',
-    minWidth: '350px',
+    minWidth: '150px',
     selector: 'client',
     sortable: true,
     cell: row => {
@@ -108,32 +108,52 @@ export const columns = [
     }
   },
   {
-    name: 'Total',
-    selector: 'total',
+    name: 'Description',
+    selector: 'description',
     sortable: true,
-    minWidth: '150px',
-    cell: row => <span>${row.total || 0}</span>
+    minWidth: '100px',
+    cell: row => <span>{row.description}</span>
   },
   {
-    name: 'Issued Date',
-    selector: 'dueDate',
+    name: 'Net sum',
+    selector: 'net',
     sortable: true,
-    minWidth: '200px',
-    cell: row => row.dueDate
+    minWidth: '100px',
+    cell: row => <span>{row.currency} {row.net || 0}</span>
   },
   {
-    name: 'Balance',
-    selector: 'balance',
+    name: 'Amount',
+    selector: 'amount',
     sortable: true,
-    minWidth: '164px',
+    minWidth: '100px',
     cell: row => {
-      return row.balance !== 0 ? (
-        <span>{row.balance}</span>
+      return row.amount !== 0 ? (
+        <span>{row.currency} {row.amount}</span>
       ) : (
         <Badge color='light-success' pill>
           Paid
         </Badge>
       )
+    }
+  },
+  {
+    name: 'Created',
+    selector: 'created',
+    sortable: true,
+    minWidth: '100px',
+    cell: row => {
+      const date = new Date(row.created).toLocaleString()
+      return <span>{date}</span>
+    }
+  },
+  {
+    name: 'Available on',
+    selector: 'available',
+    sortable: true,
+    minWidth: '100px',
+    cell: row => {
+      const date = new Date(row.available_on).toLocaleString()
+      return <span>{date}</span>
     }
   },
   {

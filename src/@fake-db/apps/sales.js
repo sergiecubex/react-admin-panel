@@ -27,6 +27,31 @@ const data = {
       source: "ch_1032HU2eZvKYlo2C0FuZb3X7",
       status: "available",
       type: "charge"
+    },
+    {
+      id: "txn_1032HP2eZvKYlo2CEPtcnUvl",
+      object: "balance_transaction",
+      amount: 200,
+      available_on: 1386374700,
+      created: 1385814363,
+      currency: "usd",
+      description: "Charge for test@example.com",
+      exchange_rate: null,
+      fee: 23,
+      fee_details: [
+        {
+          amount: 23,
+          application: null,
+          currency: "usd",
+          description: "Stripe processing fees",
+          type: "stripe_fee"
+        }
+      ],
+      net: 177,
+      reporting_category: "charge",
+      source: "ch_1032HU2eZvKYlo2C0FuZb3X7",
+      status: "available",
+      type: "charge"
     }
   ],
   intendedPayments: [
@@ -169,124 +194,46 @@ const data = {
       invoiceStatus: 'Paid',
       balance: 0,
       dueDate: '03 Nov 2019'
-    },
-    {
-      id: 4990,
-      issuedDate: '06 Mar 2020',
-      client: {
-        address: '19022 Clark Parks Suite 149',
-        company: 'Smith, Miller and Henry LLC',
-        companyEmail: 'mejiageorge@lee-perez.com',
-        country: 'Cambodia',
-        contact: '(832) 323-6914',
-        name: 'Kevin Patton'
-      },
-      service: 'Software Development',
-      total: 4749,
-      avatar: require('@src/assets/images/avatars/9-small.png').default,
-      invoiceStatus: 'Sent',
-      balance: 0,
-      dueDate: '11 Feb 2020'
-    },
-    {
-      id: 4991,
-      issuedDate: '08 Feb 2020',
-      client: {
-        address: '8534 Saunders Hill Apt. 583',
-        company: 'Garcia-Cameron and Sons',
-        companyEmail: 'brandon07@pierce.com',
-        country: 'Martinique',
-        contact: '(970) 982-3353',
-        name: 'Mrs. Julie Donovan MD'
-      },
-      service: 'UI/UX Design & Development',
-      total: 4056,
-      avatar: require('@src/assets/images/avatars/10-small.png').default,
-      invoiceStatus: 'Draft',
-      balance: '$815',
-      dueDate: '30 Jun 2019'
-    },
-    {
-      id: 4992,
-      issuedDate: '26 Aug 2019',
-      client: {
-        address: '661 Perez Run Apt. 778',
-        company: 'Burnett-Young PLC',
-        companyEmail: 'guerrerobrandy@beasley-harper.com',
-        country: 'Botswana',
-        contact: '(511) 938-9617',
-        name: 'Amanda Phillips'
-      },
-      service: 'UI/UX Design & Development',
-      total: 2771,
-      avatar: '',
-      invoiceStatus: 'Paid',
-      balance: 0,
-      dueDate: '24 Jun 2019'
-    },
-    {
-      id: 4993,
-      issuedDate: '17 Sep 2019',
-      client: {
-        address: '074 Long Union',
-        company: 'Wilson-Lee LLC',
-        companyEmail: 'williamshenry@moon-smith.com',
-        country: 'Montserrat',
-        contact: '(504) 859-2893',
-        name: 'Christina Collier'
-      },
-      service: 'UI/UX Design & Development',
-      total: 2713,
-      avatar: '',
-      invoiceStatus: 'Draft',
-      balance: '$407',
-      dueDate: '22 Nov 2019'
-    },
-    {
-      id: 4994,
-      issuedDate: '11 Feb 2020',
-      client: {
-        address: '5225 Ford Cape Apt. 840',
-        company: 'Schwartz, Henry and Rhodes Group',
-        companyEmail: 'margaretharvey@russell-murray.com',
-        country: 'Oman',
-        contact: '(758) 403-7718',
-        name: 'David Flores'
-      },
-      service: 'Template Customization',
-      total: 4309,
-      avatar: require('@src/assets/images/avatars/9-small.png').default,
-      invoiceStatus: 'Paid',
-      balance: '-$205',
-      dueDate: '10 Feb 2020'
-    },
-    {
-      id: 4995,
-      issuedDate: '26 Jan 2020',
-      client: {
-        address: '23717 James Club Suite 277',
-        company: 'Henderson-Holder PLC',
-        companyEmail: 'dianarodriguez@villegas.com',
-        country: 'Cambodia',
-        contact: '(292) 873-8254',
-        name: 'Valerie Perez'
-      },
-      service: 'Software Development',
-      total: 3367,
-      avatar: require('@src/assets/images/avatars/2-small.png').default,
-      invoiceStatus: 'Downloaded',
-      balance: 0,
-      dueDate: '24 Dec 2019'
     }
   ]
 }
+
+// ------------------------------------------------
+// GET: Return Sales List
+// ------------------------------------------------
+mock.onGet('/apps/invoice/invoices').reply(config => {
+  // eslint-disable-next-line object-curly-newline
+  const { q = '', perPage = 10, page = 1, status = null } = config
+  /* eslint-enable */
+
+  const queryLowered = q.toLowerCase()
+  const filteredData = data.sales
+    // .filter(
+    //   invoice =>
+    //     /* eslint-disable operator-linebreak, implicit-arrow-linebreak */
+    //     (invoice.client.companyEmail.toLowerCase().includes(queryLowered) ||
+    //       invoice.client.name.toLowerCase().includes(queryLowered)) &&
+    //     invoice.invoiceStatus.toLowerCase() === (status.toLowerCase() || invoice.invoiceStatus.toLowerCase())
+    // )
+    .sort(sortCompare('amount'))
+    .reverse()
+  /* eslint-enable  */
+  return [
+    200,
+    {
+      allData: data.invoices,
+      invoices: paginateArray(filteredData, perPage, page),
+      total: filteredData.length
+    }
+  ]
+})
 
 // ------------------------------------------------
 // GET: Return Intended Payments list
 // ------------------------------------------------
 mock.onGet('/apps/sales/intended').reply(config => {
   // eslint-disable-next-line object-curly-newline
-  const { perPage = 10, page = 1 } = config
+  const { q = '', perPage = 10, page = 1, status = null } = config
   /* eslint-enable */
 
   const filteredData = data.intendedPayments
@@ -297,36 +244,6 @@ mock.onGet('/apps/sales/intended').reply(config => {
     200,
     {
       allData: data.intendedPayments,
-      invoices: paginateArray(filteredData, perPage, page),
-      total: filteredData.length
-    }
-  ]
-})
-
-// ------------------------------------------------
-// GET: Return Invoice List
-// ------------------------------------------------
-mock.onGet('/apps/invoice/invoices').reply(config => {
-  // eslint-disable-next-line object-curly-newline
-  const { q = '', perPage = 10, page = 1, status = null } = config
-  /* eslint-enable */
-
-  const queryLowered = q.toLowerCase()
-  const filteredData = data.invoices
-    .filter(
-      invoice =>
-        /* eslint-disable operator-linebreak, implicit-arrow-linebreak */
-        (invoice.client.companyEmail.toLowerCase().includes(queryLowered) ||
-          invoice.client.name.toLowerCase().includes(queryLowered)) &&
-        invoice.invoiceStatus.toLowerCase() === (status.toLowerCase() || invoice.invoiceStatus.toLowerCase())
-    )
-    .sort(sortCompare('id'))
-    .reverse()
-  /* eslint-enable  */
-  return [
-    200,
-    {
-      allData: data.invoices,
       invoices: paginateArray(filteredData, perPage, page),
       total: filteredData.length
     }
