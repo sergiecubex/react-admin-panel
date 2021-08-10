@@ -13,14 +13,20 @@ export default [
     icon: <Home size={20} />,
     children: [
       {
-        id: 'analyticsDash',
-        title: 'Analytics',
+        id: 'overall',
+        title: 'Overall',
         icon: <Circle size={12} />,
         navLink: '/dashboard/analytics'
       },
       {
-        id: 'eCommerceDash',
-        title: 'Statistics',
+        id: 'supply',
+        title: 'Supply (sellers)',
+        icon: <Circle size={12} />,
+        navLink: '/dashboard/ecommerce'
+      },
+      {
+        id: 'demand',
+        title: 'Demand (buyers)',
         icon: <Circle size={12} />,
         navLink: '/dashboard/ecommerce'
       }

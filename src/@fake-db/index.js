@@ -17,8 +17,8 @@ import './pages/profile'
 // import './pages/knowledge-base'
 // import './pages/pricing-data'
 // import './pages/blog-data'
-// import './cards/card-analytics'
-// import './cards/card-statistics'
+import './cards/card-analytics'
+import './cards/card-statistics'
 import './jwt'
 
 mock.onAny().passThrough()
