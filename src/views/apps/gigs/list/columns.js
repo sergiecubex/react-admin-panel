@@ -24,7 +24,6 @@ import {
   Copy
 } from 'react-feather'
 
-
 // ** renders client column
 const renderClient = row => {
   const stateNum = Math.floor(Math.random() * 6),
@@ -60,7 +59,10 @@ export const columns = [
     name: 'User',
     minWidth: '100px',
     selector: 'user',
-    cell: row => <Link to={`/apps/gigs-management/details/${row.id}`}>{`#${row.id}`}</Link> // users list
+    cell: row => {
+      const userId = row.userId?.$oid || null
+      return <Link to={`/apps/user-details/${userId}`}>{`${userId}`}</Link>
+    }
   },
   {
     name: 'Created',
@@ -123,14 +125,14 @@ export const columns = [
     sortable: true,
     cell: row => (
       <div className='column-action d-flex align-items-center'>
-        <Send size={17} id={`send-tooltip-${row.id}`} />
-        <UncontrolledTooltip placement='top' target={`send-tooltip-${row.id}`}>
+        <Send size={17} id={`send-tooltip-${row._id.$oid}`} />
+        <UncontrolledTooltip placement='top' target={`send-tooltip-${row._id.$oid}`}>
           Send Mail
         </UncontrolledTooltip>
-        <Link to={`/apps/gigs-management/details/${row.id}`} id={`pw-tooltip-${row.id}`}>
+        <Link to={`/apps/gigs-management/details/${row._id.$oid}`} id={`pw-tooltip-${row._id.$oid}`}>
           <Eye size={17} className='mx-1' />
         </Link>
-        <UncontrolledTooltip placement='top' target={`pw-tooltip-${row.id}`}>
+        <UncontrolledTooltip placement='top' target={`pw-tooltip-${row._id.$oid}`}>
           Preview Gig
         </UncontrolledTooltip>
         <UncontrolledDropdown>
@@ -145,7 +147,7 @@ export const columns = [
               <Download size={14} className='mr-50' />
               <span className='align-middle'>Approve</span>
             </DropdownItem>
-            <DropdownItem tag={Link} to={`/apps/gigs-management/form/${row.id}`} className='w-100'>
+            <DropdownItem tag={Link} to={`/apps/gigs-management/form/${row._id.$oid}`} className='w-100'>
               <Edit size={14} className='mr-50' />
               <span className='align-middle'>Edit</span>
             </DropdownItem>
@@ -162,9 +164,9 @@ export const columns = [
               className='w-100'
               onClick={e => {
                 e.preventDefault()
-                alert(`Are you sure you want to delete item # ${row.id}`)
-                store.dispatch(deleteGig(row.id))
-                alert(`Item # ${row.id} deleted`)
+                alert(`Are you sure you want to delete item # ${row._id.$oid}`)
+                store.dispatch(deleteGig(row._id.$oid))
+                alert(`Item # ${row._id.$oid} deleted`)
               }}
             >
               <Trash size={14} className='mr-50' />

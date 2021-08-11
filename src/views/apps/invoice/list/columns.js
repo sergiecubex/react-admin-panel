@@ -60,12 +60,6 @@ const renderClient = row => {
 
 // ** Table columns
 export const columns = [
-  {
-    name: 'Source',
-    minWidth: '107px',
-    selector: 'source',
-    cell: row => <Link to={`/apps/sales/preview/${row.id}`}>{`${row.source}`}</Link>
-  },
   // {
   //   name: <TrendingUp size={14} />,
   //   minWidth: '102px',
@@ -111,15 +105,21 @@ export const columns = [
     name: 'Description',
     selector: 'description',
     sortable: true,
-    minWidth: '100px',
+    minWidth: '150px',
     cell: row => <span>{row.description}</span>
   },
   {
-    name: 'Net sum',
-    selector: 'net',
+    name: 'Source type',
+    minWidth: '100px',
+    selector: 'source',
+    cell: row => <span>{row.source_type}</span>
+  },
+  {
+    name: 'Type',
+    selector: 'type',
     sortable: true,
     minWidth: '100px',
-    cell: row => <span>{row.currency} {row.net || 0}</span>
+    cell: row => <span>{row.type}</span>
   },
   {
     name: 'Amount',
@@ -147,12 +147,12 @@ export const columns = [
     }
   },
   {
-    name: 'Available on',
-    selector: 'available',
+    name: 'Arrival date',
+    selector: 'arrival',
     sortable: true,
     minWidth: '100px',
     cell: row => {
-      const date = new Date(row.available_on).toLocaleString()
+      const date = new Date(row.arrival_date).toLocaleString()
       return <span>{date}</span>
     }
   },

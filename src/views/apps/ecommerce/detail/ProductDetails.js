@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 
 // ** Third Party Components
@@ -21,11 +21,15 @@ const Product = props => {
   // ** Props
   const { data, dispatch, getProduct, deleteGig, productId } = props
   //state
-  const [gig, setGig] = useState('')
+  const [gig, setGig] = useState(null)
+  
+  const fetchGig = useCallback(async () => {
+    setGig(data) 
+  }, [data])
   
   useEffect(() => {
-    setGig(data)
-  }, [data])
+    fetchGig()
+  }, [fetchGig])
 
   const handleDelete = (id) => {
     alert(`Are you sure you want to delete item ${id}?`)
@@ -33,6 +37,8 @@ const Product = props => {
     setGig(null)
   }
 
+  const imageUrl = data.gallery[0].url
+  
   if (gig === null) return (
   <Row>
     <h2 style={{margin: "0 5%"}}>Gig was deleted</h2>
@@ -52,11 +58,11 @@ const Product = props => {
     <Row className='my-2'>
       <Col className='d-flex align-items-center justify-content-center mb-2 mb-md-0' md='5' xs='12'>
         <div className='d-flex align-items-center justify-content-center'>
-          <img className='img-fluid product-img' src={gig.image} alt={gig.name} />
+          <img className='img-fluid product-img' src={imageUrl || ''} alt={gig.title} />
         </div>
       </Col>
       <Col md='7' xs='12'>
-        <h4>{gig.name}</h4>
+        {/* <h4>{user}</h4> */}
         <div className='ecommerce-details-price d-flex flex-wrap mt-1'>
           <h4 className='item-price mr-1'>${gig.price}</h4>
         </div>
@@ -74,7 +80,7 @@ const Product = props => {
           >
             <span>To Waitlist</span>
           </Button> */}
-          <Link to={`/apps/gigs-management/form/${gig.id}`}>
+          <Link to={`/apps/gigs-management/form/${productId}`}>
             <Button
               className='btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0'
               color='secondary'
@@ -86,7 +92,7 @@ const Product = props => {
           <Button
               className='btn-wishlist'
               color='danger'
-              onClick={() => handleDelete(gig.id)}
+              onClick={() => handleDelete(productId)}
             >
               <span>Delete Gig</span>
           </Button>

@@ -7,38 +7,31 @@ const nextWeek = new Date(nextDay.getTime() + 7 * 24 * 60 * 60 * 1000)
 
 const data = {
   users: [
-    { 
-      id: '13sf24', 
-      name: 'Author',
-      email: 'author@example.com',
-      created: 1385814763,
-      totalEarnings: 100,
-      userSuspended: false
+    {
+      _id:{$oid:"60dc33b51fea467d12b9c218"},
+      userType:"user",
+      signUpMethod:"email",
+      emailVerified:false,
+      active:true,  //suspended
+      languages:[],
+      email:"devops@web-ai.studio",
+      createdDate:{$date:{$numberLong:"1625043893884"}}, //created
+      updatedDate:{$date:{$numberLong:"1625043893884"}},
+      salt:"768b2680d782608db49adfeef7a13c582bdadb5bb9038b37d78199ff5cb6cb3d",hash:"7138d733906810c56101e845ea6c0038084f18e40bfe7757b8ab02d8f0a311451d3f21a8f8b34e2633b0cb95969b87e63f3d0fb99b252c5df97ae9db061ced46195813d26164a5c7ad8acc513d6de2f7a7b1eb030a83736eb311590a75344d07bf4fd4dcd38f70e1ea3fbe8d497db5fd64e08ae3ff8dffd439bed2758e37c7b7ffab9971a8d0ee06e9f022d7f79fdbd825a0d36d823dfe9d34bb4ef040238df5eac0983690340c2b6c9059b11c3fbf66d5d636765412cca39e69ee7999b5ef43c156ad72a65545a1d3a9922382a5c43a870b3cde75b24fbf1258df902e72ca339f5f942b7742f2fa3fbab1ef73b2b4298d10ad85deb70df025e59e73f3597dcc8221521350793611df697e5ea370b0e4055dbbe9cacbf94d81f0b769dfb68758b9cbdcf6a92a629e7a396a0776f71b4d88259f5e3d82036b04b998b05beee7683ac8bd0ae4a733f988f50ec0bf840f8a993efc5f7ae436160cfdcbb8451082658aadc7c9ddf531f3e8655b4dd0ee74ccbc6cd1c4e2ebacaa543f39029213d91ca2b2f02ce05e4d903fb7c97ef625771ac566f1661607b997e6dd21a3c1e1c47aca34c2827f04d3dc3c4c02639bea5d52a05956cb2416472cbe09c97902d67cc8bfea4beb02b09570ae69e24d4815fe80825826ae3affe8c238cafae7a439ffced595a8c8c90486a2baf96243012ccc32e490a301ea3eed3b22da37231e61bfb8",
+      __v:{"$numberInt":"0"}
     },
-    { 
-      id: '25fe346', 
-      name: 'Drawer',
-      email: 'drawer@example.com',
-      created: 1385814763,
-      totalEarnings: 140,
-      userSuspended: true
-
-    },
-    { 
-      id: '33geg46', 
-      name: 'Painter',
-      email: 'painter@example.com',
-      created: 1385814763,
-      totalEarnings: 0,
-      userSuspended: false
-    },
-    { 
-      id: '44ge474',
-      name: 'Freelancer',
-      email: 'freelancer@example.com',
-      created: 1385814763,
-      totalEarnings: 470,
-      userSuspended: true
+    {
+      _id:{$oid:"60de363181dbf62828ce03be"},
+      userType:"user",
+      signUpMethod:"email",
+      emailVerified:false,
+      active:false,  //suspended
+      languages:[],
+      email:"test@web-ai.studio",
+      createdDate:{$date:{$numberLong:"1625043893884"}}, //created
+      updatedDate:{$date:{$numberLong:"1625043893884"}},
+      salt:"768b2680d782608db49adfeef7a13c582bdadb5bb9038b37d78199ff5cb6cb3d",hash:"7138d733906810c56101e845ea6c0038084f18e40bfe7757b8ab02d8f0a311451d3f21a8f8b34e2633b0cb95969b87e63f3d0fb99b252c5df97ae9db061ced46195813d26164a5c7ad8acc513d6de2f7a7b1eb030a83736eb311590a75344d07bf4fd4dcd38f70e1ea3fbe8d497db5fd64e08ae3ff8dffd439bed2758e37c7b7ffab9971a8d0ee06e9f022d7f79fdbd825a0d36d823dfe9d34bb4ef040238df5eac0983690340c2b6c9059b11c3fbf66d5d636765412cca39e69ee7999b5ef43c156ad72a65545a1d3a9922382a5c43a870b3cde75b24fbf1258df902e72ca339f5f942b7742f2fa3fbab1ef73b2b4298d10ad85deb70df025e59e73f3597dcc8221521350793611df697e5ea370b0e4055dbbe9cacbf94d81f0b769dfb68758b9cbdcf6a92a629e7a396a0776f71b4d88259f5e3d82036b04b998b05beee7683ac8bd0ae4a733f988f50ec0bf840f8a993efc5f7ae436160cfdcbb8451082658aadc7c9ddf531f3e8655b4dd0ee74ccbc6cd1c4e2ebacaa543f39029213d91ca2b2f02ce05e4d903fb7c97ef625771ac566f1661607b997e6dd21a3c1e1c47aca34c2827f04d3dc3c4c02639bea5d52a05956cb2416472cbe09c97902d67cc8bfea4beb02b09570ae69e24d4815fe80825826ae3affe8c238cafae7a439ffced595a8c8c90486a2baf96243012ccc32e490a301ea3eed3b22da37231e61bfb8",
+      __v:{"$numberInt":"0"}
     }
   ]
 }
@@ -56,9 +49,9 @@ mock.onGet('/apps/users').reply(config => {
     .filter(
       user =>
         /* eslint-disable operator-linebreak, implicit-arrow-linebreak */
-        (user.name.toLowerCase().includes(queryLowered) && ((user.userSuspended === true && status === 'suspended') || status === ''))
+        (user.email.toLowerCase().includes(queryLowered) && ((user.active === true && status === 'suspended') || status === ''))
     )
-    .sort(sortCompare('id'))
+    .sort(sortCompare('created'))
     .reverse()
   /* eslint-enable  */
   return [
@@ -80,7 +73,7 @@ mock.onGet(/\/apps\/user-details\/?.*/).reply(config => {
   // Convert Id to number
   // userId = Number(userId)
 
-  const userIndex = data.users.findIndex(user => user.id === userId)
+  const userIndex = data.users.findIndex(user => user._id.$oid === userId)
   const user = data.users[userIndex]
   console.log(user)
   if (user) {

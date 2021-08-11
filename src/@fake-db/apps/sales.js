@@ -3,56 +3,104 @@ import { paginateArray, sortCompare } from '../utils'
 
 const data = {
   sales: [
-    {
-      id: "txn_1032HU2eZvKYlo2CEPtcnUvl",
-      object: "balance_transaction",
-      amount: 400,
-      available_on: 1386374400,
-      created: 1385814763,
-      currency: "usd",
-      description: "Charge for test@example.com",
-      exchange_rate: null,
-      fee: 42,
-      fee_details: [
-        {
-          amount: 42,
-          application: null,
-          currency: "usd",
-          description: "Stripe processing fees",
-          type: "stripe_fee"
-        }
-      ],
-      net: 358,
-      reporting_category: "charge",
-      source: "ch_1032HU2eZvKYlo2C0FuZb3X7",
-      status: "available",
-      type: "charge"
-    },
-    {
-      id: "txn_1032HP2eZvKYlo2CEPtcnUvl",
-      object: "balance_transaction",
-      amount: 200,
-      available_on: 1386374700,
-      created: 1385814363,
-      currency: "usd",
-      description: "Charge for test@example.com",
-      exchange_rate: null,
-      fee: 23,
-      fee_details: [
-        {
-          amount: 23,
-          application: null,
-          currency: "usd",
-          description: "Stripe processing fees",
-          type: "stripe_fee"
-        }
-      ],
-      net: 177,
-      reporting_category: "charge",
-      source: "ch_1032HU2eZvKYlo2C0FuZb3X7",
-      status: "available",
-      type: "charge"
-    }
+  {
+    id: "po_1JMrBm2eZvKYlo2CKeSZKWoX",
+    object: "payout",
+    amount: 1100,
+    arrival_date: 1628587442,
+    automatic: true,
+    balance_transaction: "txn_1032HU2eZvKYlo2CEPtcnUvl",
+    created: 1628587442,
+    currency: "usd",
+    description: "STRIPE PAYOUT",
+    destination: "ba_1JMrBm2eZvKYlo2C1DfUrnn9",
+    failure_balance_transaction: null,
+    failure_code: null,
+    failure_message: null,
+    livemode: false,
+    metadata: {},
+    method: "standard",
+    original_payout: null,
+    reversed_by: null,
+    source_type: "card",
+    statement_descriptor: null,
+    status: "in_transit",
+    type: "bank_account"
+  },
+  {
+    id: "po_1JMrBm2eZvKYlo2COeSZKWoX",
+    object: "payout",
+    amount: 370,
+    arrival_date: 1628597442,
+    automatic: true,
+    balance_transaction: "txn_1032HU2eZvKYlo3CEPtcnUvl",
+    created: 1628587442,
+    currency: "usd",
+    description: "STRIPE PAYOUT",
+    destination: "ba_1JMrBm2eZvKYlo2C1DfUrnn9",
+    failure_balance_transaction: null,
+    failure_code: null,
+    failure_message: null,
+    livemode: false,
+    metadata: {},
+    method: "standard",
+    original_payout: null,
+    reversed_by: null,
+    source_type: "card",
+    statement_descriptor: null,
+    status: "in_transit",
+    type: "bank_account"
+  }
+    // {
+    //   id: "txn_1032HU2eZvKYlo2CEPtcnUvl",
+    //   object: "balance_transaction",
+    //   amount: 400,
+    //   available_on: 1386374400,
+    //   created: 1385814763,
+    //   currency: "usd",
+    //   description: "Charge for test@example.com",
+    //   exchange_rate: null,
+    //   fee: 42,
+    //   fee_details: [
+    //     {
+    //       amount: 42,
+    //       application: null,
+    //       currency: "usd",
+    //       description: "Stripe processing fees",
+    //       type: "stripe_fee"
+    //     }
+    //   ],
+    //   net: 358,
+    //   reporting_category: "charge",
+    //   source: "ch_1032HU2eZvKYlo2C0FuZb3X7",
+    //   status: "available",
+    //   type: "charge"
+    // },
+    // {
+    //   id: "txn_1032HP2eZvKYlo2CEPtcnUvl",
+    //   object: "balance_transaction",
+    //   amount: 200,
+    //   available_on: 1386374700,
+    //   created: 1385814363,
+    //   currency: "usd",
+    //   description: "Charge for test@example.com",
+    //   exchange_rate: null,
+    //   fee: 23,
+    //   fee_details: [
+    //     {
+    //       amount: 23,
+    //       application: null,
+    //       currency: "usd",
+    //       description: "Stripe processing fees",
+    //       type: "stripe_fee"
+    //     }
+    //   ],
+    //   net: 177,
+    //   reporting_category: "charge",
+    //   source: "ch_1032HU2eZvKYlo2C0FuZb3X7",
+    //   status: "available",
+    //   type: "charge"
+    // }
   ],
   intendedPayments: [
     {

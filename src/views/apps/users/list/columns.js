@@ -22,37 +22,39 @@ import {
 
 const suspendUser = async (row) => {
   let user
-  if (row.userSuspended) {
-    user = {...row, userSuspended: false}
+  if (row.active) {
+    user = {...row, active: false}
   } else {
-    user = {...row, userSuspended: true}
+    user = {...row, active: true}
   }
-  await axios.post(`/apps/users/${row.id}`, user)  
-  alert(`User id #${row.id} was changed`)
+  await axios.post(`/apps/users/${row._id.$oid}`, user)  
+  alert(`User id #${row._id.$oid} was changed`)
   store.dispatch(getData())
 }
 // ** Table columns
 export const columns = [
-  // {
-  //   name: 'User',
-  //   minWidth: '100px',
-  //   selector: 'user',
-  //   cell: row => <Link to={`/apps/user-details/${row.id}`}>{`#${row.id}`}</Link> // users list
-  // },
   {
-    name: 'Name',
-    selector: 'name',
-    sortable: true,
-    minWidth: '200px',
-    cell: row => row.name
+    name: 'User',
+    minWidth: '100px',
+    selector: 'user',
+    cell: row => {
+      const userId = row._id?.$oid || null
+      return <Link to={`/apps/user-details/${userId}`}>{`${row.email}`}</Link> 
+    }
+  },
+  {
+    name: 'Type',
+    minWidth: '100px',
+    selector: 'type',
+    cell: row => <span>{row.userType}</span>
   },
   {
     name: 'Created',
     minWidth: '100px',
-    selector: 'user',
+    selector: 'created',
     sortable: true,
     cell: row => {
-      const date = new Date(row.created).toLocaleString()
+      const date = row.createdDate?.$date.$numberLong || null
       return <span>{date}</span>
     }
   },
@@ -62,33 +64,24 @@ export const columns = [
     sortable: true,
     minWidth: '100px',
     cell: row => { 
-      if (row.userSuspended === true) {
-        return <p>Suspended</p> 
+      if (row.active === true) {
+        return <p>Active</p> 
       } 
-      return <p>Active</p>
+      return <p>Suspended</p>
     }
   },
   {
-    name: 'Total earnings',
-    selector: 'total',
+    name: 'Verified',
+    selector: 'verigied',
     sortable: true,
     minWidth: '100px',
-    cell: row => row.totalEarnings
+    cell: row => { 
+      if (row.emailVerified === true) {
+        return <p>Verified</p> 
+      } 
+      return <p>Not verified</p>
+    }
   },
-  // {
-  //   name: 'Price',
-  //   selector: 'price',
-  //   sortable: true,
-  //   minWidth: '100px',
-  //   cell: row => <span>${row.price || 0}</span>
-  // },
-  // {
-  //   name: 'Days left',
-  //   selector: 'execution-time',
-  //   sortable: true,
-  //   minWidth: '100px',
-  //   cell: row => row.turnAroundTimeInDays
-  // },
   {
     name: 'Action',
     minWidth: '110px',
@@ -96,14 +89,14 @@ export const columns = [
     sortable: true,
     cell: row => (
       <div className='column-action d-flex align-items-center'>
-        <Send size={17} id={`send-tooltip-${row.id}`} />
+        {/* <Send size={17} id={`send-tooltip-${row.id}`} />
         <UncontrolledTooltip placement='top' target={`send-tooltip-${row.id}`}>
           Send Mail
-        </UncontrolledTooltip>
-        <Link to={`/apps/user-details/${row.id}`} id={`pw-tooltip-${row.id}`}>
+        </UncontrolledTooltip> */}
+        <Link to={`/apps/user-details/${row._id.$oid}`} id={`pw-tooltip-${row._id.$oid}`}>
           <Eye size={17} className='mx-1' />
         </Link>
-        <UncontrolledTooltip placement='top' target={`pw-tooltip-${row.id}`}>
+        <UncontrolledTooltip placement='top' target={`pw-tooltip-${row._id.$oid}`}>
           Preview User
         </UncontrolledTooltip>
         <UncontrolledDropdown>
@@ -116,21 +109,17 @@ export const columns = [
               suspendUser(row)
               }}>
               <Eye size={14} className='mr-50' />
-              <span className='align-middle'>{ row.userSuspended ? 'Unsuspend' : 'Suspend'}</span>
+              <span className='align-middle'>{ row.active ? 'Suspend' : 'Unsuspend'}</span>
             </DropdownItem>
-            {/* <DropdownItem tag={Link} to={`/apps/user-form/${row.id}`} className='w-100'>
-              <Edit size={14} className='mr-50' />
-              <span className='align-middle'>Edit</span>
-            </DropdownItem> */}
             <DropdownItem
               tag='a'
-              href='/apps/gigs'
+              href='/apps/users'
               className='w-100'
               onClick={e => {
                 e.preventDefault()
-                alert(`Are you sure you want to delete user ${row.name}`)
-                store.dispatch(deleteUser(row.id))
-                alert(`User ${row.name} deleted`)
+                alert(`Are you sure you want to delete user ${row.email}`)
+                store.dispatch(deleteUser(row._id.$oid))
+                alert(`User ${row.email} deleted`)
               }}
             >
               <Trash size={14} className='mr-50' />

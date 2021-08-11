@@ -3,57 +3,44 @@ import { paginateArray, sortCompare } from '../utils'
 
 const data = {
   gigs: [
-    { 
-      id: 1, 
-      title: 'I will do that',
-      image: "https://hwdev.web-ai.studio/api/images/gallery-0a370891-353f-48fd-a714-fd561e44b77c.jpg",
-      description: 'Hi, Welcome to my GIG: Do you want to take your blog writing and articles writing to next level? Then you have come to the right place My Services: Article writing / rewriting Blog writing',
-      category: ['Writers', 'Marketing', 'Social Media'],
-      searchTags: ['copywriting', 'data entry', 'article rewriter'],
-      price: 27,
-      created: 1385814763,
-      turnAroundTimeInDays: 4,
-      approved: false,
-      isInWaitlist: false
-    },
-    { 
-      id: 2, 
-      title: 'I can do this',
-      image: "https://hwdev.web-ai.studio/api/images/gallery-87bae388-611b-42b2-a8a0-f5b8bff40d2a.jpg",
-      description: 'Hi, Welcome to my GIG: Do you want to take your blog writing and articles writing to next level? Then you have come to the right place My Services: Article writing / rewriting Blog writing',
-      category: ['Writers', 'Marketing', 'Social Media'],
-      searchTags: ['copywriting', 'data entry', 'article rewriter'],
-      price: 43,
-      created: 1385814763,
-      turnAroundTimeInDays: 6, 
-      approved: false,
-      isInWaitlist: false
-    },
-    { 
-      id: '3d', 
-      title: 'I cannot do anything',
-      image: "https://hwdev.web-ai.studio/api/images/gallery-87bae388-611b-42b2-a8a0-f5b8bff40d2a.jpg",
-      description: 'Hi, Welcome to my GIG: Do you want to take your blog writing and articles writing to next level? Then you have come to the right place My Services: Article writing / rewriting Blog writing',
-      category: ['Writers', 'Marketing', 'Social Media'],
-      searchTags: ['copywriting', 'data entry', 'article rewriter'],
-      price: 65,
-      created: 1385814763,
-      turnAroundTimeInDays: 14,
-      approved: true,
-      isInWaitlist: false
-    },
-    { 
-      id: 4,
-      title: 'I will copywriters and content writers',
-      image: "https://hwdev.web-ai.studio/api/images/gallery-0a370891-353f-48fd-a714-fd561e44b77c.jpg",
-      description: 'Hi, Welcome to my GIG: Do you want to take your blog writing and articles writing to next level? Then you have come to the right place My Services: Article writing / rewriting Blog writing',
-      category: ['Writers', 'Marketing', 'Social Media'],
-      searchTags: ['copywriting', 'data entry', 'article rewriter'],
-      price: 9,
-      created: 1385814763,
-      turnAroundTimeInDays: 2,
-      approved: false,
-      isInWaitlist: true
+    {
+      _id:{$oid:"60f694289c92a8648cb5b611"},
+      searchTags:["Blog", "Business", "Education "],
+      title:"I will build a modern website for authors, writers with ecommerce",
+      longDescription:"<p style=\"margin: 0px; padding: 0px; border: 0px; outline: 0px; font-size: 16px; vertical-align: baseline; background: 0px 0px #ffffff; color: #62646a; font-family: Macan, 'Helvetica Neue', Helvetica, Arial, sans-serif;\">Design and web development is my passion and I've been doing it for the last 6 years - first as a hobby and then as a full-time job.&nbsp;This is the right Gig for you if you need an&nbsp;exceptional&nbsp;&amp;&nbsp;clean<span style=\"margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: 0px 0px; font-weight: bold;\">&nbsp;<span style=\"background: #ffecd1;\">website for authors&nbsp;</span></span><span style=\"background: #ffecd1;\">or</span><span style=\"margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: 0px 0px; font-weight: bold;\"><span style=\"background: #ffecd1;\">&nbsp;writers</span></span>!</p>",
+      main_category:"Designers", // category
+      parent_subcategory:"Visual Design", // subcategory
+      child_subcategory:"Photoshop Editing",
+      userId:{$oid:"60de363181dbf62828ce03be"},
+      gigPackages:[
+        {
+          price:{$numberInt:"100"},  // price
+          priceCurrency:"USD",
+          _id:{$oid:"60f695709c92a8648cb5b6b1"},
+          title:"Basic package #1",
+          description:"TESTs in this project",
+          revisions:{$numberInt:"3"},
+          turnAroundTimeInDays:{$numberInt:"3"}  // turnAroundTimeInDays
+      } 
+      ],
+      gallery:[  //image
+        {
+          _id:{$oid:"60f695809c92a8648cb5b6be"}, 
+          name:"gallery-9e721aa4-8679-4b0d-99cb-fbb162574d28.png",
+          originalname:"presentation for sales-manager.png",
+          type:"image/png",
+          url:"images/gallery-9e721aa4-8679-4b0d-99cb-fbb162574d28.png",
+          date:{$date:{$numberLong:"1626772864624"}}
+        }
+      ],
+      additionalFeatures:[],
+      faqs:[],
+      requirements:[],
+      __v:{$numberInt:"9"},
+      isComplete:false,
+      approved: false, //we don't have 
+      isInWaitlist: false, // it in 
+      created: 1385814763 // database
     }
   ]
 }
@@ -92,12 +79,10 @@ mock.onGet(/\/apps\/gigs\/?.*/).reply(config => {
   // Get product id from URL
   const productId = config.url.substring(config.url.lastIndexOf('/') + 1)
   
-  const stringId = String(productId)
-  const numberId = Number(productId)
-  
-  console.log(productId, stringId)
+  // const stringId = String(productId)
+  // const numberId = Number(productId)
 
-  const productIndex = data.gigs.findIndex(p => p.id === numberId || p.id === stringId)
+  const productIndex = data.gigs.findIndex(p => p._id.$oid === productId)
   const product = data.gigs[productIndex]
 
   if (product) {
