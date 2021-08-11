@@ -16,7 +16,7 @@ const data = {
       parent_subcategory: "Marketing",
       child_subcategory: "Social Media Copy",
       userId: {
-          _id: "60e2f727704e2c0d18ceafce",
+          _id: "60e3dd758d813079c62af84a",
           userType: "user",
           signUpMethod: "email",
           active: true,

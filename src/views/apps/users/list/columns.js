@@ -55,7 +55,7 @@ export const columns = [
     selector: 'created',
     sortable: true,
     cell: row => {
-      const date = row.createdDate.toLocaleString()
+      const date = row?.createdDate?.toLocaleString() || null
       return <span>{date}</span>
     }
   },
