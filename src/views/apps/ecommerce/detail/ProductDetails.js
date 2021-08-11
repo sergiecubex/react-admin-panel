@@ -19,7 +19,7 @@ import {
 const Product = props => {
   const history = useHistory()
   // ** Props
-  const { data, dispatch, getProduct, deleteGig, productId } = props
+  const { data, dispatch, deleteGig, productId } = props
   //state
   const [gig, setGig] = useState(null)
   
@@ -38,6 +38,7 @@ const Product = props => {
   }
 
   const imageUrl = data.gallery[0].url
+  const image = `${process.env.REACT_APP_BASE_URL}/${imageUrl}`
   
   if (gig === null) return (
   <Row>
@@ -58,18 +59,25 @@ const Product = props => {
     <Row className='my-2'>
       <Col className='d-flex align-items-center justify-content-center mb-2 mb-md-0' md='5' xs='12'>
         <div className='d-flex align-items-center justify-content-center'>
-          <img className='img-fluid product-img' src={imageUrl || ''} alt={gig.title} />
+          <img className='img-fluid product-img' src={image ? image : '/assets/images/logo.png'} alt={gig.title} />
         </div>
       </Col>
       <Col md='7' xs='12'>
-        {/* <h4>{user}</h4> */}
+        <Link to={`/apps/user-details/${data.userId?._id}`}>
+          <h4>USER: {data.userId?.email}</h4>
+        </Link>
         <div className='ecommerce-details-price d-flex flex-wrap mt-1'>
-          <h4 className='item-price mr-1'>${gig.price}</h4>
+          <h4 className='item-price mr-1'>Price: {data?.gigPackages[0]?.priceCurrency} {data?.gigPackages[0]?.price}</h4>
         </div>
         <CardText>
-          <span className='ml-25'>{gig.title}</span>
+          Title:
+          <span className='ml-25'>{gig?.title}</span>
         </CardText>
-        <CardText>{gig.description}</CardText>
+        <CardText>
+          Category:
+          <span className='ml-25'> {gig?.main_category} : {gig?.parent_subcategory} : {gig?.child_subcategory}</span>
+        </CardText>
+        <CardText><span className='ml-25'>{gig?.longDescription}</span></CardText>
         <hr />
         <div className='d-flex flex-column flex-sm-row pt-1'>
           {/* <Button

@@ -8,30 +8,39 @@ const nextWeek = new Date(nextDay.getTime() + 7 * 24 * 60 * 60 * 1000)
 const data = {
   users: [
     {
-      _id:{$oid:"60dc33b51fea467d12b9c218"},
-      userType:"user",
-      signUpMethod:"email",
-      emailVerified:false,
-      active:true,  //suspended
-      languages:[],
-      email:"devops@web-ai.studio",
-      createdDate:{$date:{$numberLong:"1625043893884"}}, //created
-      updatedDate:{$date:{$numberLong:"1625043893884"}},
-      salt:"768b2680d782608db49adfeef7a13c582bdadb5bb9038b37d78199ff5cb6cb3d",hash:"7138d733906810c56101e845ea6c0038084f18e40bfe7757b8ab02d8f0a311451d3f21a8f8b34e2633b0cb95969b87e63f3d0fb99b252c5df97ae9db061ced46195813d26164a5c7ad8acc513d6de2f7a7b1eb030a83736eb311590a75344d07bf4fd4dcd38f70e1ea3fbe8d497db5fd64e08ae3ff8dffd439bed2758e37c7b7ffab9971a8d0ee06e9f022d7f79fdbd825a0d36d823dfe9d34bb4ef040238df5eac0983690340c2b6c9059b11c3fbf66d5d636765412cca39e69ee7999b5ef43c156ad72a65545a1d3a9922382a5c43a870b3cde75b24fbf1258df902e72ca339f5f942b7742f2fa3fbab1ef73b2b4298d10ad85deb70df025e59e73f3597dcc8221521350793611df697e5ea370b0e4055dbbe9cacbf94d81f0b769dfb68758b9cbdcf6a92a629e7a396a0776f71b4d88259f5e3d82036b04b998b05beee7683ac8bd0ae4a733f988f50ec0bf840f8a993efc5f7ae436160cfdcbb8451082658aadc7c9ddf531f3e8655b4dd0ee74ccbc6cd1c4e2ebacaa543f39029213d91ca2b2f02ce05e4d903fb7c97ef625771ac566f1661607b997e6dd21a3c1e1c47aca34c2827f04d3dc3c4c02639bea5d52a05956cb2416472cbe09c97902d67cc8bfea4beb02b09570ae69e24d4815fe80825826ae3affe8c238cafae7a439ffced595a8c8c90486a2baf96243012ccc32e490a301ea3eed3b22da37231e61bfb8",
-      __v:{"$numberInt":"0"}
-    },
-    {
-      _id:{$oid:"60de363181dbf62828ce03be"},
-      userType:"user",
-      signUpMethod:"email",
-      emailVerified:false,
-      active:false,  //suspended
-      languages:[],
-      email:"test@web-ai.studio",
-      createdDate:{$date:{$numberLong:"1625043893884"}}, //created
-      updatedDate:{$date:{$numberLong:"1625043893884"}},
-      salt:"768b2680d782608db49adfeef7a13c582bdadb5bb9038b37d78199ff5cb6cb3d",hash:"7138d733906810c56101e845ea6c0038084f18e40bfe7757b8ab02d8f0a311451d3f21a8f8b34e2633b0cb95969b87e63f3d0fb99b252c5df97ae9db061ced46195813d26164a5c7ad8acc513d6de2f7a7b1eb030a83736eb311590a75344d07bf4fd4dcd38f70e1ea3fbe8d497db5fd64e08ae3ff8dffd439bed2758e37c7b7ffab9971a8d0ee06e9f022d7f79fdbd825a0d36d823dfe9d34bb4ef040238df5eac0983690340c2b6c9059b11c3fbf66d5d636765412cca39e69ee7999b5ef43c156ad72a65545a1d3a9922382a5c43a870b3cde75b24fbf1258df902e72ca339f5f942b7742f2fa3fbab1ef73b2b4298d10ad85deb70df025e59e73f3597dcc8221521350793611df697e5ea370b0e4055dbbe9cacbf94d81f0b769dfb68758b9cbdcf6a92a629e7a396a0776f71b4d88259f5e3d82036b04b998b05beee7683ac8bd0ae4a733f988f50ec0bf840f8a993efc5f7ae436160cfdcbb8451082658aadc7c9ddf531f3e8655b4dd0ee74ccbc6cd1c4e2ebacaa543f39029213d91ca2b2f02ce05e4d903fb7c97ef625771ac566f1661607b997e6dd21a3c1e1c47aca34c2827f04d3dc3c4c02639bea5d52a05956cb2416472cbe09c97902d67cc8bfea4beb02b09570ae69e24d4815fe80825826ae3affe8c238cafae7a439ffced595a8c8c90486a2baf96243012ccc32e490a301ea3eed3b22da37231e61bfb8",
-      __v:{"$numberInt":"0"}
+      userType: "user",
+      signUpMethod: "email",
+      emailVerified: false,
+      active: true,
+      languages: [],
+      balance: 174,
+      _id: "60e3dd758d813079c62af84a",
+      email: "hennyp9066@gmail.com",
+      createdDate: "2021-07-06T04:35:01.988Z",
+      updatedDate: "2021-07-07T07:30:57.077Z",
+      __v: 2,
+      firstname: "test",
+      lastname: "user555",
+      freelancerProfile: {
+          portfolioURLList: [],
+          _id: "60e5537cd643be40c1e92227",
+          skills: [],
+          education: []
+      },
+      workHistory: {
+          _id: "60e5557ed643be40c1e92245",
+          employment: [],
+          certifications: []
+      },
+      timeZone: 1,
+      avatar: {
+          _id: "60f80a4a90b1bb63cd644ad6",
+          date: "2021-07-21T11:51:38.537Z",
+          name: "image-7c594660-c406-4df5-9379-e9168f8b4c06.png",
+          originalname: "translation_category.png",
+          type: "image/png",
+          url: "images/image-7c594660-c406-4df5-9379-e9168f8b4c06.png"
+      }
     }
   ]
 }
@@ -73,7 +82,7 @@ mock.onGet(/\/apps\/user-details\/?.*/).reply(config => {
   // Convert Id to number
   // userId = Number(userId)
 
-  const userIndex = data.users.findIndex(user => user._id.$oid === userId)
+  const userIndex = data.users.findIndex(user => user._id === userId)
   const user = data.users[userIndex]
   console.log(user)
   if (user) {
@@ -92,8 +101,9 @@ mock.onPost(/\/apps\/users\/?.*/).reply(config => {
   //extract data from config
   const user = JSON.parse(config.data)
   //find index of extracted gig
-  const userIndex = data.users.findIndex(p => p.id === user.id)
+  const userIndex = data.users.findIndex(p => p._id === user._id)
   //replace user in db
+  console.log(userIndex)
   data.users.splice(userIndex, 1)
   data.users.push(user)
 
@@ -107,7 +117,7 @@ mock.onDelete(/\/apps\/users\/?.*/).reply(config => {
   // Get product id from URL
   const userId = config.url.substring(config.url.lastIndexOf('/') + 1)
 
-  const userIndex = data.users.findIndex(user => user.id === userId)
+  const userIndex = data.users.findIndex(user => user._id === userId)
   console.log("Index:", userIndex, "ID:", userId)
   if (userIndex > -1) data.users.splice(userIndex, 1)
 

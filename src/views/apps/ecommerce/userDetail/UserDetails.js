@@ -1,6 +1,7 @@
 // ** React Imports
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useHistory, Link } from 'react-router-dom'
+import axios from 'axios'
 
 import {
   Row,
@@ -19,13 +20,24 @@ const UserDetails = props => {
   const { data, dispatch, deleteUser, userId } = props
   //state
   const [user, setUser] = useState(data)
-
+  
   const handleDelete = (id, email) => {
     alert(`Are you sure you want to delete user ${email}?`)
     dispatch(deleteUser(id))
     setUser(null)
   }
-
+  
+  const handleSuspend = async (id) => {
+    let newUser
+    if (user.active) {
+      newUser = {...user, active: false}
+    } else {
+      newUser = {...user, active: true}
+    }
+    await axios.post(`/apps/users/${id}`, newUser)  
+    alert(`User id #${id} was changed`)
+  }
+  
   if (user === null) return (
   <Row>
     <h2 style={{margin: "0 5%"}}>{`User id #${userId} deleted!`}</h2>
@@ -45,33 +57,31 @@ const UserDetails = props => {
     <Row className='my-2'>
       <Col className='d-flex align-items-center justify-content-center mb-2 mb-md-0' md='5' xs='12'>
         <div className='d-flex align-items-center justify-content-center'>
-          {/* {user.name} */}
-          {/* <img className='img-fluid product-img' src={user.avatar} alt={user.name} /> */}
         </div>
       </Col>
       <Col md='7' xs='12'>
-        {/* <h4>{user.name}</h4> */}
+        <h4>{user.userType.toUpperCase()}</h4>
         <div className='ecommerce-details-price d-flex flex-wrap mt-1'>
           <h4 className='item-price mr-1'>{user.email}</h4>
         </div>
         <CardText>
-          {/* <span className='ml-25'>{gig.title}</span> */}
+          <span className='ml-25'>{user.active ? "Active User" : "Account not active"}</span>
         </CardText>
-        {/* <CardText>{gig.description}</CardText> */}
+        <CardText>{user.languages.length === 0 ? "Languages not specified" : user.languages}</CardText>
         <hr />
         <div className='d-flex flex-column flex-sm-row pt-1'>
           <Button
             className='btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0'
             color='secondary'
             outline
-            onClick={() => alert('User suspended')}
+            onClick={() => handleSuspend(userId)}
           >
-            <span>Suspend User</span>
+            <span>{user.active ? 'Suspend User' : 'Unsuspend User'}</span>
           </Button>
           <Button
               className='btn-wishlist'
               color='danger'
-              onClick={() => handleDelete(user._id.$oid, user.email)}
+              onClick={() => handleDelete(userId, user.email)}
             >
               <span>Delete User</span>
           </Button>

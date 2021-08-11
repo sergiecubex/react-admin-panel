@@ -27,9 +27,10 @@ const suspendUser = async (row) => {
   } else {
     user = {...row, active: true}
   }
-  await axios.post(`/apps/users/${row._id.$oid}`, user)  
-  alert(`User id #${row._id.$oid} was changed`)
-  store.dispatch(getData())
+  console.log(user)
+  await axios.post(`/apps/users/${row._id}`, user)  
+  alert(`User id #${row._id} was changed`)
+  await store.dispatch(getData())
 }
 // ** Table columns
 export const columns = [
@@ -38,7 +39,7 @@ export const columns = [
     minWidth: '100px',
     selector: 'user',
     cell: row => {
-      const userId = row._id?.$oid || null
+      const userId = row._id || null
       return <Link to={`/apps/user-details/${userId}`}>{`${row.email}`}</Link> 
     }
   },
@@ -54,7 +55,7 @@ export const columns = [
     selector: 'created',
     sortable: true,
     cell: row => {
-      const date = row.createdDate?.$date.$numberLong || null
+      const date = row.createdDate.toLocaleString()
       return <span>{date}</span>
     }
   },
@@ -93,10 +94,10 @@ export const columns = [
         <UncontrolledTooltip placement='top' target={`send-tooltip-${row.id}`}>
           Send Mail
         </UncontrolledTooltip> */}
-        <Link to={`/apps/user-details/${row._id.$oid}`} id={`pw-tooltip-${row._id.$oid}`}>
+        <Link to={`/apps/user-details/${row._id}`} id={`pw-tooltip-${row._id}`}>
           <Eye size={17} className='mx-1' />
         </Link>
-        <UncontrolledTooltip placement='top' target={`pw-tooltip-${row._id.$oid}`}>
+        <UncontrolledTooltip placement='top' target={`pw-tooltip-${row._id}`}>
           Preview User
         </UncontrolledTooltip>
         <UncontrolledDropdown>
@@ -118,7 +119,7 @@ export const columns = [
               onClick={e => {
                 e.preventDefault()
                 alert(`Are you sure you want to delete user ${row.email}`)
-                store.dispatch(deleteUser(row._id.$oid))
+                store.dispatch(deleteUser(row._id))
                 alert(`User ${row.email} deleted`)
               }}
             >
