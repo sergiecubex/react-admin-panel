@@ -47,6 +47,7 @@ const Form = () => {
 //   useEffect(handleInputChange, [])
   
   const handleSave = async () => {
+    console.log(item)
     const payload = {...gig, ...item}
     await axios.post(`/apps/gigs/${id}`, payload)  
     history.push(`/apps/gigs/details`)
@@ -64,51 +65,116 @@ const Form = () => {
             <CardBody>
                 <h2>Title</h2>
                 <InputGroup className={classes.input}>
-                    <Input
-                        type='text'
-                        name="title"
-                        defaultValue={gig.title}
-                        onChange={handleInputChange}
-                    />
+                  <Input
+                    type='text'
+                    name="title"
+                    defaultValue={gig.title}
+                    onChange={handleInputChange}
+                  />
                 </InputGroup>
                 <h2>Description</h2>
                 <InputGroup className={classes.input}>
-                    <Input
-                        type='textarea'
-                        name="description"
-                        defaultValue={gig.description}
-                        onChange={handleInputChange}
-                    />
+                  <Input
+                    style={{height: '250px'}}
+                    type='textarea'
+                    name="description"
+                    defaultValue={gig.longDescription}
+                    onChange={handleInputChange}
+                  />
                 </InputGroup>
-                <h2>Categories</h2>
-                <p>{gig.category}</p>
                 <InputGroup className={classes.input}>
-                    <Input
-                        type='text'
-                        name="category"
-                        defaultValue={gig.category}
-                        onChange={handleInputChange}
-                    />
+                  <h3>Main Category</h3>
+                  <Input
+                    style={{margin: '0 1rem'}}
+                    type='text'
+                    name="main-category"
+                    defaultValue={gig.main_category}
+                    onChange={handleInputChange}
+                  />
+                </InputGroup>
+                <InputGroup className={classes.input}>
+                  <h3>Parent subcategory</h3>
+                  <Input
+                    style={{margin: '0 1rem'}}
+                    type='text'
+                    name="parent-subcategory"
+                    defaultValue={gig.parent_subcategory}
+                    onChange={handleInputChange}
+                  />
+                </InputGroup>
+                <InputGroup className={classes.input}>
+                  <h3>Child subcategory</h3>
+                  <Input
+                    style={{margin: '0 1rem'}}
+                    type='text'
+                    name="child-subcategory"
+                    defaultValue={gig.child_subcategory}
+                    onChange={handleInputChange}
+                  />
                 </InputGroup>
                 <h2>Search Tags</h2>
-                <p>{gig.searchTags}</p>
                 <InputGroup className={classes.input}>
-                    <Input
+                {
+                  gig.searchTags?.map((tag, index) => {
+                    return (
+                      <Input
+                        style={{margin: '0 1rem'}}
+                        key={tag}
                         type='text'
-                        name="searchTags"
-                        defaultValue={gig.searchTags}
+                        name={`tag${index}`}
+                        defaultValue={tag}
                         onChange={handleInputChange}
-                    />
+                      />
+                    )
+                  })
+                }
                 </InputGroup>
-                <h2>Amount</h2>
-                <InputGroup className={classes.input}>
-                    <Input
-                        type='number'
-                        name="price"
-                        defaultValue={gig.price}
-                        onChange={handleInputChange}
-                    />
-                </InputGroup>
+                {
+                  gig?.gigPackages?.map((pack, index) => {
+                    return (
+                      <InputGroup className={classes.input} key={pack.title}>
+                        <span>{pack.priceCurrency}</span>
+                        <Input
+                          style={{margin: '0 1rem'}}
+                          type='number'
+                          name={`price${index}`}
+                          defaultValue={pack.price}
+                          onChange={handleInputChange}
+                        />
+                        <Input
+                          style={{margin: '0 1rem'}}
+                          type='number'
+                          name={`turnAroundTimeInDays${index}`}
+                          defaultValue={pack.turnAroundTimeInDays}
+                          onChange={handleInputChange}
+                        />
+                        <Input
+                          style={{margin: '0 1rem'}}
+                          type='text'
+                          name={`description${index}`}
+                          defaultValue={pack.description}
+                          onChange={handleInputChange}
+                        />
+                      </InputGroup>
+                    )
+                  })
+                }
+                <h2>Requirements</h2>
+                {
+                  gig.requirements?.map((requirement, index) => {
+                    return (
+                      <InputGroup className={classes.input} key={requirement._id}>
+                        <Input
+                          type='text'
+                          name={`requirement${index}`}
+                          defaultValue={requirement.requirement}
+                          onChange={handleInputChange}
+                        />
+                      </InputGroup>
+                    )
+                  })
+                }
+
                 <InputGroup className={classes.buttons}>
                     <Button color='danger' onClick={handleCancel}>Cancel</Button>
                     <Button color='success' onClick={handleSave}>Save Gig</Button>
