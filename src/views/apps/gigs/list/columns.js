@@ -56,22 +56,12 @@ const waitlistGig = async (row) => {
 // ** Table columns
 export const columns = [
   {
-    name: 'User ID',
+    name: 'User',
     minWidth: '100px',
     selector: 'user',
     cell: row => {
       const userId = row.userId?._id || null
-      return <Link to={`/apps/user-details/${userId}`}>{`${userId}`}</Link>
-    }
-  },
-  {
-    name: 'Created',
-    minWidth: '100px',
-    selector: 'user',
-    sortable: true,
-    cell: row => {
-      const date = new Date(row.created).toLocaleString()
-      return <span>{date}</span>
+      return <Link to={`/apps/user-details/${userId}`}>{`${row.userId?.firstname} ${row.userId?.lastname}`}</Link>
     }
   },
   {
@@ -87,13 +77,6 @@ export const columns = [
     sortable: true,
     minWidth: '100px',
     cell: row => <span>${row.price || 0}</span>
-  },
-  {
-    name: 'Days left',
-    selector: 'execution-time',
-    sortable: true,
-    minWidth: '100px',
-    cell: row => row.turnAroundTimeInDays
   },
   {
     name: 'Status',
