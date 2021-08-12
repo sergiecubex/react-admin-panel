@@ -11,51 +11,54 @@ import { InputGroup, InputGroupAddon, Input, Button, Card, CardBody } from 'reac
 
 // ** Store & Actions
 import { useDispatch, useSelector } from 'react-redux'
-import { getProduct, saveGig } from '../store/actions'
+import { getProduct } from '../store/actions'
 
 import '@styles/base/pages/app-ecommerce-details.scss'
 import classes from './form.module.css'
 
 const Form = () => {
-  // ** Vars
-  const {id} = useParams()
-  const history = useHistory()
-  const [item, setItem] = useState()
-  
-
   // ** Store Vars
   const dispatch = useDispatch()
   const store = useSelector(state => state.ecommerce)
   const gig = store.productDetail
+  // ** Vars
+  const {id} = useParams()
+  const history = useHistory()
+  const [item, setItem] = useState()
 
   const getItem = useCallback(() => {
     dispatch(getProduct(id))
   }, [])
   
-  // ** ComponentDidMount : Get product
+    // ** ComponentDidMount : Get product
   useEffect(() => {
     getItem()
-  }, [])
-
+  }, [getItem])
+  
   const handleInputChange = useCallback((event) => {
     const value = event.target.value
     setItem(prev => ({
-        ...prev,
-        [event.target.name]: value
-      }))
+      ...prev,
+      [event.target.name]: value
+    }))
   }, [])
-//   useEffect(handleInputChange, [])
+
+  const changeSearchTags = useCallback((tag) => {
+    const i = gig.searchTags?.findIndex((item) => item === tag)
+                              
+    console.log(i)
+  })
   
   const handleSave = async () => {
-    console.log(item)
-    const payload = {...gig, ...item}
+    const payload = {...gig, ...item, searchTags}
+    console.log(payload)
     await axios.post(`/apps/gigs/${id}`, payload)  
     history.push(`/apps/gigs/details`)
   }
   
   const handleCancel = () => {
     history.push(`/apps/gigs-management/details/${id}`)
-}
+  }
 
   return (
     <Fragment>
@@ -87,7 +90,7 @@ const Form = () => {
                   <Input
                     style={{margin: '0 1rem'}}
                     type='text'
-                    name="main-category"
+                    name="main_category"
                     defaultValue={gig.main_category}
                     onChange={handleInputChange}
                   />
@@ -97,7 +100,7 @@ const Form = () => {
                   <Input
                     style={{margin: '0 1rem'}}
                     type='text'
-                    name="parent-subcategory"
+                    name="parent_subcategory"
                     defaultValue={gig.parent_subcategory}
                     onChange={handleInputChange}
                   />
@@ -107,29 +110,44 @@ const Form = () => {
                   <Input
                     style={{margin: '0 1rem'}}
                     type='text'
-                    name="child-subcategory"
+                    name="child_subcategory"
                     defaultValue={gig.child_subcategory}
                     onChange={handleInputChange}
                   />
                 </InputGroup>
                 <h2>Search Tags</h2>
                 <InputGroup className={classes.input}>
-                {
-                  gig.searchTags?.map((tag, index) => {
-                    return (
-                      <Input
-                        style={{margin: '0 1rem'}}
-                        key={tag}
-                        type='text'
-                        name={`tag${index}`}
-                        defaultValue={tag}
-                        onChange={handleInputChange}
-                      />
-                    )
-                  })
-                }
+                  {
+                    gig.searchTags?.map((tag, index) => {
+                      return (
+                        <div key={tag} style={{display: 'flex', margin: '0 1rem'}}>
+                            <Input
+                              type='text'
+                              name={`tag${index}`}
+                              defaultValue={tag}
+                              onChange={handleInputChange}
+                            />
+                            <Button 
+                              style={{margin: '0 1rem'}}
+                              color='danger' 
+                              onClick={() => changeSearchTags(tag)}
+                            >X</Button>
+                        </div>
+                      )
+                    })
+                  }
                 </InputGroup>
-                {
+                <InputGroup className={classes.input}>
+                  <Input
+                    style={{margin: '0 1rem'}}
+                    type='text'
+                    name="tag"
+                    defaultValue=""
+                    onChange={handleInputChange}
+                  />
+                  <Button color='success' onClick={handleSave}>ADD</Button>
+                </InputGroup>
+                {/* {
                   gig?.gigPackages?.map((pack, index) => {
                     return (
                       <InputGroup className={classes.input} key={pack.title}>
@@ -158,8 +176,8 @@ const Form = () => {
                       </InputGroup>
                     )
                   })
-                }
-                <h2>Requirements</h2>
+                } */}
+                {/* <h2>Requirements</h2>
                 {
                   gig.requirements?.map((requirement, index) => {
                     return (
@@ -173,7 +191,7 @@ const Form = () => {
                       </InputGroup>
                     )
                   })
-                }
+                } */}
 
                 <InputGroup className={classes.buttons}>
                     <Button color='danger' onClick={handleCancel}>Cancel</Button>

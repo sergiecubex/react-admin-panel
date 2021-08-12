@@ -57,17 +57,24 @@ const UserDetails = props => {
     <Row className='my-2'>
       <Col className='d-flex align-items-center justify-content-center mb-2 mb-md-0' md='5' xs='12'>
         <div className='d-flex align-items-center justify-content-center'>
+          <img src={`${process.env.REACT_APP_BASE_URL}/${user.avatar?.url}`} alt={user.email} />
         </div>
       </Col>
       <Col md='7' xs='12'>
-        <h4>{user.userType.toUpperCase()}</h4>
+        <h4>Type: {user.userType.toUpperCase()}</h4>
         <div className='ecommerce-details-price d-flex flex-wrap mt-1'>
-          <h4 className='item-price mr-1'>{user.email}</h4>
+          <h4 className='item-price mr-1'>Name: {user.firstname} {user.lastname}</h4>
         </div>
+        <h5>Email: {user.email}</h5>
+        <h5>Statuses:</h5>
         <CardText>
-          <span className='ml-25'>{user.active ? "Active User" : "Account not active"}</span>
+          <div className='ml-25'>{user.active ? "User is active" : "Account is not active"}</div>
         </CardText>
-        <CardText>{user.languages.length === 0 ? "Languages not specified" : user.languages}</CardText>
+        <CardText>
+          <div className='ml-25'>{user.emailVerified ? "Email is verified" : "Email is not verified"}</div>
+        </CardText>
+        <CardText>Languages: {user.languages.length === 0 ? "Languages are not specified" : user.languages.map(lang => <span key={lang}>{lang} </span>)}
+        </CardText>
         <hr />
         <div className='d-flex flex-column flex-sm-row pt-1'>
           <Button

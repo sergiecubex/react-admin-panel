@@ -40,14 +40,14 @@ export const columns = [
     selector: 'user',
     cell: row => {
       const userId = row._id || null
-      return <Link to={`/apps/user-details/${userId}`}>{`${row.email}`}</Link> 
+      return <Link to={`/apps/user-details/${userId}`}>{`${row.firstname} ${row.lastname}`}</Link> 
     }
   },
   {
-    name: 'Type',
+    name: 'Email',
     minWidth: '100px',
-    selector: 'type',
-    cell: row => <span>{row.userType}</span>
+    selector: 'email',
+    cell: row => <span>{row.email}</span>
   },
   {
     name: 'Created',
@@ -55,9 +55,15 @@ export const columns = [
     selector: 'created',
     sortable: true,
     cell: row => {
-      const date = row?.createdDate?.toLocaleString() || null
+      const date = row?.createdDate?.toLocaleString().replace('T', ' ').replace('Z', ' ') || null
       return <span>{date}</span>
     }
+  },
+  {
+    name: 'Balance',
+    minWidth: '100px',
+    selector: 'balance',
+    cell: row => <span>{row.balance}</span>
   },
   {
     name: 'Status',

@@ -12,7 +12,7 @@ const data = {
       signUpMethod: "email",
       emailVerified: false,
       active: true,
-      languages: [],
+      languages: ["English", "Spanish"],
       balance: 174,
       _id: "60e3dd758d813079c62af84a",
       email: "hennyp9066@gmail.com",
