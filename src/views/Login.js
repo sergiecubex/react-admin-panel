@@ -26,9 +26,11 @@ import {
   Button,
   UncontrolledTooltip
 } from 'reactstrap'
+import { useGoogleLogin } from 'react-google-login'
+
 
 import '@styles/base/pages/page-auth.scss'
-
+  
 const ToastContent = ({ name, role }) => (
   <Fragment>
     <div className='toastify-header'>
@@ -72,7 +74,47 @@ const Login = props => {
         .catch(err => console.log(err))
     }
   }
+  
+  const refreshTokenSetup = (res) => {
+    // Timing to renew access token
+    let refreshTiming = (res.tokenObj.expires_in || 3600 - (5 * 60)) * 1000
+  
+    const refreshToken = async () => {
+      const newAuthRes = await res.reloadAuthResponse()
+      refreshTiming = (newAuthRes.expires_in || 3600 - (5 * 60)) * 1000
+      console.log('newAuthRes:', newAuthRes)
+      // saveUserToken(newAuthRes.access_token);  <-- save new token
+      localStorage.setItem('authToken', newAuthRes.id_token)
+  
+      // Setup the other timer after the first one
+      setTimeout(refreshToken, refreshTiming)
+    }
+  
+    // Setup first refresh timer
+    setTimeout(refreshToken, refreshTiming)
+  }
+  
+  const onSuccess = (res) => {
+    console.log('Login Success: currentUser:', res.profileObj)
+    refreshTokenSetup(res)
+  }
 
+  const onFailure = (res) => {
+    console.log('Login failed: res:', res)
+  }
+
+  const clientId = '707788443358-u05p46nssla3l8tmn58tpo9r5sommgks.apps.googleusercontent.com'
+
+  const { signIn } = useGoogleLogin({
+    onSuccess,
+    onFailure,
+    clientId,
+    isSignedIn: true,
+    accessType: 'offline'
+    // responseType: 'code',
+    // prompt: 'consent',
+  })
+  
   return (
     <div className='auth-wrapper auth-v2'>
       <Row className='auth-inner m-0'>
@@ -202,6 +244,9 @@ const Login = props => {
               </FormGroup>
               <Button.Ripple type='submit' color='primary' block>
                 Sign in
+              </Button.Ripple>
+              <Button.Ripple type='submit' color='primary' block onClick={signIn}>
+                Sign in with Google
               </Button.Ripple>
             </Form>
             <p className='text-center mt-2'>

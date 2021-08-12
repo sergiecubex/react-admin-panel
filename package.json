@@ -1,6 +1,6 @@
 {
-  "name": "vuexy-react-admin-dashboard",
-  "version": "1.0.0",
+  "name": "humanworks-admin-panel",
+  "version": "1.1.8",
   "private": true,
   "dependencies": {
     "@casl/ability": "5.2.2",
@@ -53,6 +53,7 @@
     "react-draft-wysiwyg": "1.14.5",
     "react-feather": "~2.0.3",
     "react-flatpickr": "3.9.1",
+    "react-google-login": "^5.2.2",
     "react-hook-form": "6.15.1",
     "react-intl": "3.11.0",
     "react-leaflet": "3.1.0",
