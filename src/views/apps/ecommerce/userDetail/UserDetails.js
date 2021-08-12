@@ -68,10 +68,10 @@ const UserDetails = props => {
         <h5>Email: {user.email}</h5>
         <h5>Statuses:</h5>
         <CardText>
-          <div className='ml-25'>{user.active ? "User is active" : "Account is not active"}</div>
+          <span className='ml-25'>{user.active ? "User is active" : "Account is not active"}</span>
         </CardText>
         <CardText>
-          <div className='ml-25'>{user.emailVerified ? "Email is verified" : "Email is not verified"}</div>
+          <span className='ml-25'>{user.emailVerified ? "Email is verified" : "Email is not verified"}</span>
         </CardText>
         <CardText>Languages: {user.languages.length === 0 ? "Languages are not specified" : user.languages.map(lang => <span key={lang}>{lang} </span>)}
         </CardText>
