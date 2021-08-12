@@ -4,6 +4,24 @@ import jwt from 'jsonwebtoken'
 const data = {
   users: [
     {
+      id: 3,
+      fullName: 'Sergiy',
+      username: 'Voloshyn',
+      password: 'admin',
+      avatar: require('@src/assets/images/portrait/small/avatar-s-11.jpg').default,
+      email: 'vosquery@gmail.com',
+      role: 'admin',
+      ability: [
+        {
+          action: 'manage',
+          subject: 'all'
+        }
+      ],
+      extras: {
+        eCommerceCartItemsCount: 5
+      }
+    },
+    {
       id: 1,
       fullName: 'John Doe',
       username: 'johndoe',

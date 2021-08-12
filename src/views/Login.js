@@ -50,31 +50,16 @@ const Login = props => {
   const ability = useContext(AbilityContext)
   const dispatch = useDispatch()
   const history = useHistory()
-  const [email, setEmail] = useState('admin@demo.com')
+  const [email, setEmail] = useState('vosquery@gmail.com')
   const [password, setPassword] = useState('admin')
-
+  const [googleVerified, setGoogleVerified] = useState('vosquery@gmail.com')
+  
+  const clientId = '707788443358-u05p46nssla3l8tmn58tpo9r5sommgks.apps.googleusercontent.com' //TO DO: transfer to env
+  
   const { register, errors, handleSubmit } = useForm()
   const illustration = skin === 'dark' ? 'login-v2-dark.svg' : 'login-v2.svg',
     source = require(`@src/assets/images/pages/${illustration}`).default
 
-  const onSubmit = data => {
-    if (isObjEmpty(errors)) {
-      useJwt
-        .login({ email, password })
-        .then(res => {
-          const data = { ...res.data.userData, accessToken: res.data.accessToken, refreshToken: res.data.refreshToken }
-          dispatch(handleLogin(data))
-          ability.update(res.data.userData.ability)
-          history.push(getHomeRouteForLoggedInUser(data.role))
-          toast.success(
-            <ToastContent name={data.fullName || data.username || 'John Doe'} role={data.role || 'admin'} />,
-            { transition: Slide, hideProgressBar: true, autoClose: 2000 }
-          )
-        })
-        .catch(err => console.log(err))
-    }
-  }
-  
   const refreshTokenSetup = (res) => {
     // Timing to renew access token
     let refreshTiming = (res.tokenObj.expires_in || 3600 - (5 * 60)) * 1000
@@ -93,18 +78,29 @@ const Login = props => {
     // Setup first refresh timer
     setTimeout(refreshToken, refreshTiming)
   }
-  
-  const onSuccess = (res) => {
-    console.log('Login Success: currentUser:', res.profileObj)
-    refreshTokenSetup(res)
-  }
 
   const onFailure = (res) => {
     console.log('Login failed: res:', res)
   }
-
-  const clientId = '707788443358-u05p46nssla3l8tmn58tpo9r5sommgks.apps.googleusercontent.com'
-
+  
+  const onSuccess = async (res) => {
+    // setGoogleVerified(res.profileObj.email)
+    if (googleVerified === email) {
+      const res = await useJwt.login({ email, password })
+      console.log("google verified", googleVerified)
+      const data = { ...res.data.userData, accessToken: res.data.accessToken, refreshToken: res.data.refreshToken }
+      dispatch(handleLogin(data))
+      ability.update(res.data.userData.ability)
+      history.push(getHomeRouteForLoggedInUser(data.role))
+      toast.success(
+        <ToastContent name={data.fullName || data.username || 'John Doe'} role={data.role || 'admin'} />,
+        { transition: Slide, hideProgressBar: true, autoClose: 2000 }
+      )
+    }
+    console.log('Login Success: currentUser:', res.profileObj.email)
+    refreshTokenSetup(res)
+  }
+  
   const { signIn } = useGoogleLogin({
     onSuccess,
     onFailure,
@@ -114,6 +110,39 @@ const Login = props => {
     // responseType: 'code',
     // prompt: 'consent',
   })
+  
+  const onSubmit = () => {
+    signIn()
+  }
+  
+  // const onSubmit = data => {
+  //   if (isObjEmpty(errors)) {
+  //     useJwt
+  //       .login({ email, password })
+  //       .then(res => {
+  //         signIn()
+  //         if (res.profileObj.email === res.data.userData.email) {
+  //           const data = { ...res.data.userData, accessToken: res.data.accessToken, refreshToken: res.data.refreshToken }
+  //           dispatch(handleLogin(data))
+  //           ability.update(res.data.userData.ability)
+  //           history.push(getHomeRouteForLoggedInUser(data.role))
+  //           toast.success(
+  //             <ToastContent name={data.fullName || data.username || 'John Doe'} role={data.role || 'admin'} />,
+  //             { transition: Slide, hideProgressBar: true, autoClose: 2000 }
+  //           )
+  //         }
+  //         // const data = { ...res.data.userData, accessToken: res.data.accessToken, refreshToken: res.data.refreshToken }
+  //         // dispatch(handleLogin(data))
+  //         // ability.update(res.data.userData.ability)
+  //         // history.push(getHomeRouteForLoggedInUser(data.role))
+  //         // toast.success(
+  //         //   <ToastContent name={data.fullName || data.username || 'John Doe'} role={data.role || 'admin'} />,
+  //         //   { transition: Slide, hideProgressBar: true, autoClose: 2000 }
+  //         // )
+  //       })
+  //       .catch(err => console.log(err))
+  //   }
+  // }
   
   return (
     <div className='auth-wrapper auth-v2'>
@@ -245,9 +274,9 @@ const Login = props => {
               <Button.Ripple type='submit' color='primary' block>
                 Sign in
               </Button.Ripple>
-              <Button.Ripple type='submit' color='primary' block onClick={signIn}>
+              {/* <Button.Ripple type='submit' color='primary' block onClick={signIn}>
                 Sign in with Google
-              </Button.Ripple>
+              </Button.Ripple> */}
             </Form>
             <p className='text-center mt-2'>
               <span className='mr-25'>New on our platform?</span>
