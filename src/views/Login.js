@@ -54,7 +54,7 @@ const Login = props => {
   const [password, setPassword] = useState('admin')
   const [googleVerified, setGoogleVerified] = useState('vosquery@gmail.com')
   
-  const clientId = '707788443358-u05p46nssla3l8tmn58tpo9r5sommgks.apps.googleusercontent.com' //TO DO: transfer to env
+  const clientId = '748556428480-kpriq162t1ankg260tljmvebcepjks66.apps.googleusercontent.com' //TO DO: transfer to env
   
   const { register, errors, handleSubmit } = useForm()
   const illustration = skin === 'dark' ? 'login-v2-dark.svg' : 'login-v2.svg',
