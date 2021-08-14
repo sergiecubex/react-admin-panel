@@ -55,6 +55,11 @@ const Login = props => {
   const [googleVerified, setGoogleVerified] = useState('vosquery@gmail.com')
   
   const clientId = '748556428480-kpriq162t1ankg260tljmvebcepjks66.apps.googleusercontent.com' //TO DO: transfer to env
+  const project_id = "amplified-wares-310800"
+  const auth_uri = "https://accounts.google.com/o/oauth2/auth"
+  const token_uri = "https://oauth2.googleapis.com/token"
+  const auth_provider_x509_cert_url = "https://www.googleapis.com/oauth2/v1/certs"
+  const client_secret = "yLBHXGhcH1C8VpiDtGn-4-us"
   
   const { register, errors, handleSubmit } = useForm()
   const illustration = skin === 'dark' ? 'login-v2-dark.svg' : 'login-v2.svg',
@@ -84,7 +89,8 @@ const Login = props => {
   }
   
   const onSuccess = async (res) => {
-    // setGoogleVerified(res.profileObj.email)
+    console.log(res.profileObj)
+    setGoogleVerified(res.profileObj.email)
     if (googleVerified === email) {
       const res = await useJwt.login({ email, password })
       console.log("google verified", googleVerified)
@@ -93,7 +99,7 @@ const Login = props => {
       ability.update(res.data.userData.ability)
       history.push(getHomeRouteForLoggedInUser(data.role))
       toast.success(
-        <ToastContent name={data.fullName || data.username || 'John Doe'} role={data.role || 'admin'} />,
+        <ToastContent name={data.fullName || data.username || res.profileObj.name} role={data.role || 'admin'} />,
         { transition: Slide, hideProgressBar: true, autoClose: 2000 }
       )
     }
@@ -106,7 +112,12 @@ const Login = props => {
     onFailure,
     clientId,
     isSignedIn: true,
-    accessType: 'offline'
+    accessType: 'offline',
+    project_id,
+    auth_uri,
+    token_uri,
+    auth_provider_x509_cert_url,
+    client_secret
     // responseType: 'code',
     // prompt: 'consent',
   })
@@ -274,9 +285,6 @@ const Login = props => {
               <Button.Ripple type='submit' color='primary' block>
                 Sign in
               </Button.Ripple>
-              {/* <Button.Ripple type='submit' color='primary' block onClick={signIn}>
-                Sign in with Google
-              </Button.Ripple> */}
             </Form>
             <p className='text-center mt-2'>
               <span className='mr-25'>New on our platform?</span>
