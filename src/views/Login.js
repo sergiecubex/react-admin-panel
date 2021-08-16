@@ -52,7 +52,7 @@ const Login = props => {
   const history = useHistory()
   const [email, setEmail] = useState('vosquery@gmail.com')
   const [password, setPassword] = useState('admin')
-  const [googleVerified, setGoogleVerified] = useState('vosquery@gmail.com')
+  const [googleVerified, setGoogleVerified] = useState('')
   
   
   const clientId = '707788443358-u05p46nssla3l8tmn58tpo9r5sommgks.apps.googleusercontent.com'
@@ -91,21 +91,21 @@ const Login = props => {
   }
   
   const onSuccess = async (res) => {
-    console.log(res.profileObj)
-    setGoogleVerified(res.profileObj.email)
+    setGoogleVerified(res?.profileObj?.email)
     if (googleVerified === email) {
       const res = await useJwt.login({ email, password })
       console.log("google verified", googleVerified)
       const data = { ...res.data.userData, accessToken: res.data.accessToken, refreshToken: res.data.refreshToken }
       dispatch(handleLogin(data))
+      console.log(data)
       ability.update(res.data.userData.ability)
       history.push(getHomeRouteForLoggedInUser(data.role))
       toast.success(
-        <ToastContent name={data.fullName || data.username || res.profileObj.name} role={data.role || 'admin'} />,
+        <ToastContent name={res?.profileObj?.name || data.fullName || data.username} role={data.role || 'admin'} />,
         { transition: Slide, hideProgressBar: true, autoClose: 2000 }
       )
     }
-    console.log('Login Success: currentUser:', res.profileObj.email)
+    console.log('Login Success: currentUser:', res?.profileObj?.email)
     refreshTokenSetup(res)
   }
   
@@ -194,7 +194,7 @@ const Login = props => {
               </g>
             </g>
           </svg>
-          <h2 className='brand-text text-primary ml-1'>HumanWorks</h2>
+          <h2 className='brand-text text-primary ml-1'>Human Works</h2>
         </Link>
         <Col className='d-none d-lg-flex align-items-center p-5' lg='8' sm='12'>
           <div className='w-100 d-lg-flex align-items-center justify-content-center px-5'>
@@ -207,7 +207,7 @@ const Login = props => {
               Welcome to HumanWorks! 👋
             </CardTitle>
             <CardText className='mb-2'>Please sign-in to your account and start the adventure</CardText>
-            <Alert color='primary'>
+            {/* <Alert color='primary'>
               <div className='alert-body font-small-2'>
                 <p>
                   <small className='mr-50'>
@@ -229,7 +229,7 @@ const Login = props => {
               <UncontrolledTooltip target='login-tip' placement='left'>
                 This is just for ACL demo purpose.
               </UncontrolledTooltip>
-            </Alert>
+            </Alert> */}
             <Form className='auth-login-form mt-2' onSubmit={handleSubmit(onSubmit)}>
               <FormGroup>
                 <Label className='form-label' for='login-email'>
