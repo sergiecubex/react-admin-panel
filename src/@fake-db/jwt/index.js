@@ -72,7 +72,6 @@ const jwtConfig = {
 //change to api/login
 mock.onPost('/jwt/login').reply(request => {
   const { email, password } = JSON.parse(request.data)
-
   let error = {
     email: ['Something went wrong']
   }
