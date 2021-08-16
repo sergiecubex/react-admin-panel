@@ -113,13 +113,8 @@ const Login = props => {
     clientId,
     isSignedIn: true,
     accessType: 'offline',
-    project_id,
-    auth_uri,
-    token_uri,
-    auth_provider_x509_cert_url,
-    client_secret
-    // responseType: 'code',
-    // prompt: 'consent',
+    responseType: 'code',
+    prompt: 'consent'
   })
   
   const onSubmit = () => {
