@@ -35,16 +35,16 @@ const Register = () => {
   const illustration = skin === 'dark' ? 'register-v2-dark.svg' : 'register-v2.svg',
     source = require(`@src/assets/images/pages/${illustration}`).default
 
-  const Terms = () => {
-    return (
-      <Fragment>
-        I agree to
-        <a className='ml-25' href='/' onClick={e => e.preventDefault()}>
-          privacy policy & terms
-        </a>
-      </Fragment>
-    )
-  }
+  // const Terms = () => {
+  //   return (
+  //     <Fragment>
+  //       I agree to
+  //       <a className='ml-25' href='/' onClick={e => e.preventDefault()}>
+  //         privacy policy & terms
+  //       </a>
+  //     </Fragment>
+  //   )
+  // }
 
   const onSubmit = () => {
     if (isObjEmpty(errors)) {
@@ -62,7 +62,7 @@ const Register = () => {
           } else {
             setValErrors({})
             const data = { ...res.data.user, accessToken: res.data.accessToken }
-            // ability.update(res.data.user.ability)
+            ability.update(res.data.user.ability)
             dispatch(handleLogin(data))
             history.push('/')
           }
@@ -154,13 +154,13 @@ const Register = () => {
             <Form action='/' className='auth-register-form mt-2' onSubmit={handleSubmit(onSubmit)}>
               <FormGroup>
                 <Label className='form-label' for='register-username'>
-                  Username
+                  Name
                 </Label>
                 <Input
                   autoFocus
                   type='text'
                   value={username}
-                  placeholder='johndoe'
+                  placeholder='some name'
                   id='register-username'
                   name='register-username'
                   onChange={handleUsernameChange}
@@ -231,7 +231,6 @@ const Register = () => {
                 />
               </FormGroup> */}
               <Button.Ripple type='submit' block color='primary'> 
-              {/* tag={Link} to='/' */}
                 Sign up
               </Button.Ripple>
             </Form>
@@ -241,9 +240,9 @@ const Register = () => {
                 <span>Sign in instead</span>
               </Link>
             </p> */}
-            <div className='divider my-2'>
-              {/* <div className='divider-text'>or</div> */}
-            </div>
+            {/* <div className='divider my-2'>
+              <div className='divider-text'></div>
+            </div> */}
             {/* <div className='auth-footer-btn d-flex justify-content-center'>
               <Button.Ripple color='facebook'>
                 <Facebook size={14} />

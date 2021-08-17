@@ -37,11 +37,11 @@ const NavbarUser = props => {
           </NavLink>
         </NavItem>
         <NavItem className='d-none d-lg-block'>
-          <NavLink className='nav-link-style'>
+          {/* <NavLink className='nav-link-style'> */}
             <Link to='/register'>
               <UserPlus className='ficon' />
             </Link>
-          </NavLink>
+          {/* </NavLink> */}
         </NavItem>
       </div>
       <ul className='nav navbar-nav align-items-center ml-auto'>
