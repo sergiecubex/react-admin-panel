@@ -33,6 +33,7 @@ const NavbarUser = props => {
         <NavItem className='d-none d-lg-block'>
           <NavLink className='nav-link-style'>
             <ThemeToggler />
+            register new user
           </NavLink>
         </NavItem>
       </div>

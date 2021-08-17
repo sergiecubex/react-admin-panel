@@ -54,9 +54,8 @@ const Login = props => {
   const [password, setPassword] = useState('admin')
   const [googleVerified, setGoogleVerified] = useState('')
   
-  
-  const clientId = '707788443358-u05p46nssla3l8tmn58tpo9r5sommgks.apps.googleusercontent.com'
-  //const clientId = '748556428480-kpriq162t1ankg260tljmvebcepjks66.apps.googleusercontent.com' //TO DO: transfer to env
+  //const clientId = '707788443358-u05p46nssla3l8tmn58tpo9r5sommgks.apps.googleusercontent.com' //github key
+  const clientId = '748556428480-kpriq162t1ankg260tljmvebcepjks66.apps.googleusercontent.com' //TO DO: transfer to env
   const project_id = "amplified-wares-310800"
   const auth_uri = "https://accounts.google.com/o/oauth2/auth"
   const token_uri = "https://oauth2.googleapis.com/token"
@@ -119,28 +118,28 @@ const Login = props => {
     prompt: 'consent'
   })
   
-  const onSubmit = () => {
+  const onGoogleSubmit = () => {
     signIn()
   }
   
   
-  // const onSubmit = data => {
-  //   if (isObjEmpty(errors)) {
-  //     useJwt
-  //       .login({ email, password })
-  //       .then(res => {
-  //           const data = { ...res.data.userData, accessToken: res.data.accessToken, refreshToken: res.data.refreshToken }
-  //           dispatch(handleLogin(data))
-  //           ability.update(res.data.userData.ability)
-  //           history.push(getHomeRouteForLoggedInUser(data.role))
-  //           toast.success(
-  //             <ToastContent name={data.fullName || data.username || 'John Doe'} role={data.role || 'admin'} />,
-  //             { transition: Slide, hideProgressBar: true, autoClose: 2000 }
-  //           )
-  //       })
-  //       .catch(err => console.log(err))
-  //   }
-  // }
+  const onSubmit = data => {
+    if (isObjEmpty(errors)) {
+      useJwt
+        .login({ email, password })
+        .then(res => {
+            const data = { ...res.data.userData, accessToken: res.data.accessToken, refreshToken: res.data.refreshToken }
+            dispatch(handleLogin(data))
+            ability.update(res.data.userData.ability)
+            history.push(getHomeRouteForLoggedInUser(data.role))
+            toast.success(
+              <ToastContent name={data.fullName || data.username || 'John Doe'} role={data.role || 'admin'} />,
+              { transition: Slide, hideProgressBar: true, autoClose: 2000 }
+            )
+        })
+        .catch(err => console.log(err))
+    }
+  }
   
   return (
     <div className='auth-wrapper auth-v2'>
@@ -271,6 +270,9 @@ const Login = props => {
               </FormGroup>
               <Button.Ripple type='submit' color='primary' block>
                 Sign in
+              </Button.Ripple>
+              <Button.Ripple color='primary' block onClick={onGoogleSubmit}>
+                Sign in with Google
               </Button.Ripple>
             </Form>
             {/* <p className='text-center mt-2'>
