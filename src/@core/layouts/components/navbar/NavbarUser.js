@@ -36,12 +36,10 @@ const NavbarUser = props => {
             <ThemeToggler />
           </NavLink>
         </NavItem>
-        <NavItem className='d-none d-lg-block'>
-          {/* <NavLink className='nav-link-style'> */}
-            <Link to='/register'>
-              <UserPlus className='ficon' />
-            </Link>
-          {/* </NavLink> */}
+        <NavItem className='d-none d-lg-block ml-2'>
+          <Link to='/register'>
+            <UserPlus className='ficon' />
+          </Link>
         </NavItem>
       </div>
       <ul className='nav navbar-nav align-items-center ml-auto'>

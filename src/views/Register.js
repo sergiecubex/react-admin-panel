@@ -240,9 +240,12 @@ const Register = () => {
                 <span>Sign in instead</span>
               </Link>
             </p> */}
-            {/* <div className='divider my-2'>
-              <div className='divider-text'></div>
-            </div> */}
+            <div className='divider my-1'>
+              {/* <div className='divider-text'></div> */}
+            </div>
+            <Button.Ripple block color='light' onClick={history.goBack}> 
+                Cancel
+            </Button.Ripple>
             {/* <div className='auth-footer-btn d-flex justify-content-center'>
               <Button.Ripple color='facebook'>
                 <Facebook size={14} />
