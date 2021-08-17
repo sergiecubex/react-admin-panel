@@ -69,7 +69,7 @@ const Login = props => {
 
   const refreshTokenSetup = (res) => {
     // Timing to renew access token
-    let refreshTiming = (res.tokenObj.expires_in || 3600 - (5 * 60)) * 1000
+    let refreshTiming = (res?.tokenObj?.expires_in || 3600 - (5 * 60)) * 1000
   
     const refreshToken = async () => {
       const newAuthRes = await res.reloadAuthResponse()
@@ -206,7 +206,7 @@ const Login = props => {
             <CardTitle tag='h2' className='font-weight-bold mb-1'>
               Welcome to HumanWorks! 👋
             </CardTitle>
-            <CardText className='mb-2'>Please sign-in to your account and start the adventure</CardText>
+            <CardText className='mb-2'>Please sign-in to your account!</CardText>
             {/* <Alert color='primary'>
               <div className='alert-body font-small-2'>
                 <p>
@@ -273,13 +273,13 @@ const Login = props => {
                 Sign in
               </Button.Ripple>
             </Form>
-            <p className='text-center mt-2'>
+            {/* <p className='text-center mt-2'>
               <span className='mr-25'>New on our platform?</span>
               <Link to='/register'>
                 <span>Create an account</span>
               </Link>
-            </p>
-            <div className='divider my-2'>
+            </p> */}
+            {/* <div className='divider my-2'>
               <div className='divider-text'>or</div>
             </div>
             <div className='auth-footer-btn d-flex justify-content-center'>
@@ -295,7 +295,7 @@ const Login = props => {
               <Button.Ripple className='mr-0' color='github'>
                 <GitHub size={14} />
               </Button.Ripple>
-            </div>
+            </div> */}
           </Col>
         </Col>
       </Row>
