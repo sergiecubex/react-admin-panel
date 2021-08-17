@@ -1,10 +1,11 @@
 // ** Dropdowns Imports
 import { Fragment } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 
 import UserDropdown from './UserDropdown'
 
 // ** Third Party Components
-import { Sun, Moon, Menu } from 'react-feather'
+import { UserPlus, Sun, Moon, Menu } from 'react-feather'
 import { NavItem, NavLink } from 'reactstrap'
 
 const NavbarUser = props => {
@@ -33,7 +34,13 @@ const NavbarUser = props => {
         <NavItem className='d-none d-lg-block'>
           <NavLink className='nav-link-style'>
             <ThemeToggler />
-            register new user
+          </NavLink>
+        </NavItem>
+        <NavItem className='d-none d-lg-block'>
+          <NavLink className='nav-link-style'>
+            <Link to='/register'>
+              <UserPlus className='ficon' />
+            </Link>
           </NavLink>
         </NavItem>
       </div>
