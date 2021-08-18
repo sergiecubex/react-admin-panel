@@ -117,6 +117,13 @@ const Routes = [
     }
   },
   {
+    path: '/admin-list',
+    component: lazy(() => import('../../views/AllAdmins')),
+    meta: {
+      navLink: '/admin-list'
+    }
+  },
+  {
     path: '/register',
     component: lazy(() => import('../../views/Register')),
     layout: 'BlankLayout'

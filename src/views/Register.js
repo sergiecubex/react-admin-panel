@@ -27,7 +27,7 @@ const Register = () => {
 
   const [email, setEmail] = useState('')
   const [valErrors, setValErrors] = useState({})
-  const [username, setUsername] = useState('')
+  const [name, setName] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [status, setStatus] = useState('guest')
@@ -47,35 +47,51 @@ const Register = () => {
   //   )
   // }
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (isObjEmpty(errors)) {
-      useJwt
-        .register({ username, email, password, confirmPassword, status })
-        .then(res => {
-          if (res.data.error) {
-            const arr = {}
-            for (const property in res.data.error) {
-              if (res.data.error[property] !== null) arr[property] = res.data.error[property]
-            }
-            setValErrors(arr)
-            if (res.data.error.email !== null) console.error(res.data.error.email)
-            if (res.data.error.username !== null) console.error(res.data.error.username)
-          } else {
-            setValErrors({})
-            const data = { ...res.data.user, accessToken: res.data.accessToken }
-            ability.update(res.data.user.ability)
-            dispatch(handleLogin(data))
-            history.push('/')
+      try {
+        const res = await fetch(`${process.env.REACT_APP_BASE_URL}/admin/register`, {
+          method: 'POST',
+          body: JSON.stringify({name, email, password, confirmPassword, status}),
+          headers: { 
+            'Content-Type': 'application/json'
           }
         })
-        .catch(err => console.log(err))
+        if (res.ok) {
+          alert(`Admin user ${res.statusText.toLowerCase()}`)
+          history.push('/')
+        }
+      } catch (error) {
+        console.log(error)
+      }
+      // useJwt
+        // .register({ username, email, password, confirmPassword, status })
+        // .then(res => {
+        //   if (res.data.error) {
+        //     const arr = {}
+        //     for (const property in res.data.error) {
+        //       if (res.data.error[property] !== null) arr[property] = res.data.error[property]
+        //     }
+        //     setValErrors(arr)
+        //     if (res.data.error.email !== null) console.error(res.data.error.email)
+        //     if (res.data.error.name !== null) console.error(res.data.error.name)
+        //   } else {
+        //     console.log(res)
+        //     setValErrors({})
+        //     const data = { ...res.data.user, accessToken: res.data.accessToken }
+        //     ability.update(res.data.user.ability)
+        //     dispatch(handleLogin(data))
+        //     // history.push('/')
+        //   }
+        // })
+        // .catch(err => console.log(err))
     }
   }
 
-  const handleUsernameChange = e => {
+  const handleNameChange = e => {
     const errs = valErrors
-    if (errs.username) delete errs.username
-    setUsername(e.target.value)
+    if (errs.name) delete errs.name
+    setName(e.target.value)
     setValErrors(errs)
   }
 
@@ -160,11 +176,11 @@ const Register = () => {
                 <Input
                   autoFocus
                   type='text'
-                  value={username}
+                  value={name}
                   placeholder='some name'
                   id='register-username'
                   name='register-username'
-                  onChange={handleUsernameChange}
+                  onChange={handleNameChange}
                   className={classnames({ 'is-invalid': errors['register-username'] })}
                   innerRef={register({ required: true, validate: value => value !== '' })}
                 />
@@ -229,7 +245,6 @@ const Register = () => {
                   name='status'
                   placeholder='choose status'
                   onChange={e => setStatus(e.target.value)}
-                  // className={classnames({ 'is-invalid': errors['login-email'] })}
                   innerRef={register({ required: true, validate: value => value !== '' })}
                 >
                   <option>guest</option>

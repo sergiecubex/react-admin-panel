@@ -5,7 +5,7 @@ import { Link, useHistory } from 'react-router-dom'
 import UserDropdown from './UserDropdown'
 
 // ** Third Party Components
-import { UserPlus, Sun, Moon, Menu } from 'react-feather'
+import { Users, UserPlus, Sun, Moon, Menu } from 'react-feather'
 import { NavItem, NavLink } from 'reactstrap'
 
 const NavbarUser = props => {
@@ -35,6 +35,11 @@ const NavbarUser = props => {
           <NavLink className='nav-link-style'>
             <ThemeToggler />
           </NavLink>
+        </NavItem>
+        <NavItem className='d-none d-lg-block ml-2'>
+          <Link to='/admin-list'>All
+            <Users className='ficon' />
+          </Link>
         </NavItem>
         <NavItem className='d-none d-lg-block ml-2'>
           <Link to='/register'>
