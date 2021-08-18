@@ -30,7 +30,8 @@ const Register = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [terms, setTerms] = useState(false)
+  const [status, setStatus] = useState('guest')
+
 
   const illustration = skin === 'dark' ? 'register-v2-dark.svg' : 'register-v2.svg',
     source = require(`@src/assets/images/pages/${illustration}`).default
@@ -49,7 +50,7 @@ const Register = () => {
   const onSubmit = () => {
     if (isObjEmpty(errors)) {
       useJwt
-        .register({ username, email, password })
+        .register({ username, email, password, confirmPassword, status })
         .then(res => {
           if (res.data.error) {
             const arr = {}
@@ -216,6 +217,25 @@ const Register = () => {
                   className={classnames({ 'is-invalid': errors['confirm-password'] })}
                   innerRef={register({ required: true, validate: value => value !== '' })}
                 />
+              </FormGroup>
+              <FormGroup>
+                <Label className='form-label' for='status'>
+                  Status
+                </Label>
+                <Input
+                  type='select'
+                  value={status}
+                  id='status'
+                  name='status'
+                  placeholder='choose status'
+                  onChange={e => setStatus(e.target.value)}
+                  // className={classnames({ 'is-invalid': errors['login-email'] })}
+                  innerRef={register({ required: true, validate: value => value !== '' })}
+                >
+                  <option>guest</option>
+                  <option>admin</option>
+                  <option>superadmin</option>
+                </Input>
               </FormGroup>
               {/* <FormGroup>
                 <CustomInput
