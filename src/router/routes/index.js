@@ -1,11 +1,22 @@
 import { lazy } from 'react'
 import { Redirect } from 'react-router-dom'
+import { isUserLoggedIn } from '@utils'
 
 // ** Document title
 const TemplateTitle = 'HumanWorks - admin dashboard'
 
 // ** Default Route
 const DefaultRoute = '/home'
+
+const userData = JSON.parse(isUserLoggedIn())
+let userStatus
+if (userData) {
+  userStatus = userData.status
+  console.log('Status: ', userStatus) 
+} else {
+  userStatus = ''
+}
+
 
 // ** Merge Routes
 const Routes = [
@@ -30,14 +41,25 @@ const Routes = [
   {
     path: '/apps/users',
     exact: true,
-    component: lazy(() => import('../../views/apps/users/list')),
-    visibility: 'superadmin'
+    component: lazy(() => {
+      if (userStatus === 'superadmin') {
+        return import('../../views/apps/users/list')
+      } else {
+        return import('../../views/Error')
+      }
+    })
   },
   {
     path: '/apps/user-details/:user',
     exact: true,
     className: 'ecommerce-application',
-    component: lazy(() => import('../../views/apps/ecommerce/userDetail')),
+    component: lazy(() => {
+      if (userStatus === 'superadmin') {
+        return import('../../views/apps/ecommerce/userDetail')
+      } else {
+        return import('../../views/Error')
+      }
+    }),
     meta: {
       navLink: '/apps/user-details'
     }
@@ -53,7 +75,13 @@ const Routes = [
   // },
   {
     path: '/apps/gigs',
-    component: lazy(() => import('../../views/apps/gigs/list'))
+    component: lazy(() => {
+      if (userStatus === 'superadmin' || userStatus === 'admin') {
+        return import('../../views/apps/gigs/list')
+      } else {
+        return import('../../views/Error')
+      }
+    })
   },
   {
     path: '/apps/gigs-management/featured',
@@ -65,7 +93,13 @@ const Routes = [
     path: '/apps/gigs-management/form/:id',
     exact: true,
     className: 'ecommerce-application',
-    component: lazy(() => import('../../views/apps/ecommerce/form')),
+    component: lazy(() => {
+      if (userStatus === 'superadmin') {
+        return import('../../views/apps/ecommerce/form')
+      } else {
+        return import('../../views/Error')
+      }
+    }),
     meta: {
       navLink: '/apps/gigs-management/form'
     }
@@ -74,7 +108,13 @@ const Routes = [
     path: '/apps/gigs-management/details/:product',
     exact: true,
     className: 'ecommerce-application',
-    component: lazy(() => import('../../views/apps/ecommerce/detail')),
+    component: lazy(() => {
+      if (userStatus === 'superadmin' || userStatus === 'admin') {
+        return import('../../views/apps/ecommerce/detail')
+      } else {
+        return import('../../views/Error')
+      }
+    }),
     meta: {
       navLink: '/apps/gigs-management/details'
     }
@@ -82,7 +122,13 @@ const Routes = [
   {
     path: '/apps/sales/completed',
     exact: true,
-    component: lazy(() => import('../../views/apps/invoice/list'))
+    component: lazy(() => {
+      if (userStatus === 'superadmin') {
+        return import('../../views/apps/invoice/list')
+      } else {
+        return import('../../views/Error')
+      }
+    })
   },
   {
     path: '/apps/sales/preview/:id',
@@ -95,12 +141,24 @@ const Routes = [
   {
     path: '/apps/sales/intended',
     exact: true,
-    component: lazy(() => import('../../views/apps/invoice/intended'))
+    component: lazy(() => {
+      if (userStatus === 'superadmin') {
+        return import('../../views/apps/invoice/intended')
+      } else {
+        return import('../../views/Error')
+      }
+    })
   },
   {
     path: '/apps/sales/intended/:id',
     exact: true,
-    component: lazy(() => import('../../views/apps/invoice/preview')),
+    component: lazy(() => {
+      if (userStatus === 'superadmin') {
+        return import('../../views/apps/invoice/preview')
+      } else {
+        return import('../../views/Error')
+      }
+    }),
     meta: {
       navLink: '/apps/sales/intended'
     }
@@ -120,7 +178,13 @@ const Routes = [
   },
   {
     path: '/admin-list',
-    component: lazy(() => import('../../views/AllAdmins')),
+    component: lazy(() => {
+      if (userStatus === 'superadmin') {
+        return import('../../views/AllAdmins')
+      } else {
+        return import('../../views/Error')
+      }
+    }),
     meta: {
       navLink: '/admin-list'
     }

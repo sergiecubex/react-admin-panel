@@ -101,9 +101,6 @@ const Router = () => {
 
   // ** Return Route to Render
   const ResolveRoutes = () => {
-    const userData = JSON.parse(isUserLoggedIn())
-    const userStatus = userData.status
-    console.log('Status: ', userStatus)
     
     return Object.keys(Layouts).map((layout, index) => {
       // ** Convert Layout parameter to Layout Component
@@ -123,7 +120,7 @@ const Router = () => {
       const routerProps = {}
 
       return (
-        <Route path={LayoutPaths} key={index} visibility={userStatus}>
+        <Route path={LayoutPaths} key={index}>
           <LayoutTag
             routerProps={routerProps}
             layout={layout}
