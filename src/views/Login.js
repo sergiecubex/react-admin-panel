@@ -32,7 +32,7 @@ import { useGoogleLogin } from 'react-google-login'
 
 import '@styles/base/pages/page-auth.scss'
   
-const ToastContent = ({ name, role }) => (
+const ToastContent = ({ name, status }) => (
   <Fragment>
     <div className='toastify-header'>
       <div className='title-wrapper'>
@@ -41,7 +41,7 @@ const ToastContent = ({ name, role }) => (
       </div>
     </div>
     <div className='toastify-body'>
-      <span>You have successfully logged in as an {role} user to HumanWorks admin dashboard.</span>
+      <span>You have successfully logged in as an {status} user to HumanWorks admin dashboard.</span>
     </div>
   </Fragment>
 )
@@ -130,8 +130,11 @@ const Login = props => {
         if (res.status === 200) {
           const data = { ...res.data.data.admin, accessToken: res.data.token }
           dispatch(handleLogin(data))
-          alert(`Admin user login ${res.statusText.toLowerCase()}`)
-          history.push('/')
+          history.push('/home')
+          toast.success(
+            <ToastContent name={data.name || 'no user name'} status={data.status || 'no user status'} />,
+            { transition: Slide, hideProgressBar: true, autoClose: 2000 }
+          )
         }
       } catch (error) {
         console.log(error)

@@ -33,11 +33,17 @@ const AllAdmins = () => {
           <CardText>
             {users?.map((user, index) => {
               return (
-                <div key={user.email}>
-                  <span> {index + 1}. </span>
-                  <span>Name: {user.name} </span>
-                  <span>Email: {user.email} </span>
-                  <span>Status: {user.status} </span>
+                <div key={user.email} style={{display: 'flex', justifyContent: 'space-between'}}>
+                  <div>
+                    <span> {index + 1}. </span>
+                    <span><strong>Name:</strong> {user.name} </span>
+                  </div>
+
+                  <span><strong>Email:</strong> {user.email} </span>
+                  <span><strong>Status:</strong> {user.status} </span>
+                  <span>
+                    delete
+                  </span>
                 </div>
               )
             })}
