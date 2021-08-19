@@ -43,7 +43,7 @@ const Router = () => {
   const LayoutRoutesAndPaths = layout => {
     const LayoutRoutes = []
     const LayoutPaths = []
-
+    
     if (Routes) {
       Routes.filter(route => {
         // ** Checks if Route layout or Default layout matches current layout
@@ -101,6 +101,10 @@ const Router = () => {
 
   // ** Return Route to Render
   const ResolveRoutes = () => {
+    const userData = JSON.parse(isUserLoggedIn())
+    const userStatus = userData.status
+    console.log('Status: ', userStatus)
+    
     return Object.keys(Layouts).map((layout, index) => {
       // ** Convert Layout parameter to Layout Component
       // ? Note: make sure to keep layout and component name equal
@@ -119,7 +123,7 @@ const Router = () => {
       const routerProps = {}
 
       return (
-        <Route path={LayoutPaths} key={index}>
+        <Route path={LayoutPaths} key={index} visibility={userStatus}>
           <LayoutTag
             routerProps={routerProps}
             layout={layout}

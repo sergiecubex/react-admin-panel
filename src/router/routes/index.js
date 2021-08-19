@@ -29,7 +29,9 @@ const Routes = [
   },
   {
     path: '/apps/users',
-    component: lazy(() => import('../../views/apps/users/list'))
+    exact: true,
+    component: lazy(() => import('../../views/apps/users/list')),
+    visibility: 'superadmin'
   },
   {
     path: '/apps/user-details/:user',
