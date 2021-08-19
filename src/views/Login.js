@@ -52,7 +52,7 @@ const Login = props => {
   const dispatch = useDispatch()
   const history = useHistory()
   const [email, setEmail] = useState('vosquery@gmail.com')
-  const [password, setPassword] = useState('admin')
+  const [password, setPassword] = useState('18101982')
   const [googleVerified, setGoogleVerified] = useState('')
   
   //const clientId = '707788443358-u05p46nssla3l8tmn58tpo9r5sommgks.apps.googleusercontent.com' //github key
