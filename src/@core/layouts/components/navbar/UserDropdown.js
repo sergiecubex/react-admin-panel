@@ -115,8 +115,8 @@ const UserDropdown = () => {
     <UncontrolledDropdown tag='li' className='dropdown-user nav-item'>
       <DropdownToggle href='/' tag='a' className='nav-link dropdown-user-link' onClick={e => e.preventDefault()}>
         <div className='user-nav d-sm-flex d-none'>
-          <span className='user-name font-weight-bold'>{(userData && userData['username']) || 'NO USER DATA'}</span>
-          <span className='user-status'>{(userData && userData.role) || 'Test'}</span>
+          <span className='user-name font-weight-bold'>{(userData && userData['name']) || 'NO USER DATA'}</span>
+          <span className='user-status'>{(userData && userData.status) || 'Test'}</span>
         </div>
         <Avatar img={userAvatar} imgHeight='40' imgWidth='40' status='online' />
       </DropdownToggle>

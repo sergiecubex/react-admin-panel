@@ -1,4 +1,5 @@
 import { useState, useContext, Fragment } from 'react'
+import axios from 'axios'
 import classnames from 'classnames'
 import Avatar from '@components/avatar'
 import { useSkin } from '@hooks/useSkin'
@@ -122,24 +123,39 @@ const Login = props => {
     signIn()
   }
   
-  
-  const onSubmit = data => {
+  const onSubmit = async () => {
     if (isObjEmpty(errors)) {
-      useJwt
-        .login({ email, password })
-        .then(res => {
-            const data = { ...res.data.userData, accessToken: res.data.accessToken, refreshToken: res.data.refreshToken }
-            dispatch(handleLogin(data))
-            ability.update(res.data.userData.ability)
-            history.push(getHomeRouteForLoggedInUser(data.role))
-            toast.success(
-              <ToastContent name={data.fullName || data.username || 'John Doe'} role={data.role || 'admin'} />,
-              { transition: Slide, hideProgressBar: true, autoClose: 2000 }
-            )
-        })
-        .catch(err => console.log(err))
+      try {
+        const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/admin/login`, {email, password})
+        if (res.status === 200) {
+          const data = { ...res.data.data.admin, accessToken: res.data.token }
+          dispatch(handleLogin(data))
+          alert(`Admin user login ${res.statusText.toLowerCase()}`)
+          history.push('/')
+        }
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
+  
+  // const onSubmit = data => {
+  //   if (isObjEmpty(errors)) {
+  //     useJwt
+  //       .login({ email, password })
+  //       .then(res => {
+  //           const data = { ...res.data.userData, accessToken: res.data.accessToken, refreshToken: res.data.refreshToken }
+  //           dispatch(handleLogin(data))
+  //           ability.update(res.data.userData.ability)
+  //           history.push(getHomeRouteForLoggedInUser(data.role))
+  //           toast.success(
+  //             <ToastContent name={data.fullName || data.username || 'John Doe'} role={data.role || 'admin'} />,
+  //             { transition: Slide, hideProgressBar: true, autoClose: 2000 }
+  //           )
+  //       })
+  //       .catch(err => console.log(err))
+  //   }
+  // }
   
   return (
     <div className='auth-wrapper auth-v2'>

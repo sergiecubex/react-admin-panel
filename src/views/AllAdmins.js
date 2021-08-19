@@ -6,19 +6,17 @@ import { Card, CardHeader, CardBody, CardTitle, CardText, CardLink } from 'react
 const AllAdmins = () => {
     const [users, setUsers] = useState([])
     
-    async function collectionReadMany() {
-        const ref = await axios.get(`${process.env.REACT_APP_BASE_URL}/admin/`)
-        const data = await ref.data
-        console.log(await data)
-        if (!data) return []
-        return data
+    async function readAdmins() {
+      const ref = await axios.get(`${process.env.REACT_APP_BASE_URL}/admin/`)
+      const data = await ref.data
+      if (!data) return []
+      return data
     }
     
     useEffect(() => {
         async function fetchData() {
-          const res = await collectionReadMany()
+          const res = await readAdmins()
           if (res) {
-              console.log(res)
             setUsers(res)
           }
         }
@@ -33,7 +31,16 @@ const AllAdmins = () => {
         </CardHeader>
         <CardBody>
           <CardText>
-            {users?.map(user => user.email)}
+            {users?.map((user, index) => {
+              return (
+                <div key={user.email}>
+                  <span> {index + 1}. </span>
+                  <span>Name: {user.name} </span>
+                  <span>Email: {user.email} </span>
+                  <span>Status: {user.status} </span>
+                </div>
+              )
+            })}
           </CardText>
           <CardText>
 
