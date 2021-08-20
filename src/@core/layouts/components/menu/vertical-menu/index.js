@@ -1,8 +1,11 @@
 // ** React Imports
 import { Fragment, useState, useRef } from 'react'
 
+import { isUserLoggedIn } from '@utils'
 // ** Vertical Menu Items Array
 import navigation from '@src/navigation/vertical'
+import guest from '@src/navigation/vertical/guest'
+import admin from '@src/navigation/vertical/admin'
 
 // ** Third Party Components
 import classnames from 'classnames'
@@ -15,6 +18,7 @@ import VerticalNavMenuItems from './VerticalNavMenuItems'
 const Sidebar = props => {
   // ** Props
   const { menuCollapsed, routerProps, menu, currentActiveItem, skin } = props
+  const userData = JSON.parse(isUserLoggedIn())
 
   // ** States
   const [groupOpen, setGroupOpen] = useState([])
@@ -33,7 +37,10 @@ const Sidebar = props => {
       setMenuHover(true)
     }
   }
-
+  
+  //navigation for guest and admin 
+  const secondaryNavigation = userData.status === 'admin' ? admin : guest
+  
   // ** Scroll Menu
   const scrollMenu = container => {
     if (shadowRef && container.scrollTop > 0) {
@@ -74,7 +81,7 @@ const Sidebar = props => {
             >
               <ul className='navigation navigation-main'>
                 <VerticalNavMenuItems
-                  items={navigation}
+                  items={userData.status === 'superadmin' ? navigation : secondaryNavigation}
                   groupActive={groupActive}
                   setGroupActive={setGroupActive}
                   activeItem={activeItem}
