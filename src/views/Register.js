@@ -1,15 +1,15 @@
-import { Fragment, useState, useContext } from 'react'
+import { useState, useContext } from 'react'
 import { isObjEmpty } from '@utils'
 import classnames from 'classnames'
 import { useSkin } from '@hooks/useSkin'
-import useJwt from '@src/auth/jwt/useJwt'
+// import useJwt from '@src/auth/jwt/useJwt'
 import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
-import { handleLogin } from '@store/actions/auth'
+// import { handleLogin } from '@store/actions/auth'
 import { Link, useHistory } from 'react-router-dom'
 import { AbilityContext } from '@src/utility/context/Can'
 import InputPasswordToggle from '@components/input-password-toggle'
-import { Facebook, Twitter, Mail, GitHub } from 'react-feather'
+// import { Facebook, Twitter, Mail, GitHub } from 'react-feather'
 import { Row, Col, CardTitle, CardText, FormGroup, Label, Button, Form, Input, CustomInput } from 'reactstrap'
 
 import '@styles/base/pages/page-auth.scss'
@@ -25,9 +25,9 @@ const Register = () => {
 
   const { register, errors, handleSubmit, trigger } = useForm()
 
-  const [email, setEmail] = useState('')
   const [valErrors, setValErrors] = useState({})
   const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [status, setStatus] = useState('guest')
@@ -101,7 +101,7 @@ const Register = () => {
     setEmail(e.target.value)
     setValErrors(errs)
   }
-
+    
   return (
     <div className='auth-wrapper auth-v2'>
       <Row className='auth-inner m-0'>
@@ -266,7 +266,7 @@ const Register = () => {
                 />
               </FormGroup> */}
               <Button.Ripple type='submit' block color='primary'> 
-                Sign up
+                Create Admin User
               </Button.Ripple>
             </Form>
             {/* <p className='text-center mt-2'>
