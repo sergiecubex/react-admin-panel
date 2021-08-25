@@ -15,12 +15,12 @@ import axios from 'axios'
 //   }
 // }
 
-export const getData = params => {
+export const getGigs = params => {
   return dispatch => {
     axios.get(`${process.env.REACT_APP_BASE_URL}/gigs/all`, params).then(response => {
       console.log(response)
       dispatch({
-        type: 'GET_DATA',
+        type: 'GET_GIGS',
         // allData: response.data.allData,
         data: response.data,
         totalPages: response.data.length / 10,

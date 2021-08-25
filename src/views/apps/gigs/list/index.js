@@ -12,7 +12,7 @@ import DataTable from 'react-data-table-component'
 import { Button, Label, Input, CustomInput, Row, Col, Card } from 'reactstrap'
 
 // ** Store & Actions
-import { getData } from '../store/actions'
+import { getGigs } from '../store/actions'
 import { useDispatch, useSelector } from 'react-redux'
 
 // ** Styles
@@ -68,6 +68,7 @@ const CustomHeader = ({ handleFilter, value, handleStatusValue, statusValue, han
 const GigList = () => {
   const dispatch = useDispatch()
   const store = useSelector(state => state.gigs)
+  console.log(store)
 
   const [value, setValue] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
@@ -76,7 +77,7 @@ const GigList = () => {
 
   useEffect(() => {
     dispatch(
-      getData({
+      getGigs({
         page: currentPage,
         perPage: rowsPerPage,
         status: statusValue,
@@ -88,7 +89,7 @@ const GigList = () => {
   const handleFilter = val => {
     setValue(val)
     dispatch(
-      getData({
+      getGigs({
         page: currentPage,
         perPage: rowsPerPage,
         status: statusValue,
@@ -99,7 +100,7 @@ const GigList = () => {
 
   const handlePerPage = e => {
     dispatch(
-      getData({
+      getGigs({
         page: currentPage,
         perPage: parseInt(e.target.value),
         status: statusValue,
@@ -112,7 +113,7 @@ const GigList = () => {
   const handleStatusValue = e => {
     setStatusValue(e.target.value)
     dispatch(
-      getData({
+      getGigs({
         page: currentPage,
         perPage: rowsPerPage,
         status: e.target.value,
@@ -123,7 +124,7 @@ const GigList = () => {
 
   const handlePagination = page => {
     dispatch(
-      getData({
+      getGigs({
         page: page.selected + 1,
         perPage: rowsPerPage,
         status: statusValue,

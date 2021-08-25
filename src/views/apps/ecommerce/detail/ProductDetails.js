@@ -37,7 +37,7 @@ const Product = props => {
     setGig(null)
   }
 
-  const imageUrl = data.gallery[0].url
+  const imageUrl = data?.gallery[0]?.url
   const image = `${process.env.REACT_APP_BASE_URL}/${imageUrl}`
   
   if (gig === null) return (

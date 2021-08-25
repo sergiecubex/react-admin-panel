@@ -24,6 +24,8 @@ const ecommerceReducer = (state = initialState, action) => {
       return { ...state }
     case 'GET_PRODUCT':
       return { ...state, productDetail: action.data.product }
+    case 'GET_GIG':
+      return { ...state, productDetail: action.data}
     case 'GET_DATA':
       return {
         ...state,

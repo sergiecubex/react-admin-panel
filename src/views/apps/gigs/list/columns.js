@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 // ** Store & Actions
-import { deleteGig, getData } from '../store/actions'
+import { deleteGig } from '../store/actions'
 import { store } from '@store/storeConfig/store'
 
 // ** Third Party Components

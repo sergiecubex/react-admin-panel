@@ -8,7 +8,7 @@ const initialState = {
 
 const GigReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'GET_DATA':
+    case 'GET_GIGS':
       return {
         ...state,
         allData: action.allData,
@@ -16,6 +16,8 @@ const GigReducer = (state = initialState, action) => {
         total: action.totalPages,
         params: action.params
       }
+    case 'GET_GIG':
+      return { ...state, productDetail: action.data }
     case 'DELETE_GIG_ITEM':
       return { ...state }
     default:

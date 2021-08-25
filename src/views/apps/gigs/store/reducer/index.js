@@ -2,12 +2,13 @@ const initialState = {
   data: [],
   total: 1,
   params: {},
-  allData: []
+  allData: [],
+  productDetail: {}
 }
 
 const GigReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'GET_DATA':
+    case 'GET_GIGS':
       return {
         ...state,
         allData: action.allData,
