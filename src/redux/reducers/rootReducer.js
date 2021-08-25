@@ -7,6 +7,7 @@ import navbar from './navbar'
 import layout from './layout'
 import ecommerce from './ecommerce'
 import invoice from './invoice'
+import gigs from './gigs'
 import users from './users'
 
 const rootReducer = combineReducers({
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   layout,
   ecommerce,
   invoice,
+  gigs,
   users
 })
 

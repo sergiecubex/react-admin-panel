@@ -23,7 +23,9 @@ const Details = () => {
   const productId = params.substring(params.lastIndexOf('-') + 1)
   // ** Store Vars
   const dispatch = useDispatch()
-  const store = useSelector(state => state.ecommerce)
+  const store = useSelector(state => state.gigs)
+
+  console.log(store)
 
   
   // ** ComponentDidMount : Get product

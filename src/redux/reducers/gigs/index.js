@@ -2,7 +2,8 @@ const initialState = {
   data: [],
   total: 1,
   params: {},
-  allData: []
+  allData: [],
+  productDetail: {}
 }
 
 const GigReducer = (state = initialState, action) => {

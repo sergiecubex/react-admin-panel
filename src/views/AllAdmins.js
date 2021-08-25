@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useState, useEffect, useCallback } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { Card, CardHeader, CardBody, CardTitle, CardText, CardLink } from 'reactstrap'
 
@@ -8,8 +9,25 @@ const AllAdmins = () => {
   const [modal, setModal] = useState(false)
   const [deletedUser, setDeletedUser] = useState('')
   
+  //get user status from state
+  const store = useSelector(state => state.auth)
+  console.log(store.userData.status)
+  
   async function readAdmins() {
     const ref = await axios.get(`${process.env.REACT_APP_BASE_URL}/admin/`)
+    const data = await ref.data
+    if (!data) return []
+    return data
+  }
+  
+  //get all gigs without token
+  async function readGigs() {
+    const token = localStorage.getItem('accessToken')
+    console.log(`Access token: ${token}`)
+    const ref = await axios.get(`${process.env.REACT_APP_BASE_URL}/gigs/all`, {
+      headers: { Authorization: token}
+    })
+    console.log(ref)
     const data = await ref.data
     if (!data) return []
     return data
@@ -32,6 +50,8 @@ const AllAdmins = () => {
   }, [])
     
   useEffect(() => {
+    //call fetch gigs function
+    readGigs()
     console.log('render')
     fetchData()
   }, [deleteAdmin])
