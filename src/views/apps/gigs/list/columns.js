@@ -68,7 +68,7 @@ export const columns = [
     name: 'Title',
     selector: 'title',
     sortable: true,
-    minWidth: '200px',
+    minWidth: '300px',
     cell: row => row.title
   },
   {
@@ -90,15 +90,15 @@ export const columns = [
       return <p>Not Approved</p>
     }
   },  {
-    name: 'Waitlist',
-    selector: 'waitlist',
+    name: 'Shorttlist',
+    selector: 'shortlist',
     sortable: true,
     minWidth: '100px',
     cell: row => { 
       if (row.isShortlisted === true) {
-        return <p>In waitlist</p> 
+        return <p>In shortlist</p> 
       } 
-      return <p>Not waitlisted</p>
+      return <p>Not in shortlist</p>
     }
   },
   {
@@ -139,7 +139,7 @@ export const columns = [
               waitlistGig(row)
               }}>
               <Eye size={14} className='mr-50' />
-              <span className='align-middle'>{ row.isShortlisted ? 'Remove from waitlist' : 'Add to waitlist'}</span>
+              <span className='align-middle'>{ row.isShortlisted ? 'Remove from shortlist' : 'Add to shortlist'}</span>
             </DropdownItem>
             <DropdownItem
               tag='a'

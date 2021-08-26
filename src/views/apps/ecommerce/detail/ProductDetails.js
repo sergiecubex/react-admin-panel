@@ -38,11 +38,11 @@ const Product = props => {
   }
 
   const imageUrl = data?.gallery[0]?.url
-  const image = `${process.env.REACT_APP_BASE_URL}/${imageUrl}`
+  const image = `https://hwdev.web-ai.studio/${imageUrl}`
   
   if (gig === null) return (
   <Row>
-    <h2 style={{margin: "0 5%"}}>Gig was deleted</h2>
+    <h2 style={{margin: "0 5%"}}>No gigs to display</h2>
     <Link to={`/apps/gigs`}>
       <Button
         className='btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0'
@@ -59,7 +59,8 @@ const Product = props => {
     <Row className='my-2'>
       <Col className='d-flex align-items-center justify-content-center mb-2 mb-md-0' md='5' xs='12'>
         <div className='d-flex align-items-center justify-content-center'>
-          <img className='img-fluid product-img' src={image ? image : '/assets/images/logo.png'} alt={gig.title} />
+          {/* <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms" frameBorder="0" scrolling="no" width="100%" height="100%" className='img-fluid product-img' src={image}></iframe> */}
+          <img className='img-fluid product-img' src={image} alt={gig.title} />
         </div>
       </Col>
       <Col md='7' xs='12'>
@@ -107,7 +108,7 @@ const Product = props => {
           <Button
               className='btn-wishlist'
               color='light'
-              onClick={() => history.push('/apps/gigs/details')}
+              onClick={() => history.push('/apps/gigs')}
             >
               <span>Back</span>
           </Button>

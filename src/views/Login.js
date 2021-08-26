@@ -53,7 +53,6 @@ const Login = props => {
   const history = useHistory()
   const [email, setEmail] = useState('vosquery@gmail.com')
   const [password, setPassword] = useState('18101982')
-  const [googleVerified, setGoogleVerified] = useState('')
   
   //const clientId = '707788443358-u05p46nssla3l8tmn58tpo9r5sommgks.apps.googleusercontent.com' //github key
   const clientId = '748556428480-kpriq162t1ankg260tljmvebcepjks66.apps.googleusercontent.com' //TO DO: transfer to env
@@ -85,44 +84,6 @@ const Login = props => {
     // Setup first refresh timer
     setTimeout(refreshToken, refreshTiming)
   }
-
-  const onFailure = (res) => {
-    console.log('Login failed: res:', res)
-  }
-  
-  const onSuccess = async (res) => {
-    console.log(res)
-    setGoogleVerified(res?.profileObj?.email)
-    if (googleVerified === email) {
-      const res = await useJwt.login({ email, password })
-      console.log("google verified", googleVerified)
-      const data = { ...res.data.userData, accessToken: res.data.accessToken, refreshToken: res.data.refreshToken }
-      dispatch(handleLogin(data))
-      console.log(data)
-      ability.update(res.data.userData.ability)
-      history.push(getHomeRouteForLoggedInUser(data.role))
-      toast.success(
-        <ToastContent name={res?.profileObj?.name || data.fullName || data.username} role={data.role || 'admin'} />,
-        { transition: Slide, hideProgressBar: true, autoClose: 2000 }
-      )
-    }
-    console.log('Login Success: currentUser:', res?.profileObj?.email)
-    refreshTokenSetup(res)
-  }
-  
-  const { signIn } = useGoogleLogin({
-    onSuccess,
-    onFailure,
-    clientId
-    // isSignedIn: true,
-    // accessType: 'offline',
-    // responseType: 'code',
-    // prompt: 'consent'
-  })
-  
-  const onGoogleSubmit = () => {
-    signIn()
-  }
   
   const onSubmit = async () => {
     if (isObjEmpty(errors)) {
@@ -141,6 +102,41 @@ const Login = props => {
         console.log(error)
       }
     }
+  }
+  
+  const onFailure = (res) => {
+    console.log('Login failed: res:', res)
+  }
+  
+  const onSuccess = async (res) => {
+    if (res) {
+      if (await res?.profileObj?.email === email) {
+        const ref = await axios.post(`${process.env.REACT_APP_BASE_URL}/admin/login`, {email, password})
+        const data = { ...ref.data.data.admin, accessToken: ref.data.token }
+        dispatch(handleLogin(data))
+        history.push('/home')
+        toast.success(
+          <ToastContent name={res?.profileObj?.name || data.fullName || data.username} role={data.role || 'admin'} />,
+          { transition: Slide, hideProgressBar: true, autoClose: 2000 }
+        )
+      }
+      console.log('Login Success: currentUser:', res?.profileObj?.email)
+      refreshTokenSetup(res)
+    }
+  }
+  
+  const { signIn } = useGoogleLogin({
+    onSuccess,
+    onFailure,
+    clientId
+    // isSignedIn: true,
+    // accessType: 'offline',
+    // responseType: 'code',
+    // prompt: 'consent'
+  })
+  
+  const onGoogleSubmit = () => {
+    signIn()
   }
   
   // const onSubmit = data => {

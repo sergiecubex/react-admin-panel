@@ -11,7 +11,7 @@ import { InputGroup, InputGroupAddon, Input, Button, Card, CardBody } from 'reac
 
 // ** Store & Actions
 import { useDispatch, useSelector } from 'react-redux'
-import { getProduct } from '../store/actions'
+import { getGig } from '../store/actions'
 
 import '@styles/base/pages/app-ecommerce-details.scss'
 import classes from './form.module.css'
@@ -19,7 +19,7 @@ import classes from './form.module.css'
 const Form = () => {
   // ** Store Vars
   const dispatch = useDispatch()
-  const store = useSelector(state => state.ecommerce)
+  const store = useSelector(state => state.gigs)
   const gig = store.productDetail
   // ** Vars
   const {id} = useParams()
@@ -27,7 +27,7 @@ const Form = () => {
   const [item, setItem] = useState()
 
   const getItem = useCallback(() => {
-    dispatch(getProduct(id))
+    dispatch(getGig(id))
   }, [])
   
     // ** ComponentDidMount : Get product
@@ -49,11 +49,16 @@ const Form = () => {
     console.log(i)
   })
   
+  //transfer to redux
   const handleSave = async () => {
-    const payload = {...gig, ...item, searchTags}
+    const payload = {
+      ...gig, 
+      ...item
+      // searchTags
+    }
     console.log(payload)
     await axios.post(`/apps/gigs/${id}`, payload)  
-    history.push(`/apps/gigs/details`)
+    history.push(`/apps/gigs`)
   }
   
   const handleCancel = () => {

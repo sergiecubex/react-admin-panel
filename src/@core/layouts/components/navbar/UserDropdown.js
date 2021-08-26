@@ -86,6 +86,7 @@ import { isUserLoggedIn } from '@utils'
 // ** Store & Actions
 import { useDispatch } from 'react-redux'
 import { handleLogout } from '@store/actions/auth'
+import { useGoogleLogout } from 'react-google-login'
 
 // ** Third Party Components
 import { UncontrolledDropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'reactstrap'
@@ -97,9 +98,17 @@ import defaultAvatar from '@src/assets/images/portrait/small/avatar-s-11.jpg'
 const UserDropdown = () => {
   // ** Store Vars
   const dispatch = useDispatch()
-
-  // ** State
-  const [userData, setUserData] = useState(null)
+    // ** State
+    const [userData, setUserData] = useState(null)
+    //google logout
+  const clientId = '748556428480-kpriq162t1ankg260tljmvebcepjks66.apps.googleusercontent.com'
+  const onLogoutSuccess = async (res) => console.log(res)
+  const onFailure = async (res) => console.log(res)
+  const { signOut, loaded } = useGoogleLogout({
+    onFailure,
+    clientId,
+    onLogoutSuccess
+  })
 
   //** ComponentDidMount
   useEffect(() => {
@@ -150,7 +159,10 @@ const UserDropdown = () => {
           <HelpCircle size={14} className='mr-75' />
           <span className='align-middle'>FAQ</span>
         </DropdownItem> */}
-        <DropdownItem tag={Link} to='/login' onClick={() => dispatch(handleLogout())}>
+        <DropdownItem tag={Link} to='/login' onClick={() => {
+            signOut()
+            dispatch(handleLogout())
+          }}>
           <Power size={14} className='mr-75' />
           <span className='align-middle'>Logout</span>
         </DropdownItem>

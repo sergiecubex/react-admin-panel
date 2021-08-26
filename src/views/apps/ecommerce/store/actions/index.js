@@ -10,13 +10,13 @@ export const getProducts = params => {
 }
 // ** GET Single GIG
 
-export const getProduct = id => {
-  return dispatch => {
-    return axios.get(`/apps/gigs/${id}`).then(res => {
-      dispatch({ type: 'GET_PRODUCT', data: res.data })
-    })
-  }
-}
+// export const getProduct = id => {
+//   return dispatch => {
+//     return axios.get(`/apps/gigs/${id}`).then(res => {
+//       dispatch({ type: 'GET_PRODUCT', data: res.data })
+//     })
+//   }
+// }
 
 export const getGig = id => {
   return dispatch => {
