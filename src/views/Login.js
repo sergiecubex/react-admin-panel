@@ -51,8 +51,8 @@ const Login = props => {
   const ability = useContext(AbilityContext)
   const dispatch = useDispatch()
   const history = useHistory()
-  const [email, setEmail] = useState('vosquery@gmail.com')
-  const [password, setPassword] = useState('18101982')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   
   //const clientId = '707788443358-u05p46nssla3l8tmn58tpo9r5sommgks.apps.googleusercontent.com' //github key
   const clientId = '748556428480-kpriq162t1ankg260tljmvebcepjks66.apps.googleusercontent.com' //TO DO: transfer to env
@@ -109,20 +109,22 @@ const Login = props => {
   }
   
   const onSuccess = async (res) => {
-    if (res) {
-      if (await res?.profileObj?.email === email) {
-        const ref = await axios.post(`${process.env.REACT_APP_BASE_URL}/admin/login`, {email, password})
-        const data = { ...ref.data.data.admin, accessToken: ref.data.token }
-        dispatch(handleLogin(data))
-        history.push('/home')
-        toast.success(
-          <ToastContent name={res?.profileObj?.name || data.fullName || data.username} role={data.role || 'admin'} />,
-          { transition: Slide, hideProgressBar: true, autoClose: 2000 }
-        )
-      }
-      console.log('Login Success: currentUser:', res?.profileObj?.email)
-      refreshTokenSetup(res)
+    const payload = await res?.profileObj?.email
+    if (await payload) {
+      const ref = await axios.post(`${process.env.REACT_APP_BASE_URL}/admin/verify`, { payload })
+      console.log(ref)
+      const data = { ...ref.data.data.admin, accessToken: ref.data.token }
+      dispatch(handleLogin(data))
+      history.push('/home')
+      toast.success(
+        <ToastContent name={res?.profileObj?.name || data.name || data.username} role={data.status || 'guest'} />,
+        { transition: Slide, hideProgressBar: true, autoClose: 2000 }
+      )
+    } else {
+      alert("You are not authorized to login to this application! Please try again with other email...")
     }
+    console.log('Login Success: currentUser:', res?.profileObj?.email)
+    refreshTokenSetup(res)
   }
   
   const { signIn } = useGoogleLogin({
