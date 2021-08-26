@@ -111,20 +111,24 @@ const Login = props => {
   const onSuccess = async (res) => {
     const payload = await res?.profileObj?.email
     if (await payload) {
-      const ref = await axios.post(`${process.env.REACT_APP_BASE_URL}/admin/verify`, { payload })
-      console.log(ref)
-      const data = { ...ref.data.data.admin, accessToken: ref.data.token }
-      dispatch(handleLogin(data))
-      history.push('/home')
-      toast.success(
-        <ToastContent name={res?.profileObj?.name || data.name || data.username} role={data.status || 'guest'} />,
-        { transition: Slide, hideProgressBar: true, autoClose: 2000 }
-      )
-    } else {
-      alert("You are not authorized to login to this application! Please try again with other email...")
+      try {
+        const ref = await axios.post(`${process.env.REACT_APP_BASE_URL}/admin/verify`, { payload })
+        console.log(ref)
+        if (ref.status === 200) {
+          const data = { ...ref.data.data.admin, accessToken: ref.data.token }
+          dispatch(handleLogin(data))
+          history.push('/home')
+          toast.success(
+            <ToastContent name={res?.profileObj?.name || data.name || data.username} role={data.status || 'guest'} />,
+            { transition: Slide, hideProgressBar: true, autoClose: 2000 }
+          )
+          console.log('Login Success: currentUser:', res?.profileObj?.email)
+          refreshTokenSetup(res)
+        }
+      } catch (error) {
+        alert("You are not authorized to login to this application! Please try again with other email...")
+      }
     }
-    console.log('Login Success: currentUser:', res?.profileObj?.email)
-    refreshTokenSetup(res)
   }
   
   const { signIn } = useGoogleLogin({
