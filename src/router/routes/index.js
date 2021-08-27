@@ -8,7 +8,8 @@ const TemplateTitle = 'HumanWorks - admin dashboard'
 // ** Default Route
 const DefaultRoute = '/home'
 
-const userData = JSON.parse(isUserLoggedIn())
+const userData = JSON.parse(localStorage.getItem('userData'))
+console.log(userData)
 let userStatus
 if (userData) {
   userStatus = userData.status

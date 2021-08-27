@@ -6,6 +6,7 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'LOGIN':
+      console.log(action)
       return {
         ...state,
         userData: action.data,
@@ -13,6 +14,7 @@ const authReducer = (state = initialState, action) => {
         [action.config.storageRefreshTokenKeyName]: action[action.config.storageRefreshTokenKeyName]
       }
     case 'LOGOUT':
+      console.log(action)
       const obj = { ...action }
       delete obj.type
       return { ...state, userData: {}, ...obj }

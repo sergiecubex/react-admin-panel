@@ -113,7 +113,6 @@ const Login = props => {
     if (await payload) {
       try {
         const ref = await axios.post(`${process.env.REACT_APP_BASE_URL}/admin/verify`, { payload })
-        console.log(ref)
         if (ref.status === 200) {
           const data = { ...ref.data.data.admin, accessToken: ref.data.token }
           dispatch(handleLogin(data))

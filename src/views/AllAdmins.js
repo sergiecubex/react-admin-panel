@@ -10,8 +10,7 @@ const AllAdmins = () => {
   const [deletedUser, setDeletedUser] = useState('')
   
   //get user status from state
-  const store = useSelector(state => state.auth)
-  console.log(store.userData.status)
+  const store = useSelector(state => console.log(state))
   
   async function readAdmins() {
     const ref = await axios.get(`${process.env.REACT_APP_BASE_URL}/admin/`)
@@ -23,14 +22,18 @@ const AllAdmins = () => {
   //get all gigs without token
   async function readGigs() {
     const token = localStorage.getItem('accessToken')
-    console.log(`Access token: ${token}`)
-    const ref = await axios.get(`${process.env.REACT_APP_BASE_URL}/gigs/all`, {
-      headers: { Authorization: token}
-    })
-    console.log(ref)
-    const data = await ref.data
-    if (!data) return []
-    return data
+    try {
+      const ref = await axios.get(`${process.env.REACT_APP_BASE_URL}/gigs/all`, { 
+        headers: {Authorization: token}
+      })
+      console.log(ref)
+      const data = await ref.data
+      if (!data) return []
+      return data
+    } catch (error) {
+      console.error(error)
+    }
+
   }
     
   async function fetchData() {
