@@ -1,6 +1,5 @@
 import { lazy } from 'react'
 import { Redirect } from 'react-router-dom'
-import { isUserLoggedIn } from '@utils'
 
 // ** Document title
 const TemplateTitle = 'HumanWorks - admin dashboard'

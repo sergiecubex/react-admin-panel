@@ -24,6 +24,7 @@ export default class JwtService {
         if (accessToken) {
           // ** eslint-disable-next-line no-param-reassign
           config.headers.Authorization = `${this.jwtConfig.tokenType} ${accessToken}`
+          config.headers.adminId = JSON.parse(localStorage.getItem('userData'))._id
         }
         return config
       },

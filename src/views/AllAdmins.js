@@ -21,12 +21,8 @@ const AllAdmins = () => {
   
   //get all gigs without token
   async function readGigs() {
-    const token = localStorage.getItem('accessToken')
     try {
-      const ref = await axios.get(`${process.env.REACT_APP_BASE_URL}/gigs/all`, { 
-        headers: {Authorization: token}
-      })
-      console.log(ref)
+      const ref = await axios.get(`${process.env.REACT_APP_BASE_URL}/gigs/all`)
       const data = await ref.data
       if (!data) return []
       return data
@@ -55,7 +51,6 @@ const AllAdmins = () => {
   useEffect(() => {
     //call fetch gigs function
     readGigs()
-    console.log('render')
     fetchData()
   }, [deleteAdmin])
   
