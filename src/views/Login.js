@@ -12,7 +12,7 @@ import { AbilityContext } from '@src/utility/context/Can'
 import { Link, useHistory } from 'react-router-dom'
 import InputPasswordToggle from '@components/input-password-toggle'
 import { getHomeRouteForLoggedInUser, isObjEmpty } from '@utils'
-import { Facebook, Twitter, Mail, GitHub, HelpCircle, Coffee } from 'react-feather'
+import { Coffee, Mail } from 'react-feather'
 import {
   Alert,
   Row,
@@ -45,7 +45,6 @@ const ToastContent = ({ name, status }) => (
     </div>
   </Fragment>
 )
-
 const Login = props => {
   const [skin, setSkin] = useSkin()
   const ability = useContext(AbilityContext)
@@ -53,23 +52,25 @@ const Login = props => {
   const history = useHistory()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [enable2Factor, setEnable2Factor] = useState(false)
+  const [data, setData] = useState('')
+  const [image, setImage] = useState('')
   
-  //const clientId = '707788443358-u05p46nssla3l8tmn58tpo9r5sommgks.apps.googleusercontent.com' //github key
   const clientId = '748556428480-kpriq162t1ankg260tljmvebcepjks66.apps.googleusercontent.com' //TO DO: transfer to env
-  const project_id = "amplified-wares-310800"
-  const auth_uri = "https://accounts.google.com/o/oauth2/auth"
-  const token_uri = "https://oauth2.googleapis.com/token"
-  const auth_provider_x509_cert_url = "https://www.googleapis.com/oauth2/v1/certs"
-  const client_secret = "yLBHXGhcH1C8VpiDtGn-4-us"
+  // const project_id = "amplified-wares-310800"
+  // const auth_uri = "https://accounts.google.com/o/oauth2/auth"
+  // const token_uri = "https://oauth2.googleapis.com/token"
+  // const auth_provider_x509_cert_url = "https://www.googleapis.com/oauth2/v1/certs"
+  // const client_secret = "yLBHXGhcH1C8VpiDtGn-4-us"
   
   const { register, errors, handleSubmit } = useForm()
   const illustration = skin === 'dark' ? 'login-v2-dark.svg' : 'login-v2.svg',
     source = require(`@src/assets/images/pages/${illustration}`).default
 
+    //refresh token in Google log in
   const refreshTokenSetup = (res) => {
     // Timing to renew access token
     let refreshTiming = (res?.tokenObj?.expires_in || 3600 - (5 * 60)) * 1000
-  
     const refreshToken = async () => {
       const newAuthRes = await res.reloadAuthResponse()
       refreshTiming = (newAuthRes.expires_in || 3600 - (5 * 60)) * 1000
@@ -80,34 +81,80 @@ const Login = props => {
       // Setup the other timer after the first one
       setTimeout(refreshToken, refreshTiming)
     }
-  
     // Setup first refresh timer
     setTimeout(refreshToken, refreshTiming)
   }
   
+  //generate QR Code
+  const enable2F = async (ref) => {
+    try {
+      const token = ref.data.token
+      const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/admin/2fa/generate`, {token})
+      setImage(res.data) //setting qr code as image
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+  
+  const confirm2FA = async () => {
+    dispatch(handleLogin(data))
+    history.push('/home')
+    toast.success(
+      <ToastContent name={data.name || 'no user name'} status={data.status || 'no user status'} />,
+      { transition: Slide, hideProgressBar: true, autoClose: 2000 }
+    )
+  }
+  
+  //modal window that shows QR code
+  const Ask2FactorEnable = () => (
+    <Alert color='info'>
+      <div className='alert-body'>
+        <div style={{width: '100%', textAlign: 'center'}}>
+          If you want to enable 2 factor authentication scan the QR code!
+          <img src={image} alt='qr code' />
+        </div>
+      </div>
+      <div className='d-flex align-items-center justify-content-center'>
+        <Button.Ripple className='mr-2' color='twitter' onClick={() => confirm2FA()}>
+          Yes
+        </Button.Ripple>
+        <Button.Ripple color='google' onClick={() => setEnable2Factor(false)}>
+          No
+        </Button.Ripple>
+      </div>
+    </Alert>
+  )
+  
+  //log in with email and password
   const onSubmit = async () => {
     if (isObjEmpty(errors)) {
       try {
         const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/admin/login`, {email, password})
+        // console.log(res)
         if (res.status === 200) {
           const data = { ...res.data.data.admin, accessToken: res.data.token }
-          dispatch(handleLogin(data))
-          history.push('/home')
-          toast.success(
-            <ToastContent name={data.name || 'no user name'} status={data.status || 'no user status'} />,
-            { transition: Slide, hideProgressBar: true, autoClose: 2000 }
-          )
+          setData(data)
+          setEnable2Factor(true)
+          enable2F(res)
+          // dispatch(handleLogin(data))
+          // history.push('/home')
+          // toast.success(
+          //   <ToastContent name={data.name || 'no user name'} status={data.status || 'no user status'} />,
+          //   { transition: Slide, hideProgressBar: true, autoClose: 2000 }
+          // )
         }
       } catch (error) {
         console.log(error)
+        alert("Something went wrong. Please try again with other credentials.")
       }
     }
   }
   
+  //if google login failed
   const onFailure = (res) => {
     console.log('Login failed: res:', res)
   }
-  
+  //if Google login succeeded
   const onSuccess = async (res) => {
     const payload = await res?.profileObj?.email
     if (await payload) {
@@ -129,7 +176,7 @@ const Login = props => {
       }
     }
   }
-  
+  //consts of Google auth
   const { signIn } = useGoogleLogin({
     onSuccess,
     onFailure,
@@ -140,6 +187,7 @@ const Login = props => {
     // prompt: 'consent'
   })
   
+  //push Google submit button
   const onGoogleSubmit = () => {
     signIn()
   }
@@ -223,6 +271,7 @@ const Login = props => {
         </Col>
         <Col className='d-flex align-items-center auth-bg px-2 p-lg-5' lg='4' sm='12'>
           <Col className='px-xl-2 mx-auto' sm='8' md='6' lg='12'>
+            {enable2Factor && <Ask2FactorEnable />}
             <CardTitle tag='h2' className='font-weight-bold mb-1'>
               Welcome to HumanWorks! 👋
             </CardTitle>
@@ -269,7 +318,8 @@ const Login = props => {
               <Button.Ripple type='submit' color='primary' block>
                 Sign in
               </Button.Ripple>
-              <Button.Ripple color='primary' block onClick={onGoogleSubmit}>
+              <Button.Ripple color='google' block onClick={onGoogleSubmit}>
+              <Mail className='mr-2' size={14} />
                 Sign in with Google
               </Button.Ripple>
             </Form>
