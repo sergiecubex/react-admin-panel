@@ -57,11 +57,11 @@ const waitlistGig = async (row) => {
 export const columns = [
   {
     name: 'User',
-    minWidth: '100px',
+    minWidth: '250px',
     selector: 'user',
     cell: row => {
       const userId = row.userId?._id || null
-      return <Link to={`/apps/user-details/${userId}`}>{`${row.userId?.firstname} ${row.userId?.lastname}`}</Link>
+      return <Link to={`/apps/user-details/${userId}`}>{row.userId?.email || ''}</Link>
     }
   },
   {
@@ -76,7 +76,7 @@ export const columns = [
     selector: 'price',
     sortable: true,
     minWidth: '100px',
-    cell: row => <span>${row.price || 0}</span>
+    cell: row => <span>{`${row?.gigPackages[0]?.priceCurrency} ${row?.gigPackages[0]?.price || 0}`}</span>
   },
   {
     name: 'Status',
@@ -89,18 +89,19 @@ export const columns = [
       } 
       return <p>Not Approved</p>
     }
-  },  {
-    name: 'Shorttlist',
-    selector: 'shortlist',
-    sortable: true,
-    minWidth: '100px',
-    cell: row => { 
-      if (row.isShortlisted === true) {
-        return <p>In shortlist</p> 
-      } 
-      return <p>Not in shortlist</p>
-    }
-  },
+  },  
+  // {
+  //   name: 'Shorttlist',
+  //   selector: 'shortlist',
+  //   sortable: true,
+  //   minWidth: '100px',
+  //   cell: row => { 
+  //     if (row.isShortlisted === true) {
+  //       return <p>In shortlist</p> 
+  //     } 
+  //     return <p>Not in shortlist</p>
+  //   }
+  // },
   {
     name: 'Action',
     minWidth: '110px',
@@ -134,13 +135,13 @@ export const columns = [
               <Edit size={14} className='mr-50' />
               <span className='align-middle'>Edit</span>
             </DropdownItem>
-            <DropdownItem tag='a' href='/' className='w-100' onClick={e => {
+            {/* <DropdownItem tag='a' href='/' className='w-100' onClick={e => {
               e.preventDefault()
               waitlistGig(row)
               }}>
               <Eye size={14} className='mr-50' />
               <span className='align-middle'>{ row.isShortlisted ? 'Remove from shortlist' : 'Add to shortlist'}</span>
-            </DropdownItem>
+            </DropdownItem> */}
             <DropdownItem
               tag='a'
               href='/apps/gigs'
