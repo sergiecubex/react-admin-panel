@@ -22,7 +22,8 @@ const AllAdmins = () => {
   //get all gigs without token
   async function readGigs() {
     try {
-      const ref = await axios.get(`${process.env.REACT_APP_BASE_URL}/gigs/all`)
+      const ref = await axios.get(`${process.env.REACT_APP_BASE_URL}/users/all`)
+      console.log(ref)
       const data = await ref.data
       if (!data) return []
       return data

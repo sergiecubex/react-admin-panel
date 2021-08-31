@@ -8,15 +8,6 @@ export const getProducts = params => {
     })
   }
 }
-// ** GET Single GIG
-
-// export const getProduct = id => {
-//   return dispatch => {
-//     return axios.get(`/apps/gigs/${id}`).then(res => {
-//       dispatch({ type: 'GET_PRODUCT', data: res.data })
-//     })
-//   }
-// }
 
 export const getGig = id => {
   return dispatch => {
@@ -54,38 +45,10 @@ export const deleteGig = id => {
   }
 }
 
-// ** GET Wishlist Items
-export const getWaitlistItems = () => {
-  return dispatch => {
-    return axios.get('/apps/gigs-management/featured').then(res => {
-      dispatch({ type: 'GET_WISHLIST', data: res.data })
-    })
-  }
-}
-
-// ** Add Item to Wishlist
-export const addToWishlist = id => {
-  return dispatch => {
-    return axios.post('/apps/gigs-management/featured', { productId: id }).then(() => {
-      dispatch({ type: 'ADD_TO_WISHLIST' })
-    })
-  }
-}
-
-// ** DELETE Wishlist Item
-export const deleteWishlistItem = id => {
-  return dispatch => {
-    return axios.delete(`/apps/gigs-management/featured/${id}`).then(res => {
-      dispatch({ type: 'DELETE_WISHLIST_ITEM', data: res.data })
-      dispatch(getWishlistItems())
-    })
-  }
-}
-
 // ** GET User
 export const getUser = id => {
   return dispatch => {
-    return axios.get(`/apps/user-details/${id}`).then(res => {
+    return axios.get(`${process.env.REACT_APP_BASE_URL}/users/all/${id}`).then(res => {
       dispatch({ type: 'GET_USER', data: res.data })
     })
   }

@@ -41,18 +41,6 @@ const approveGig = async (row) => {
   store.dispatch(getData()) 
 }
 
-const waitlistGig = async (row) => {
-  let gig
-  if (row.isShortlisted) {
-    gig = {...row, isShortlisted: false}
-  } else {
-    gig = {...row, isShortlisted: true}
-  }
-  await axios.post(`/apps/gigs/${row.id}`, gig)  
-  alert(`Gig id #${row.id} was changed`)
-  store.dispatch(getData())
-}
-
 // ** Table columns
 export const columns = [
   {
@@ -72,11 +60,19 @@ export const columns = [
     cell: row => row.title
   },
   {
-    name: 'Price',
+    name: 'Packages',
     selector: 'price',
     sortable: true,
-    minWidth: '100px',
-    cell: row => <span>{`${row?.gigPackages[0]?.priceCurrency} ${row?.gigPackages[0]?.price || 0}`}</span>
+    minWidth: '200px',
+    cell: row => {
+      return (
+        <div>
+          {row.gigPackages?.map(pack => <div key={pack.title}>
+            {`${pack.title} ${pack?.priceCurrency === 'USD' ? '$' : pack.priceCurrency} ${pack?.price || 0}`}
+          </div>)}
+        </div>)
+    }
+    
   },
   {
     name: 'Status',

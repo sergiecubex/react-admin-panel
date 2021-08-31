@@ -3,12 +3,13 @@ import axios from 'axios'
 // ** Get Gigs
 export const getData = params => {
   return dispatch => {
-    axios.get('/apps/users', params).then(response => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/users/all`, params).then(response => {
+      console.log(response)
       dispatch({
         type: 'GET_DATA',
-        allData: response.data.allData,
-        data: response.data.users,
-        totalPages: response.data.total,
+        // allData: response.data,
+        data: response.data,
+        totalPages: response.data.length / 10,
         params
       })
     })

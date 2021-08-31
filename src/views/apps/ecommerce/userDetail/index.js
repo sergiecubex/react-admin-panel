@@ -20,27 +20,28 @@ import '@styles/base/pages/app-ecommerce-details.scss'
 const User = () => {
   // ** Vars
   const params = useParams().user
-  const productId = params.substring(params.lastIndexOf('-') + 1)
+  const userId = params.substring(params.lastIndexOf('-') + 1)
 
   // ** Store Vars
   const dispatch = useDispatch()
-  const store = useSelector(state => state.ecommerce)
+  const store = useSelector(state => state.users)
   
   // ** ComponentDidMount : Get product
   useEffect(() => {
-    dispatch(getUser(productId))
+    dispatch(getUser(userId))
   }, [])
  
+  const st = useSelector(state => console.log(state))
   return (
     <Fragment>
       <BreadCrumbs breadCrumbTitle='User Details' breadCrumbParent='User Management' breadCrumbActive='Details' />
       <div className='app-ecommerce-details'>
-        {Object.keys(store.userDetail).length ? (
+        {Object.keys(store?.userDetail).length ? (
           <Card>
             <CardBody>
               <UserDetails
                 dispatch={dispatch}
-                userId={productId}
+                userId={userId}
                 getUser={getUser}
                 deleteUser={deleteUser}
                 data={store.userDetail}

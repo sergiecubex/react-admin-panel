@@ -16,10 +16,10 @@ export const getData = params => {
 }
 
 // ** GET Products
-export const getUser = params => {
+export const getUser = id => {
   return dispatch => {
-    return axios.get('/apps/users', { params }).then(res => {
-      dispatch({ type: 'GET_USER', data: res.data, params })
+    return axios.get(`${process.env.REACT_APP_BASE_URL}/users/all/${id}`).then(res => {
+      dispatch({ type: 'GET_USER', data: res.data })
     })
   }
 }

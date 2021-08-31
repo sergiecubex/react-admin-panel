@@ -74,6 +74,7 @@ const InvoiceList = () => {
   const [statusValue, setStatusValue] = useState('')
   const [rowsPerPage, setRowsPerPage] = useState(10)
 
+  
   useEffect(() => {
     dispatch(
       getData({
@@ -83,7 +84,7 @@ const InvoiceList = () => {
         q: value
       })
     )
-  }, [dispatch, store.data.length])
+  }, [dispatch, store.data?.length])
 
   const handleFilter = val => {
     setValue(val)
@@ -168,12 +169,12 @@ const InvoiceList = () => {
       return filters[k].length > 0
     })
 
-    if (store.data.length > 0) {
+    if (store.data?.length > 0) {
       return store.data
-    } else if (store.data.length === 0 && isFiltered) {
+    } else if (store.data?.length === 0 && isFiltered) {
       return []
     } else {
-      return store.allData.slice(0, rowsPerPage)
+      return store.allData?.slice(0, rowsPerPage)
     }
   }
 

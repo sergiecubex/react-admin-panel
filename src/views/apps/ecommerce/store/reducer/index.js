@@ -16,12 +16,6 @@ const ecommerceReducer = (state = initialState, action) => {
       return { ...state }
     case 'SAVE_GIG_ITEM':
       return { ...state }
-    case 'GET_WISHLIST':
-      return { ...state, waitlist: action.data.gigs }
-    case 'DELETE_WISHLIST_ITEM':
-      return { ...state }
-    case 'ADD_TO_WISHLIST':
-      return { ...state }
     case 'GET_PRODUCT':
       return { ...state, productDetail: action.data.product }
     case 'GET_GIG':
@@ -37,7 +31,7 @@ const ecommerceReducer = (state = initialState, action) => {
     case 'DELETE_USER':
       return { ...state }
     case 'GET_USER':
-      return { ...state, userDetail: action.data.user }
+      return { ...state, userDetail: action.data }
     default:
       return state
   }

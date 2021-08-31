@@ -64,15 +64,6 @@ const Routes = [
       navLink: '/apps/user-details'
     }
   },
-  // {
-  //   path: '/apps/user-form/:user',
-  //   exact: true,
-  //   className: 'ecommerce-application',
-  //   component: lazy(() => import('../../views/apps/ecommerce/userForm')),
-  //   meta: {
-  //     navLink: '/apps/user-details/form'
-  //   }
-  // },
   {
     path: '/apps/gigs',
     component: lazy(() => {
@@ -82,12 +73,6 @@ const Routes = [
         return import('../../views/Error')
       }
     })
-  },
-  {
-    path: '/apps/gigs-management/featured',
-    exact: true,
-    className: 'ecommerce-application',
-    component: lazy(() => import('../../views/apps/ecommerce/wishlist'))
   },
   {
     path: '/apps/gigs-management/form/:id',

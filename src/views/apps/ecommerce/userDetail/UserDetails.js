@@ -37,8 +37,8 @@ const UserDetails = props => {
     await axios.post(`/apps/users/${id}`, newUser)  
     alert(`User id #${id} was changed`)
   }
-  
-  if (user === null) return (
+  console.log(user)
+  if (user === null || user === {}) return (
   <Row>
     <h2 style={{margin: "0 5%"}}>{`User id #${userId} deleted!`}</h2>
     <Link to={`/apps/users`}>
@@ -52,28 +52,28 @@ const UserDetails = props => {
     </Link>
   </Row>
   )
-  
+  const avatarUrl = user?.avatar?.url === undefined ? '' : user.avatar.url
   return (
     <Row className='my-2'>
       <Col className='d-flex align-items-center justify-content-center mb-2 mb-md-0' md='5' xs='12'>
         <div className='d-flex align-items-center justify-content-center'>
-          <img src={`${process.env.REACT_APP_BASE_URL}/${user.avatar?.url}`} alt={user.email} />
+          {/* <img src={`https://hwdev.web-ai.studio/${avatarUrl}`} alt={user.email} /> */}
         </div>
       </Col>
       <Col md='7' xs='12'>
-        <h4>Type: {user.userType.toUpperCase()}</h4>
+        <h4>Type: {user?.userType?.toUpperCase()}</h4>
         <div className='ecommerce-details-price d-flex flex-wrap mt-1'>
-          <h4 className='item-price mr-1'>Name: {user.firstname} {user.lastname}</h4>
+          <h4 className='item-price mr-1'>Name: {user?.firstname} {user?.lastname}</h4>
         </div>
-        <h5>Email: {user.email}</h5>
-        <h5>Statuses:</h5>
+        <h5>Email: {user?.email}</h5>
+        <h5>Balance: {user?.balance}</h5>
         <CardText>
-          <span className='ml-25'>{user.active ? "User is active" : "Account is not active"}</span>
+          <span className='ml-25'>{user?.active ? "User is active" : "Account is not active"}</span>
         </CardText>
         <CardText>
-          <span className='ml-25'>{user.emailVerified ? "Email is verified" : "Email is not verified"}</span>
+          <span className='ml-25'>{user?.emailVerified ? "Email is verified" : "Email is not verified"}</span>
         </CardText>
-        <CardText>Languages: {user.languages.length === 0 ? "Languages are not specified" : user.languages.map(lang => <span key={lang}>{lang} </span>)}
+        <CardText>Languages: {user?.languages?.length === 0 ? "Languages are not specified" : user?.languages?.map(lang => <span key={lang}>{lang} </span>)}
         </CardText>
         <hr />
         <div className='d-flex flex-column flex-sm-row pt-1'>
@@ -83,7 +83,7 @@ const UserDetails = props => {
             outline
             onClick={() => handleSuspend(userId)}
           >
-            <span>{user.active ? 'Suspend User' : 'Unsuspend User'}</span>
+            <span>{user?.active ? 'Suspend User' : 'Unsuspend User'}</span>
           </Button>
           <Button
               className='btn-wishlist'
@@ -95,7 +95,7 @@ const UserDetails = props => {
           <Button
             className='btn-wishlist'
             color='light'
-            onClick={() => history.push('/apps/users/details')}
+            onClick={() => history.push('/apps/users')}
           >
             <span>Back</span>
         </Button>
