@@ -65,7 +65,7 @@ const CustomHeader = ({ handleFilter, value, handleStatusValue, statusValue, han
   )
 }
 
-const InvoiceList = () => {
+const UsersList = () => {
   const dispatch = useDispatch()
   const store = useSelector(state => state.invoice)
 
@@ -73,7 +73,6 @@ const InvoiceList = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [statusValue, setStatusValue] = useState('')
   const [rowsPerPage, setRowsPerPage] = useState(10)
-
   
   useEffect(() => {
     dispatch(
@@ -135,7 +134,7 @@ const InvoiceList = () => {
   }
 
   const CustomPagination = () => {
-    const count = Number((store.total / rowsPerPage).toFixed(0))
+    const count = Number((store.data.length / rowsPerPage).toFixed(0))
 
     return (
       <ReactPaginate
@@ -212,4 +211,4 @@ const InvoiceList = () => {
   )
 }
 
-export default InvoiceList
+export default UsersList

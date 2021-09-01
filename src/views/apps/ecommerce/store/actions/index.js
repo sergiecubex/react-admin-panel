@@ -4,7 +4,6 @@ import axios from 'axios'
 export const getGig = id => {
   return dispatch => {
     return axios.get(`${process.env.REACT_APP_BASE_URL}/gigs/all/${id}`).then(res => {
-      console.log(res.data)
       dispatch({ type: 'GET_GIG', data: res.data })
     })
   }

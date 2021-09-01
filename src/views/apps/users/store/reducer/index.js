@@ -1,9 +1,8 @@
 const initialState = {
+  allData: [],
   data: [],
   total: 1,
-  params: {},
-  allData: [],
-  productDetail: {}
+  params: {}
 }
 
 const userReducer = (state = initialState, action) => {
@@ -11,7 +10,7 @@ const userReducer = (state = initialState, action) => {
     case 'GET_DATA':
       return {
         ...state,
-        allData: action.allData,
+        allData: action.data,
         data: action.data,
         total: action.totalPages,
         params: action.params
