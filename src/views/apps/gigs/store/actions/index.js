@@ -1,20 +1,5 @@
 import axios from 'axios'
 
-// ** Get Gigs
-// export const getData = params => {
-//   return dispatch => {
-//     axios.get('/apps/gigs', params).then(response => {
-//       dispatch({
-//         type: 'GET_DATA',
-//         allData: response.data.allData,
-//         data: response.data.gigs,
-//         totalPages: response.data.total,
-//         params
-//       })
-//     })
-//   }
-// }
-
 export const getGigs = params => {
   return dispatch => {
     axios.get(`${process.env.REACT_APP_BASE_URL}/gigs/all`, params).then(response => {
@@ -30,12 +15,10 @@ export const getGigs = params => {
   }
 }
 
-
 // ** DELETE GIG
 export const deleteGig = id => {
   return dispatch => {
-    return axios.delete(`/apps/gigs/${id}`).then(res => {
-      console.log(res)
+    return axios.delete(`${process.env.REACT_APP_BASE_URL}/gigs/all/${id}`).then(res => {
       dispatch({ type: 'DELETE_GIG_ITEM', data: res.data })
     })
   }

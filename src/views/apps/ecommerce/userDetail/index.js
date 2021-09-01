@@ -13,7 +13,7 @@ import { Card, CardBody } from 'reactstrap'
 
 // ** Store & Actions
 import { useDispatch, useSelector } from 'react-redux'
-import { getUser, deleteUser } from '../store/actions'
+import { getUser, deleteUser, saveUser } from '../store/actions'
 
 import '@styles/base/pages/app-ecommerce-details.scss'
 
@@ -43,6 +43,7 @@ const User = () => {
                 dispatch={dispatch}
                 userId={userId}
                 getUser={getUser}
+                saveUser={saveUser}
                 deleteUser={deleteUser}
                 data={store.userDetail}
               />

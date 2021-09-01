@@ -14,19 +14,21 @@ export const getData = params => {
       })
     })
   }
-}// ** DELETE User
+}
+
+// ** DELETE User
 export const deleteUser = id => {
   return dispatch => {
-    return axios.delete(`/apps/users/${id}`).then(res => {
+    return axios.delete(`${process.env.REACT_APP_BASE_URL}/users/all/${id}`).then(res => {
       dispatch({ type: 'DELETE_USER', data: res.data })
     })
   }
 }
 
-// ** Change User
+// ** UPDATE User
 export const saveUser = (id, user) => {
   return dispatch => {
-    return axios.post(`/apps/users/${id}`).then(() => {
+    return axios.patch(`${process.env.REACT_APP_BASE_URL}/users/all/${id}`).then(() => {
       dispatch({ type: 'SAVE_USER', data: user})
     })
   }

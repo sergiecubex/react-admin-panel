@@ -1,7 +1,6 @@
 // ** React Imports
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useHistory, Link } from 'react-router-dom'
-import axios from 'axios'
 
 import {
   Row,
@@ -17,7 +16,7 @@ import {
 const UserDetails = props => {
   const history = useHistory()
   // ** Props
-  const { data, dispatch, deleteUser, userId } = props
+  const { data, dispatch, saveUser, deleteUser, userId } = props
   //state
   const [user, setUser] = useState(data)
   
@@ -29,29 +28,35 @@ const UserDetails = props => {
   
   const handleSuspend = async (id) => {
     let newUser
-    if (user.active) {
-      newUser = {...user, active: false}
+    if (user.isSuspended) {
+      newUser = {isSuspended: false}
     } else {
-      newUser = {...user, active: true}
+      newUser = {isSuspended: true}
     }
-    await axios.post(`/apps/users/${id}`, newUser)  
-    alert(`User id #${id} was changed`)
+    try {
+      dispatch(saveUser(id, newUser))
+      alert(`User id #${id} was changed`)
+      history.push('/apps/users')
+    } catch (error) {
+      alert(error.message)
+    }
   }
-  console.log(user)
+  
   if (user === null || user === {}) return (
-  <Row>
-    <h2 style={{margin: "0 5%"}}>{`User id #${userId} deleted!`}</h2>
-    <Link to={`/apps/users`}>
-      <Button
-        className='btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0'
-        color='secondary'
-        outline
-      >
-        <span>Go Back</span>
-      </Button>
-    </Link>
-  </Row>
+    <Row>
+      <h2 style={{margin: "0 5%"}}>{`User id #${userId} deleted!`}</h2>
+      <Link to={`/apps/users`}>
+        <Button
+          className='btn-wishlist mr-0 mr-sm-1 mb-1 mb-sm-0'
+          color='secondary'
+          outline
+        >
+          <span>Go Back</span>
+        </Button>
+      </Link>
+    </Row>
   )
+  
   const avatarUrl = user?.avatar?.url === undefined ? '' : user.avatar.url
   return (
     <Row className='my-2'>
@@ -83,7 +88,7 @@ const UserDetails = props => {
             outline
             onClick={() => handleSuspend(userId)}
           >
-            <span>{user?.active ? 'Suspend User' : 'Unsuspend User'}</span>
+            <span>{!user?.isSuspended ? 'Suspend User' : 'Unsuspend User'}</span>
           </Button>
           <Button
               className='btn-wishlist'

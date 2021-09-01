@@ -11,7 +11,7 @@ import { InputGroup, InputGroupAddon, Input, Button, Card, CardBody } from 'reac
 
 // ** Store & Actions
 import { useDispatch, useSelector } from 'react-redux'
-import { getGig } from '../store/actions'
+import { getGig, saveGig } from '../store/actions'
 
 import '@styles/base/pages/app-ecommerce-details.scss'
 import classes from './form.module.css'
@@ -51,13 +51,11 @@ const Form = () => {
   
   //transfer to redux
   const handleSave = async () => {
-    const payload = {
-      ...gig, 
-      ...item
-      // searchTags
+    try {
+      dispatch(saveGig(id, item))
+    } catch (err) {
+      alert(err.message)
     }
-    console.log(payload)
-    await axios.post(`/apps/gigs/${id}`, payload)  
     history.push(`/apps/gigs`)
   }
   

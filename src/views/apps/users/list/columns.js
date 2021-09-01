@@ -71,10 +71,10 @@ export const columns = [
     sortable: true,
     minWidth: '100px',
     cell: row => { 
-      if (row.active === true) {
-        return <p>Active</p> 
+      if (row.isSuspended === true) {
+        return <p>Suspended</p> 
       } 
-      return <p>Suspended</p>
+      return <p>Active</p>
     }
   },
   {

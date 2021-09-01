@@ -1,14 +1,6 @@
 import axios from 'axios'
 
-// ** GET GIGs
-export const getProducts = params => {
-  return dispatch => {
-    return axios.get('/apps/gigs-management/gigs', { params }).then(res => {
-      dispatch({ type: 'GET_PRODUCTS', data: res.data, params })
-    })
-  }
-}
-
+// ** GET GIG
 export const getGig = id => {
   return dispatch => {
     return axios.get(`${process.env.REACT_APP_BASE_URL}/gigs/all/${id}`).then(res => {
@@ -18,28 +10,19 @@ export const getGig = id => {
   }
 }
 
-// ** SAVE GIG
+// ** UPDATE GIG
 export const saveGig = (id, item) => {
   return dispatch => {
-    return axios.post(`/apps/gigs/${id}`).then((req, res) => {
-      console.log(item)
+    return axios.patch(`${process.env.REACT_APP_BASE_URL}/gigs/all/${id}`, {item}).then((req, res) => {
       dispatch({ type: 'SAVE_GIG_ITEM', data: item})
     })
   }
 }
-// router.patch('/:id', auth, authz, async (ctx) => {
-//   try {
-//    await Company.findByIdAndUpdate(ctx.params.id, ctx.request.body, { runValidators: true });
-//    ctx.status = 200;
-//   } catch (error) {
-//    ctx.throw(400, error.message);
-//   }
-//  });
 
 // ** DELETE GIG
 export const deleteGig = id => {
   return dispatch => {
-    return axios.delete(`/apps/gigs/${id}`).then(res => {
+    return axios.delete(`${process.env.REACT_APP_BASE_URL}/gigs/all/${id}`).then(res => {
       dispatch({ type: 'DELETE_GIG_ITEM', data: res.data })
     })
   }
@@ -54,19 +37,20 @@ export const getUser = id => {
   }
 }
 
-// ** DELETE User
-export const deleteUser = id => {
+// ** UPDATE User
+export const saveUser = (id, user) => {
   return dispatch => {
-    return axios.delete(`/apps/users/${id}`).then(res => {
-      dispatch({ type: 'DELETE_USER', data: res.data })
+    return axios.patch(`${process.env.REACT_APP_BASE_URL}/users/all/${id}`, {user}).then(() => {
+      dispatch({ type: 'SAVE_USER', data: user})
     })
   }
 }
 
-export const saveUser = (id, user) => {
+// ** DELETE User
+export const deleteUser = id => {
   return dispatch => {
-    return axios.post(`/apps/users/${id}`).then(() => {
-      dispatch({ type: 'SAVE_USER', data: user})
+    return axios.delete(`${process.env.REACT_APP_BASE_URL}/users/all/${id}`).then(res => {
+      dispatch({ type: 'DELETE_USER', data: res.data })
     })
   }
 }
