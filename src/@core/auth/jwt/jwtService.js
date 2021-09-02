@@ -100,6 +100,10 @@ export default class JwtService {
   register(...args) {
     return axios.post(this.jwtConfig.registerEndpoint, ...args)
   }
+  
+  verifyAdmin(...args) {
+    return axios.post(this.jwtConfig.verifyEndpoint, ...args)
+  }
 
   refreshToken() {
     return axios.post(this.jwtConfig.refreshEndpoint, {

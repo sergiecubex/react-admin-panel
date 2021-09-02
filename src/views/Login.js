@@ -128,25 +128,40 @@ const Login = props => {
   //log in with email and password
   const onSubmit = async () => {
     if (isObjEmpty(errors)) {
-      try {
-        const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/admin/login`, {email, password})
-        // console.log(res)
-        if (res.status === 200) {
-          const data = { ...res.data.data.admin, accessToken: res.data.token }
+      useJwt
+        .login({ email, password })
+        .then(res => {
+          const data = { ...res.data.data.admin, accessToken: res.data.token, refreshToken: res.data.refreshToken }
+          dispatch(handleLogin(data))
           setData(data)
           setEnable2Factor(true)
           enable2F(res)
+          history.push(getHomeRouteForLoggedInUser(data.role))
+          toast.success(
+            <ToastContent name={data.name || 'no user name'} role={data.status || 'no user status'} />,
+            { transition: Slide, hideProgressBar: true, autoClose: 2000 }
+          )
+        })
+        .catch(err => console.log(err))
+      // try {
+      //   const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/admin/login`, {email, password})
+        // console.log(res)
+        // if (res.status === 200) {
+        //   const data = { ...res.data.data.admin, accessToken: res.data.token }
+        //   setData(data)
+        //   setEnable2Factor(true)
+        //   enable2F(res)
           // dispatch(handleLogin(data))
           // history.push('/home')
           // toast.success(
           //   <ToastContent name={data.name || 'no user name'} status={data.status || 'no user status'} />,
           //   { transition: Slide, hideProgressBar: true, autoClose: 2000 }
           // )
-        }
-      } catch (error) {
-        console.log(error)
-        alert("Something went wrong. Please try again with other credentials.")
-      }
+        // }
+      // } catch (error) {
+      //   console.log(error)
+      //   alert("Something went wrong. Please try again with other credentials.")
+      // }
     }
   }
   

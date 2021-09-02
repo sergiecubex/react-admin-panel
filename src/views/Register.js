@@ -2,20 +2,17 @@ import { useState, useContext } from 'react'
 import { isObjEmpty } from '@utils'
 import classnames from 'classnames'
 import { useSkin } from '@hooks/useSkin'
-// import useJwt from '@src/auth/jwt/useJwt'
+import useJwt from '@src/auth/jwt/useJwt'
 import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
-// import { handleLogin } from '@store/actions/auth'
 import { Link, useHistory } from 'react-router-dom'
 import { AbilityContext } from '@src/utility/context/Can'
 import InputPasswordToggle from '@components/input-password-toggle'
-// import { Facebook, Twitter, Mail, GitHub } from 'react-feather'
 import { Row, Col, CardTitle, CardText, FormGroup, Label, Button, Form, Input, CustomInput } from 'reactstrap'
 
 import '@styles/base/pages/page-auth.scss'
 
 const Register = () => {
-  const ability = useContext(AbilityContext)
 
   const [skin, setSkin] = useSkin()
 
@@ -49,42 +46,39 @@ const Register = () => {
 
   const onSubmit = async () => {
     if (isObjEmpty(errors)) {
-      try {
-        const res = await fetch(`${process.env.REACT_APP_BASE_URL}/admin/register`, {
-          method: 'POST',
-          body: JSON.stringify({name, email, password, confirmPassword, status}),
-          headers: { 
-            'Content-Type': 'application/json'
+      // try {
+      //   const res = await fetch(`${process.env.REACT_APP_BASE_URL}/admin/register`, {
+      //     method: 'POST',
+      //     body: JSON.stringify({name, email, password, confirmPassword, status}),
+      //     headers: { 
+      //       'Content-Type': 'application/json'
+      //     }
+      //   })
+      //   if (res.ok) {
+      //     alert(`Admin user ${res.statusText.toLowerCase()}`)
+      //     history.push('/')
+      //   }
+      // } catch (error) {
+      //   console.log(error)
+      // }
+      useJwt
+        .register({ name, email, password, confirmPassword, status })
+        .then(res => {
+          if (res.data.error) {
+            const arr = {}
+            for (const property in res.data.error) {
+              if (res.data.error[property] !== null) arr[property] = res.data.error[property]
+            }
+            setValErrors(arr)
+            if (res.data.error.email !== null) console.error(res.data.error.email)
+            if (res.data.error.name !== null) console.error(res.data.error.name)
+          } else {
+            console.log(res)
+            setValErrors({})
+            history.push('/')
           }
         })
-        if (res.ok) {
-          alert(`Admin user ${res.statusText.toLowerCase()}`)
-          history.push('/')
-        }
-      } catch (error) {
-        console.log(error)
-      }
-      // useJwt
-        // .register({ username, email, password, confirmPassword, status })
-        // .then(res => {
-        //   if (res.data.error) {
-        //     const arr = {}
-        //     for (const property in res.data.error) {
-        //       if (res.data.error[property] !== null) arr[property] = res.data.error[property]
-        //     }
-        //     setValErrors(arr)
-        //     if (res.data.error.email !== null) console.error(res.data.error.email)
-        //     if (res.data.error.name !== null) console.error(res.data.error.name)
-        //   } else {
-        //     console.log(res)
-        //     setValErrors({})
-        //     const data = { ...res.data.user, accessToken: res.data.accessToken }
-        //     ability.update(res.data.user.ability)
-        //     dispatch(handleLogin(data))
-        //     // history.push('/')
-        //   }
-        // })
-        // .catch(err => console.log(err))
+        .catch(err => console.log(err))
     }
   }
 

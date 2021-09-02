@@ -1,9 +1,10 @@
 // ** Auth Endpoints
 export default {
-  loginEndpoint: '/jwt/login', //change to api/login
-  registerEndpoint: '/jwt/register',
+  loginEndpoint: `${process.env.REACT_APP_BASE_URL}/admin/login`,
+  registerEndpoint: `${process.env.REACT_APP_BASE_URL}/admin/register`,
   refreshEndpoint: '/jwt/refresh-token',
   logoutEndpoint: '/jwt/logout',
+  verifyEndpoint: `${process.env.REACT_APP_BASE_URL}/admin/verify`,
 
   // ** This will be prefixed in authorization header with token
   // ? e.g. Authorization: Bearer <token>
