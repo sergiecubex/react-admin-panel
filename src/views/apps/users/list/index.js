@@ -134,7 +134,7 @@ const UsersList = () => {
   }
 
   const CustomPagination = () => {
-    const count = Number((store.data.length / rowsPerPage).toFixed(0))
+    const count = Number((store.allData.length / rowsPerPage).toFixed(0))
 
     return (
       <ReactPaginate

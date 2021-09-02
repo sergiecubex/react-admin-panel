@@ -57,7 +57,7 @@ const CustomHeader = ({ handleFilter, value, handleStatusValue, statusValue, han
           <Input className='w-auto ' type='select' value={statusValue} onChange={handleStatusValue}>
             <option value=''>Select Status</option>
             <option value='approved'>Approved</option>
-            {/* <option value='isInWaitlist'>ShortList</option> */}
+            {/* <option value='isInWaitlist'>Suspended</option> */}
           </Input>
         </Col>
       </Row>
@@ -135,7 +135,7 @@ const GigList = () => {
   }
 
   const CustomPagination = () => {
-    const count = Number((store.total / rowsPerPage).toFixed(0))
+    const count = Number((store.allData.length / rowsPerPage).toFixed(0))
 
     return (
       <ReactPaginate
