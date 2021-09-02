@@ -1,9 +1,8 @@
 // ** React Imports
 import { Link } from 'react-router-dom'
-import axios from 'axios'
 
 // ** Store & Actions
-import { deleteGig } from '../store/actions'
+import { deleteGig, getGigs, saveGig } from '../store/actions'
 import { store } from '@store/storeConfig/store'
 
 // ** Third Party Components
@@ -31,14 +30,19 @@ const renderClient = row => {
     color = states[stateNum]
 }
 
-const approveGig = async (row) => {
-  let gig
-  if (!row.approved) {
-    gig = {...row, approved: true}
-    alert(`Gig id #${row.id} approved`)
-  } 
-  await axios.post(`/apps/gigs/${row.id}`, gig) 
-  store.dispatch(getData()) 
+const approveGig = async (id, gig) => {
+  let newGig
+  if (gig.isApproved) {
+    newGig = {isApproved: false}
+  } else {
+    newGig = {isApproved: true}
+  }
+  try {
+    store.dispatch(saveGig(id, newGig))
+    alert(`Gig id #${id} was changed`)
+  } catch (error) {
+    alert(error.message)
+  }
 }
 
 // ** Table columns
@@ -80,7 +84,7 @@ export const columns = [
     sortable: true,
     minWidth: '100px',
     cell: row => { 
-      if (row.approved === true) {
+      if (row.isApproved === true) {
         return <p>Approved</p> 
       } 
       return <p>Not Approved</p>
@@ -122,10 +126,10 @@ export const columns = [
           <DropdownMenu right>
             <DropdownItem tag='a' href='/' className='w-100' onClick={e => {
               e.preventDefault()
-              approveGig(row)
+              approveGig(row._id, row)
               }}>
               <Download size={14} className='mr-50' />
-              <span className='align-middle'>Approve</span>
+              <span className='align-middle'>{!row.isApproved ? 'Approve' : 'Suspend'}</span>
             </DropdownItem>
             <DropdownItem tag={Link} to={`/apps/gigs-management/form/${row._id}`} className='w-100'>
               <Edit size={14} className='mr-50' />

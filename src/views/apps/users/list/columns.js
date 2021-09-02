@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 // ** Store & Actions
-import { deleteUser, getData } from '../store/actions'
+import { deleteUser, saveUser } from '../store/actions'
 import { store } from '@store/storeConfig/store'
 
 // ** Third Party Components
@@ -20,18 +20,21 @@ import {
   Trash
 } from 'react-feather'
 
-const suspendUser = async (row) => {
-  let user
-  if (row.active) {
-    user = {...row, active: false}
+const suspendUser = async (id, user) => {
+  let newUser
+  if (user.isSuspended) {
+    newUser = {isSuspended: false}
   } else {
-    user = {...row, active: true}
+    newUser = {isSuspended: true}
   }
-  console.log(user)
-  await axios.post(`/apps/users/${row._id}`, user)  
-  alert(`User id #${row._id} was changed`)
-  await store.dispatch(getData())
+  try {
+    store.dispatch(saveUser(id, newUser))
+    alert(`User id #${id} was changed`)
+  } catch (error) {
+    alert(error.message)
+  }
 }
+
 // ** Table columns
 export const columns = [
   {
@@ -113,10 +116,10 @@ export const columns = [
           <DropdownMenu right>
             <DropdownItem tag='a' href='/' className='w-100' onClick={e => {
               e.preventDefault()
-              suspendUser(row)
+              suspendUser(row._id, row)
               }}>
               <Eye size={14} className='mr-50' />
-              <span className='align-middle'>{ row.active ? 'Suspend' : 'Unsuspend'}</span>
+              <span className='align-middle'>{!row.isSuspended ? 'Suspend' : 'Unsuspend'}</span>
             </DropdownItem>
             <DropdownItem
               tag='a'

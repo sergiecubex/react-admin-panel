@@ -18,6 +18,8 @@ const GigReducer = (state = initialState, action) => {
       }
     case 'DELETE_GIG_ITEM':
       return { ...state }
+    case 'SAVE_GIG_ITEM':
+      return { ...state }
     default:
       return { ...state }
   }

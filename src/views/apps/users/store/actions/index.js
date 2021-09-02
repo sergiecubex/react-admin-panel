@@ -15,7 +15,7 @@ const sortCompare = key => (a, b) => {
   return comparison
 }
 
-// ** Get Gigs
+// ** Get Users
 export const getData = params => {
   return dispatch => {
     axios.get(`${process.env.REACT_APP_BASE_URL}/users/all`, params).then(response => {
@@ -54,7 +54,7 @@ export const deleteUser = id => {
 // ** UPDATE User
 export const saveUser = (id, user) => {
   return dispatch => {
-    return axios.patch(`${process.env.REACT_APP_BASE_URL}/users/all/${id}`).then(() => {
+    return axios.patch(`${process.env.REACT_APP_BASE_URL}/users/all/${id}`, {user}).then(() => {
       dispatch({ type: 'SAVE_USER', data: user})
     })
   }

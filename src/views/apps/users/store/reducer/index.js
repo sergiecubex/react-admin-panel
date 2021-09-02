@@ -10,7 +10,7 @@ const userReducer = (state = initialState, action) => {
     case 'GET_DATA':
       return {
         ...state,
-        allData: action.data,
+        allData: action.allData,
         data: action.data,
         total: action.totalPages,
         params: action.params

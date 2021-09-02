@@ -49,7 +49,6 @@ const Form = () => {
     console.log(i)
   })
   
-  //transfer to redux
   const handleSave = async () => {
     try {
       dispatch(saveGig(id, item))
