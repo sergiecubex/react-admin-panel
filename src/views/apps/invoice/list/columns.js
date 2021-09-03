@@ -102,24 +102,18 @@ export const columns = [
   //   }
   // },
   {
-    name: 'Description',
-    selector: 'description',
-    sortable: true,
+    name: 'User',
+    selector: 'user',
+    sortable: false,
+    minWidth: '250px',
+    cell: row => <span>{row?.userId?.email}</span>
+  },
+  {
+    name: 'Billing country',
     minWidth: '150px',
-    cell: row => <span>{row.description}</span>
-  },
-  {
-    name: 'Source type',
-    minWidth: '100px',
-    selector: 'source',
-    cell: row => <span>{row.source_type}</span>
-  },
-  {
-    name: 'Type',
-    selector: 'type',
+    selector: 'country',
     sortable: true,
-    minWidth: '100px',
-    cell: row => <span>{row.type}</span>
+    cell: row => <span>{row?.billingAddressId?.country}</span>
   },
   {
     name: 'Amount',
@@ -128,7 +122,7 @@ export const columns = [
     minWidth: '100px',
     cell: row => {
       return row.amount !== 0 ? (
-        <span>{row.currency} {row.amount}</span>
+        <span>{row.totalAmount}</span>
       ) : (
         <Badge color='light-success' pill>
           Paid
@@ -140,20 +134,18 @@ export const columns = [
     name: 'Created',
     selector: 'created',
     sortable: true,
-    minWidth: '100px',
+    minWidth: '150px',
     cell: row => {
-      const date = new Date(row.created).toLocaleString()
-      return <span>{date}</span>
+      return <span>{row.date}</span>
     }
   },
   {
-    name: 'Arrival date',
-    selector: 'arrival',
-    sortable: true,
+    name: 'Invoice',
+    selector: 'invoice',
+    sortable: false,
     minWidth: '100px',
     cell: row => {
-      const date = new Date(row.arrival_date).toLocaleString()
-      return <span>{date}</span>
+      return <span>{row.invoiceNumber}</span>
     }
   },
   {

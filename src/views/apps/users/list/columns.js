@@ -69,6 +69,14 @@ export const columns = [
     cell: row => <span>{row.balance}</span>
   },
   {
+    name: 'Stripe',
+    minWidth: '100px',
+    selector: 'atripe',
+    cell: row => <span onClick={() => {
+      getStripedUsers(row.stripeAccountId)
+    }}>{row.stripeAccountId}</span>
+  },
+  {
     name: 'Status',
     selector: 'status',
     sortable: true,

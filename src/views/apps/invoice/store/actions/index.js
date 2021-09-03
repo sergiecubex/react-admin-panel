@@ -3,12 +3,12 @@ import axios from 'axios'
 // ** Get data
 export const getData = params => {
   return dispatch => {
-    axios.get('/apps/invoice/invoices', params).then(response => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/transaction/all`, params).then(response => {
       dispatch({
         type: 'GET_DATA',
-        allData: response.data.allData,
-        data: response.data.invoices,
-        totalPages: response.data.total,
+        allData: response.data,
+        data: response.data,
+        totalPages: response.data / 10,
         params
       })
     })

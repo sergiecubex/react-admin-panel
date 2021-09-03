@@ -1,7 +1,7 @@
 // ** React Imports
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-
+import axios from 'axios'
 // ** Table Columns
 import { columns } from './columns'
 
@@ -90,7 +90,7 @@ const InvoiceList = () => {
         q: value
       })
     )
-  }, [dispatch, store.data.length])
+  }, [dispatch, store?.data?.length])
 
   const handleFilter = val => {
     setValue(val)
@@ -139,6 +139,18 @@ const InvoiceList = () => {
     )
     setCurrentPage(page.selected + 1)
   }
+  
+    //testing stripe
+  const stripeId = 'acct_1JVX3bRIOH5BsZE7'
+  const getInfo = async (id) => {
+    // const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/stripe/getStripeAccount/${stripeId}`)
+    // console.log(res)
+    const trans = await axios.get(`${process.env.REACT_APP_BASE_URL}/transaction/all`)
+    const proj = await axios.get(`${process.env.REACT_APP_BASE_URL}/projects/all`)
+    console.log("TRANSACTIONS", trans)
+    console.log("PROJECTS", proj)
+  }
+  getInfo()
 
   const CustomPagination = () => {
     const count = Number((store.total / rowsPerPage).toFixed(0))
@@ -175,12 +187,12 @@ const InvoiceList = () => {
       return filters[k].length > 0
     })
 
-    if (store.data.length > 0) {
+    if (store?.data?.length > 0) {
       return store.data
-    } else if (store.data.length === 0 && isFiltered) {
+    } else if (store?.data?.length === 0 && isFiltered) {
       return []
     } else {
-      return store.allData.slice(0, rowsPerPage)
+      return store?.allData?.slice(0, rowsPerPage)
     }
   }
 
