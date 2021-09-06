@@ -146,14 +146,14 @@ const InvoiceList = () => {
     // const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/stripe/getStripeAccount/${stripeId}`)
     // console.log(res)
     const trans = await axios.get(`${process.env.REACT_APP_BASE_URL}/transaction/all`)
-    const proj = await axios.get(`${process.env.REACT_APP_BASE_URL}/projects/all`)
+    // const proj = await axios.get(`${process.env.REACT_APP_BASE_URL}/projects/all`)
     console.log("TRANSACTIONS", trans)
-    console.log("PROJECTS", proj)
+    // console.log("PROJECTS", proj)
   }
   getInfo()
 
   const CustomPagination = () => {
-    const count = Number((store.total / rowsPerPage).toFixed(0))
+    const count = Number((store.allData.length / rowsPerPage).toFixed(0))
 
     return (
       <ReactPaginate

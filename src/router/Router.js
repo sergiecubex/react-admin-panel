@@ -1,5 +1,5 @@
 // ** React Imports
-import { Suspense, useContext, lazy } from 'react'
+import { Suspense, useState, useContext, useEffect, lazy } from 'react'
 
 // ** Utils
 import { isUserLoggedIn } from '@utils'
@@ -38,7 +38,7 @@ const Router = () => {
 
   // ** Current Active Item
   const currentActiveItem = null
-
+  
   // ** Return Filtered Array of Routes & Paths
   const LayoutRoutesAndPaths = layout => {
     const LayoutRoutes = []

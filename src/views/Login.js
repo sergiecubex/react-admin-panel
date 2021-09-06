@@ -1,4 +1,4 @@
-import { useState, useContext, Fragment } from 'react'
+import { useState, useContext, useEffect, Fragment } from 'react'
 import axios from 'axios'
 import classnames from 'classnames'
 import Avatar from '@components/avatar'
@@ -132,36 +132,19 @@ const Login = props => {
         .login({ email, password })
         .then(res => {
           const data = { ...res.data.data.admin, accessToken: res.data.token, refreshToken: res.data.refreshToken }
+          console.log("LOGIN", data)
           dispatch(handleLogin(data))
           setData(data)
           setEnable2Factor(true)
           enable2F(res)
-          history.push(getHomeRouteForLoggedInUser(data.role))
+          history.push(getHomeRouteForLoggedInUser(data.status))
+          location.reload()
           toast.success(
             <ToastContent name={data.name || 'no user name'} role={data.status || 'no user status'} />,
             { transition: Slide, hideProgressBar: true, autoClose: 2000 }
           )
         })
         .catch(err => console.log(err))
-      // try {
-      //   const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/admin/login`, {email, password})
-        // console.log(res)
-        // if (res.status === 200) {
-        //   const data = { ...res.data.data.admin, accessToken: res.data.token }
-        //   setData(data)
-        //   setEnable2Factor(true)
-        //   enable2F(res)
-          // dispatch(handleLogin(data))
-          // history.push('/home')
-          // toast.success(
-          //   <ToastContent name={data.name || 'no user name'} status={data.status || 'no user status'} />,
-          //   { transition: Slide, hideProgressBar: true, autoClose: 2000 }
-          // )
-        // }
-      // } catch (error) {
-      //   console.log(error)
-      //   alert("Something went wrong. Please try again with other credentials.")
-      // }
     }
   }
   
@@ -178,12 +161,12 @@ const Login = props => {
         if (ref.status === 200) {
           const data = { ...ref.data.data.admin, accessToken: ref.data.token }
           dispatch(handleLogin(data))
-          history.push('/home')
+          history.push(getHomeRouteForLoggedInUser(data.status))
+          location.reload()
           toast.success(
             <ToastContent name={res?.profileObj?.name || data.name || data.username} role={data.status || 'guest'} />,
             { transition: Slide, hideProgressBar: true, autoClose: 2000 }
           )
-          console.log('Login Success: currentUser:', res?.profileObj?.email)
           refreshTokenSetup(res)
         }
       } catch (error) {
@@ -206,24 +189,6 @@ const Login = props => {
   const onGoogleSubmit = () => {
     signIn()
   }
-  
-  // const onSubmit = data => {
-  //   if (isObjEmpty(errors)) {
-  //     useJwt
-  //       .login({ email, password })
-  //       .then(res => {
-  //           const data = { ...res.data.userData, accessToken: res.data.accessToken, refreshToken: res.data.refreshToken }
-  //           dispatch(handleLogin(data))
-  //           ability.update(res.data.userData.ability)
-  //           history.push(getHomeRouteForLoggedInUser(data.role))
-  //           toast.success(
-  //             <ToastContent name={data.fullName || data.username || 'John Doe'} role={data.role || 'admin'} />,
-  //             { transition: Slide, hideProgressBar: true, autoClose: 2000 }
-  //           )
-  //       })
-  //       .catch(err => console.log(err))
-  //   }
-  // }
   
   return (
     <div className='auth-wrapper auth-v2'>

@@ -8,7 +8,7 @@ const TemplateTitle = 'HumanWorks - admin dashboard'
 const DefaultRoute = '/home'
 
 const userData = JSON.parse(localStorage.getItem('userData'))
-console.log(userData)
+
 let userStatus
 if (userData) {
   userStatus = userData.status
@@ -41,6 +41,8 @@ const Routes = [
   {
     path: '/apps/users',
     exact: true,
+    user: "superadmin",
+    // component: lazy(() => import('../../views/apps/users/list'))
     component: lazy(() => {
       if (userStatus === 'superadmin') {
         return import('../../views/apps/users/list')
@@ -53,6 +55,7 @@ const Routes = [
     path: '/apps/user-details/:user',
     exact: true,
     className: 'ecommerce-application',
+    user: "superadmin",
     component: lazy(() => {
       if (userStatus === 'superadmin') {
         return import('../../views/apps/ecommerce/userDetail')
@@ -66,6 +69,7 @@ const Routes = [
   },
   {
     path: '/apps/gigs',
+    user: "superadmin",
     component: lazy(() => {
       if (userStatus === 'superadmin' || userStatus === 'admin') {
         return import('../../views/apps/gigs/list')
@@ -78,6 +82,7 @@ const Routes = [
     path: '/apps/gigs-management/form/:id',
     exact: true,
     className: 'ecommerce-application',
+    user: "superadmin",
     component: lazy(() => {
       if (userStatus === 'superadmin') {
         return import('../../views/apps/ecommerce/form')
@@ -93,6 +98,7 @@ const Routes = [
     path: '/apps/gigs-management/details/:product',
     exact: true,
     className: 'ecommerce-application',
+    user: "superadmin",
     component: lazy(() => {
       if (userStatus === 'superadmin' || userStatus === 'admin') {
         return import('../../views/apps/ecommerce/detail')
@@ -107,6 +113,7 @@ const Routes = [
   {
     path: '/apps/sales/completed',
     exact: true,
+    user: "superadmin",
     component: lazy(() => {
       if (userStatus === 'superadmin') {
         return import('../../views/apps/invoice/list')
@@ -126,6 +133,7 @@ const Routes = [
   {
     path: '/apps/sales/intended',
     exact: true,
+    user: "superadmin",
     component: lazy(() => {
       if (userStatus === 'superadmin') {
         return import('../../views/apps/invoice/intended')
@@ -137,6 +145,7 @@ const Routes = [
   {
     path: '/apps/sales/intended/:id',
     exact: true,
+    user: "superadmin",
     component: lazy(() => {
       if (userStatus === 'superadmin') {
         return import('../../views/apps/invoice/preview')
@@ -163,6 +172,7 @@ const Routes = [
   },
   {
     path: '/admin-list',
+    user: "superadmin",
     component: lazy(() => {
       if (userStatus === 'superadmin') {
         return import('../../views/AllAdmins')
