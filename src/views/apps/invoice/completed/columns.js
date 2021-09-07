@@ -51,70 +51,42 @@ const renderClient = row => {
     states = ['light-success', 'light-danger', 'light-warning', 'light-info', 'light-primary', 'light-secondary'],
     color = states[stateNum]
 
-  // if (row.avatar.length) {
-  //   return <Avatar className='mr-50' img={row.avatar} width='32' height='32' />
-  // } else {
-  //   return <Avatar color={color} className='mr-50' content={row.client ? row.client.name : 'John Doe'} initials />
-  // }
 }
 
 // ** Table columns
 export const columns = [
-  // {
-  //   name: <TrendingUp size={14} />,
-  //   minWidth: '102px',
-  //   selector: 'invoiceStatus',
-  //   sortable: true,
-  //   cell: row => {
-  //     const color = invoiceStatusObj[row.invoiceStatus] ? invoiceStatusObj[row.invoiceStatus].color : 'primary',
-  //       Icon = invoiceStatusObj[row.invoiceStatus] ? invoiceStatusObj[row.invoiceStatus].icon : Edit
-  //     return (
-  //       <Fragment>
-  //         <Avatar color={color} icon={<Icon size={14} />} id={`av-tooltip-${row.id}`} />
-  //         <UncontrolledTooltip placement='top' target={`av-tooltip-${row.id}`}>
-  //           <span className='font-weight-bold'>{row.invoiceStatus}</span>
-  //           <br />
-  //           <span className='font-weight-bold'>Balance:</span> {row.balance}
-  //           <br />
-  //           <span className='font-weight-bold'>Due Date:</span> {row.dueDate}
-  //         </UncontrolledTooltip>
-  //       </Fragment>
-  //     )
-  //   }
-  // },
   {
-    name: 'User',
-    minWidth: '250px',
-    selector: 'client',
+    name: 'Customer',
+    minWidth: '50px',
+    selector: 'id',
+    cell: row => <Link to={`/apps/sales/preview/${row.id}`}>{`${row.customer}`}</Link>
+  },
+  {
+    name: <TrendingUp size={14} />,
+    minWidth: '50px',
+    selector: 'invoiceStatus',
     sortable: true,
     cell: row => {
-      // const name = row.clientId?.email ? row.clientId?.firstNname : 'John Doe',
-      //   email = row.clientId?.email ? row.client.companyEmail : 'johnDoe@email.com'
+      const color = row.status === "requires_payment_method" ? 'light-danger' : 'primary',
+        Icon = row.status === "requires_payment_method" ? Info : Edit
       return (
-        <div className='d-flex justify-content-left align-items-center'>
-          {renderClient(row)}
-          <div className='d-flex flex-column'>
-            <h6 className='user-name text-truncate mb-0'>{row.userId?.firstname} {row.userId?.lastname}</h6>
-            <small className='text-truncate text-muted mb-0'>{row.userId?.email}</small>
-          </div>
-        </div>
+        <Fragment>
+          <Avatar color={color} icon={<Icon size={14} />} id={`av-tooltip-${row.id}`} />
+        </Fragment>
       )
     }
   },
   {
-    name: 'Frelancer',
-    minWidth: '250px',
-    selector: 'client',
+    name: 'Description',
+    minWidth: '150px',
+    selector: 'description',
     sortable: true,
     cell: row => {
-      // const name = row.clientId?.email ? row.clientId?.firstNname : 'John Doe',
-      //   email = row.clientId?.email ? row.client.companyEmail : 'johnDoe@email.com'
       return (
         <div className='d-flex justify-content-left align-items-center'>
           {renderClient(row)}
           <div className='d-flex flex-column'>
-            <h6 className='user-name text-truncate mb-0'>{row.projectId?.freelancerId?.firstname} {row.projectId?.freelancerId?.lastname}</h6>
-            <small className='text-truncate text-muted mb-0'>{row.projectId?.freelancerId?.email}</small>
+            <h6 className='user-name text-truncate mb-0'>{row.description}</h6>
           </div>
         </div>
       )
@@ -124,56 +96,46 @@ export const columns = [
     name: 'Amount',
     selector: 'amount',
     sortable: true,
-    minWidth: '100px',
-    cell: row => {
-      return row.amount !== 0 ? (
-        <span>{row.amount}</span>
-      ) : (
-        <Badge color='light-success' pill>
-          NULL
-        </Badge>
-      )
-    }
+    minWidth: '80px',
+    cell: row => <span>${row.amount || 0}</span>
   },
   {
-    name: 'Total payed',
-    selector: 'total',
+    name: 'Currency',
+    selector: 'currency',
+    sortable: true,
+    minWidth: '80px',
+    cell: row => <span>{row.currency || 'unknown'}</span>
+  },
+  {
+    name: 'Date',
+    selector: 'date',
     sortable: true,
     minWidth: '100px',
     cell: row => {
-      return row.projectId?.transactionId?.totalAmount !== 0 ? (
-        <span>{row.projectId?.transactionId?.totalAmount}</span>
-      ) : (
-        <Badge color='light-success' pill>
-          NULL
-        </Badge>
-      )
+      const date = new Date(row.created).toLocaleString()
+      return <span>{date}</span>
     }
   },
   {
-    name: 'Created',
-    selector: 'created',
-    sortable: true,
-    minWidth: '150px',
-    cell: row => {
-      return <span>{row.date?.slice(0, 10)}</span>
-    }
-  },
-  {
-    name: 'Type',
-    selector: 'type',
-    sortable: false,
-    minWidth: '100px',
-    cell: row => {
-      return <span>{row.type}</span>
-    }
-  },
-  {
-    name: 'Project Status',
+    name: 'Status',
     selector: 'status',
     sortable: true,
-    minWidth: '100px',
-    cell: row => <span>{row.projectId?.status}</span>
+    minWidth: '160px',
+    cell: row => row.status
+  },
+  {
+    name: 'Capture method',
+    selector: 'capture_method',
+    sortable: true,
+    minWidth: '130px',
+    cell: row => row.capture_method
+  },
+  {
+    name: 'Confirmation method',
+    selector: 'confirmation_method',
+    sortable: true,
+    minWidth: '200px',
+    cell: row => row.confirmation_method
   },
   {
     name: 'Action',
@@ -190,7 +152,7 @@ export const columns = [
           <Eye size={17} className='mx-1' />
         </Link>
         <UncontrolledTooltip placement='top' target={`pw-tooltip-${row.id}`}>
-          Preview
+          Preview Invoice
         </UncontrolledTooltip>
         <UncontrolledDropdown>
           <DropdownToggle tag='span'>
@@ -216,6 +178,10 @@ export const columns = [
             >
               <Trash size={14} className='mr-50' />
               <span className='align-middle'>Delete</span>
+            </DropdownItem>
+            <DropdownItem tag='a' href='/' className='w-100' onClick={e => e.preventDefault()}>
+              <Copy size={14} className='mr-50' />
+              <span className='align-middle'>Duplicate</span>
             </DropdownItem>
           </DropdownMenu>
         </UncontrolledDropdown>

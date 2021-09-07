@@ -36,29 +36,21 @@ export default [
     id: 'sales',
     title: 'Sales Management',
     icon: <FileText size={20} />,
-    // children: [
-    //   {
-    //     id: 'invoiceList',
-    //     title: 'Completed payouts',
-    //     icon: <Circle size={12} />,
-    //     navLink: '/apps/sales/completed'
-    //   },
-    //   {
-    //     id: 'invoicePreview',
-    //     title: 'Intended payouts',
-    //     icon: <Circle size={12} />,
-    //     navLink: '/apps/sales/intended'
-    //   }
-    // ]
     children: [
       {
-        id: 'invoiceList',
+        id: 'payments',
+        title: 'Payments',
+        icon: <Circle size={12} />,
+        navLink: '/apps/sales/payments'
+      },
+      {
+        id: 'completedPayouts',
         title: 'Completed payouts',
         icon: <Circle size={12} />,
         navLink: '/apps/sales/completed'
       },
       {
-        id: 'invoicePreview',
+        id: 'intendedPayouts',
         title: 'Intended payouts',
         icon: <Circle size={12} />,
         navLink: '/apps/sales/intended'

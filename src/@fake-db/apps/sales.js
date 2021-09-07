@@ -51,56 +51,6 @@ const data = {
     status: "in_transit",
     type: "bank_account"
   }
-    // {
-    //   id: "txn_1032HU2eZvKYlo2CEPtcnUvl",
-    //   object: "balance_transaction",
-    //   amount: 400,
-    //   available_on: 1386374400,
-    //   created: 1385814763,
-    //   currency: "usd",
-    //   description: "Charge for test@example.com",
-    //   exchange_rate: null,
-    //   fee: 42,
-    //   fee_details: [
-    //     {
-    //       amount: 42,
-    //       application: null,
-    //       currency: "usd",
-    //       description: "Stripe processing fees",
-    //       type: "stripe_fee"
-    //     }
-    //   ],
-    //   net: 358,
-    //   reporting_category: "charge",
-    //   source: "ch_1032HU2eZvKYlo2C0FuZb3X7",
-    //   status: "available",
-    //   type: "charge"
-    // },
-    // {
-    //   id: "txn_1032HP2eZvKYlo2CEPtcnUvl",
-    //   object: "balance_transaction",
-    //   amount: 200,
-    //   available_on: 1386374700,
-    //   created: 1385814363,
-    //   currency: "usd",
-    //   description: "Charge for test@example.com",
-    //   exchange_rate: null,
-    //   fee: 23,
-    //   fee_details: [
-    //     {
-    //       amount: 23,
-    //       application: null,
-    //       currency: "usd",
-    //       description: "Stripe processing fees",
-    //       type: "stripe_fee"
-    //     }
-    //   ],
-    //   net: 177,
-    //   reporting_category: "charge",
-    //   source: "ch_1032HU2eZvKYlo2C0FuZb3X7",
-    //   status: "available",
-    //   type: "charge"
-    // }
   ],
   intendedPayments: [
     {

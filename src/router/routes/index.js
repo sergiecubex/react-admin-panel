@@ -111,7 +111,7 @@ const Routes = [
     }
   },
   {
-    path: '/apps/sales/completed',
+    path: '/apps/sales/payments',
     exact: true,
     user: "superadmin",
     component: lazy(() => {
@@ -128,6 +128,33 @@ const Routes = [
     component: lazy(() => import('../../views/apps/invoice/preview')),
     meta: {
       navLink: '/apps/sales/preview'
+    }
+  },
+  {
+    path: '/apps/sales/completed',
+    exact: true,
+    user: "superadmin",
+    component: lazy(() => {
+      if (userStatus === 'superadmin') {
+        return import('../../views/apps/invoice/completed')
+      } else {
+        return import('../../views/Error')
+      }
+    })
+  },
+  {
+    path: '/apps/sales/completed/:id',
+    exact: true,
+    user: "superadmin",
+    component: lazy(() => {
+      if (userStatus === 'superadmin') {
+        return import('../../views/apps/invoice/preview')
+      } else {
+        return import('../../views/Error')
+      }
+    }),
+    meta: {
+      navLink: '/apps/sales/intended'
     }
   },
   {

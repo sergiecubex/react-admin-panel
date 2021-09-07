@@ -17,14 +17,14 @@ const sortCompare = key => (a, b) => {
 // ** Get data
 export const getData = params => {
   return dispatch => {
-    axios.get(`${process.env.REACT_APP_BASE_URL}/transaction/all`, params).then(response => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/projects/all`, params).then(response => {
       const { perPage = 10, page, status = null } = params
       const queryLowered = params.q.toLowerCase()
       const filteredData = response?.data
       .filter(
-        invoice =>
+        project =>
           /* eslint-disable operator-linebreak, implicit-arrow-linebreak */
-        invoice?.userId?.email?.includes(queryLowered)
+          project?.clientId?.email?.includes(queryLowered)
       )
       .sort(sortCompare('date'))
       .reverse()

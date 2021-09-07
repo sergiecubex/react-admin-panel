@@ -1,6 +1,8 @@
 // ** React Imports
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+
 // ** Table Columns
 import { columns } from './columns'
 
@@ -11,7 +13,8 @@ import DataTable from 'react-data-table-component'
 import { Button, Label, Input, CustomInput, Row, Col, Card } from 'reactstrap'
 
 // ** Store & Actions
-import { getData } from '../store/actions'
+// import { getData } from '../store/actions'
+import { getIntendedPayouts } from '../store/actions'
 import { useDispatch, useSelector } from 'react-redux'
 
 // ** Styles
@@ -37,9 +40,6 @@ const CustomHeader = ({ handleFilter, value, handleStatusValue, statusValue, han
               <option value='50'>50</option>
             </CustomInput>
           </div>
-          {/* <Button.Ripple tag={Link} to='/apps/invoice/add' color='primary'>
-            Add Record
-          </Button.Ripple> */}
         </Col>
         <Col
           lg='6'
@@ -58,12 +58,12 @@ const CustomHeader = ({ handleFilter, value, handleStatusValue, statusValue, han
           </div>
           <Input className='w-auto ' type='select' value={statusValue} onChange={handleStatusValue}>
             <option value=''>Select Status</option>
-            <option value='available'>Available</option>
+            <option value='downloaded'>Downloaded</option>
             <option value='draft'>Draft</option>
-            {/* <option value='paid'>Paid</option>
+            <option value='paid'>Paid</option>
             <option value='partial payment'>Partial Payment</option>
             <option value='past due'>Past Due</option>
-            <option value='partial payment'>Partial Payment</option> */}
+            <option value='partial payment'>Partial Payment</option>
           </Input>
         </Col>
       </Row>
@@ -74,27 +74,50 @@ const CustomHeader = ({ handleFilter, value, handleStatusValue, statusValue, han
 const InvoiceList = () => {
   const dispatch = useDispatch()
   const store = useSelector(state => state.invoice)
+  console.log(store)
 
   const [value, setValue] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [statusValue, setStatusValue] = useState('')
   const [rowsPerPage, setRowsPerPage] = useState(10)
 
+  // useEffect(() => {
+  //   dispatch(
+  //     getData({
+  //       page: currentPage,
+  //       perPage: rowsPerPage,
+  //       status: statusValue,
+  //       q: value
+  //     })
+  //   )
+  // }, [dispatch, store.data.length])
+  
   useEffect(() => {
     dispatch(
-      getData({
+      getIntendedPayouts({
         page: currentPage,
         perPage: rowsPerPage,
         status: statusValue,
         q: value
       })
     )
-  }, [dispatch, store?.data?.length])
+  }, [dispatch, store.data.length])
 
+  // const handleFilter = val => {
+  //   setValue(val)
+  //   dispatch(
+  //     getData({
+  //       page: currentPage,
+  //       perPage: rowsPerPage,
+  //       status: statusValue,
+  //       q: val
+  //     })
+  //   )
+  // }
   const handleFilter = val => {
     setValue(val)
     dispatch(
-      getData({
+      getIntendedPayouts({
         page: currentPage,
         perPage: rowsPerPage,
         status: statusValue,
@@ -103,9 +126,21 @@ const InvoiceList = () => {
     )
   }
 
+  // const handlePerPage = e => {
+  //   dispatch(
+  //     getData({
+  //       page: currentPage,
+  //       perPage: parseInt(e.target.value),
+  //       status: statusValue,
+  //       q: value
+  //     })
+  //   )
+  //   setRowsPerPage(parseInt(e.target.value))
+  // }
+  
   const handlePerPage = e => {
     dispatch(
-      getData({
+      getIntendedPayouts({
         page: currentPage,
         perPage: parseInt(e.target.value),
         status: statusValue,
@@ -115,10 +150,22 @@ const InvoiceList = () => {
     setRowsPerPage(parseInt(e.target.value))
   }
 
+  // const handleStatusValue = e => {
+  //   setStatusValue(e.target.value)
+  //   dispatch(
+  //     getData({
+  //       page: currentPage,
+  //       perPage: rowsPerPage,
+  //       status: e.target.value,
+  //       q: value
+  //     })
+  //   )
+  // }
+  
   const handleStatusValue = e => {
     setStatusValue(e.target.value)
     dispatch(
-      getData({
+      getIntendedPayouts({
         page: currentPage,
         perPage: rowsPerPage,
         status: e.target.value,
@@ -127,9 +174,21 @@ const InvoiceList = () => {
     )
   }
 
+  // const handlePagination = page => {
+  //   dispatch(
+  //     getData({
+  //       page: page.selected + 1,
+  //       perPage: rowsPerPage,
+  //       status: statusValue,
+  //       q: value
+  //     })
+  //   )
+  //   setCurrentPage(page.selected + 1)
+  // }
+  
   const handlePagination = page => {
     dispatch(
-      getData({
+      getIntendedPayouts({
         page: page.selected + 1,
         perPage: rowsPerPage,
         status: statusValue,
@@ -138,9 +197,19 @@ const InvoiceList = () => {
     )
     setCurrentPage(page.selected + 1)
   }
+  
+  //testing stripe
+  const stripeId = 'acct_1JVX3bRIOH5BsZE7'
+  const getInfo = async (id) => {
+    // const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/stripe/getStripeAccount/${stripeId}`)
+    // console.log(res)
+    const proj = await axios.get(`${process.env.REACT_APP_BASE_URL}/balance/all`)
+    console.log("BALANCE", proj)
+  }
+  getInfo()
 
   const CustomPagination = () => {
-    const count = Number((store.allData.length / rowsPerPage).toFixed(0))
+    const count = Number((store.total / rowsPerPage).toFixed(0))
 
     return (
       <ReactPaginate
@@ -163,7 +232,8 @@ const InvoiceList = () => {
       />
     )
   }
-
+  
+  //render data
   const dataToRender = () => {
     const filters = {
       status: statusValue,
@@ -174,12 +244,12 @@ const InvoiceList = () => {
       return filters[k].length > 0
     })
 
-    if (store?.data?.length > 0) {
+    if (store.data.length > 0) {
       return store.data
-    } else if (store?.data?.length === 0 && isFiltered) {
+    } else if (store.data.length === 0 && isFiltered) {
       return []
     } else {
-      return store?.allData?.slice(0, rowsPerPage)
+      return store.allData.slice(0, rowsPerPage)
     }
   }
 
@@ -199,7 +269,7 @@ const InvoiceList = () => {
             defaultSortField='invoiceId'
             paginationDefaultPage={currentPage}
             paginationComponent={CustomPagination}
-            data={dataToRender()}
+            data={dataToRender()}  //this line renders data
             subHeaderComponent={
               <CustomHeader
                 value={value}
