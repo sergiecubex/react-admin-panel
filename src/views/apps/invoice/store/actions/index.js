@@ -39,6 +39,20 @@ export const getData = params => {
     })
   }
 }
+// ** Get completed payouts
+export const getWithdrawals = params => {
+  return dispatch => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/balance/withdrawals`, params).then(response => {
+      dispatch({
+        type: 'GET_DATA',
+        allData: response.data,
+        data: response.data,
+        totalPages: response.data / 10,
+        params
+      })
+    })
+  }
+}
 
 // ** Get completed payouts
 export const getCompletedPayouts = params => {
@@ -55,8 +69,8 @@ export const getCompletedPayouts = params => {
   }
 }
 
-// ** Get intended payouts
-export const getIntendedPayouts = params => {
+// ** Get payment intents
+export const getPaymentIntents = params => {
   return dispatch => {
     axios.get(`${process.env.REACT_APP_BASE_URL}/balance/intended`, params).then(response => {
       dispatch({

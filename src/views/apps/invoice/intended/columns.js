@@ -56,16 +56,16 @@ const renderClient = row => {
 // ** Table columns
 export const columns = [
   {
-    name: 'Description',
-    minWidth: '150px',
-    selector: 'description',
-    sortable: true,
+    name: 'User',
+    minWidth: '200px',
+    selector: 'id',
     cell: row => {
       return (
         <div className='d-flex justify-content-left align-items-center'>
           {renderClient(row)}
           <div className='d-flex flex-column'>
-            <h6 className='user-name text-truncate mb-0'>{row.description}</h6>
+            <h6 className='user-name text-truncate mb-0'>{row.userId?.firstname} {row.userId?.lastname}</h6>
+            <small className='text-truncate text-muted mb-0'>{row.userId?.email}</small>
           </div>
         </div>
       )
@@ -75,8 +75,8 @@ export const columns = [
     name: 'Amount',
     selector: 'amount',
     sortable: true,
-    minWidth: '120px',
-    cell: row => <span>{row.currency}{row.amount || 0}</span>
+    minWidth: '60px',
+    cell: row => <span>{row.amount || 0}</span>
   },
   {
     name: 'Created',
@@ -84,40 +84,29 @@ export const columns = [
     sortable: true,
     minWidth: '120px',
     cell: row => {
-      const date = new Date(row.created).toLocaleString().slice(0, 10)
-      return <span>{date}</span>
+      return <span>{row.date.slice(0, 10)}</span>
     }
-  },
-  {
-    name: 'Arrival date',
-    selector: 'arrival',
-    sortable: true,
-    minWidth: '120px',
-    cell: row => {
-      const date = new Date(row.arrival_date).toLocaleString().slice(0, 10)
-      return <span>{date}</span>
-    }
-  },
-  {
-    name: 'Status',
-    selector: 'status',
-    sortable: true,
-    minWidth: '80px',
-    cell: row => row.status
-  },
-  {
-    name: 'Method',
-    selector: 'capture_method',
-    sortable: true,
-    minWidth: '100px',
-    cell: row => row.method
   },
   {
     name: 'Type',
-    selector: 'typr',
+    selector: 'type',
+    sortable: true,
+    minWidth: '60px',
+    cell: row => row.type
+  },
+  {
+    name: 'Invoice #',
+    selector: 'invoice',
     sortable: true,
     minWidth: '200px',
-    cell: row => row.type
+    cell: row => row.invoiceId
+  },
+  {
+    name: 'Stripe #',
+    selector: 'payoutId',
+    sortable: true,
+    minWidth: '280px',
+    cell: row => row.payoutId
   },
   {
     name: 'Action',

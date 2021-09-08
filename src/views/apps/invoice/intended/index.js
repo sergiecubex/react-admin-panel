@@ -13,7 +13,7 @@ import { Button, Label, Input, CustomInput, Row, Col, Card } from 'reactstrap'
 
 // ** Store & Actions
 // import { getData } from '../store/actions'
-import { getIntendedPayouts } from '../store/actions'
+import { getPaymentIntents, getWithdrawals } from '../store/actions'
 import { useDispatch, useSelector } from 'react-redux'
 
 // ** Styles
@@ -82,7 +82,7 @@ const InvoiceList = () => {
   
   useEffect(() => {
     dispatch(
-      getIntendedPayouts({
+      getWithdrawals({
         page: currentPage,
         perPage: rowsPerPage,
         status: statusValue,
@@ -94,7 +94,7 @@ const InvoiceList = () => {
   const handleFilter = val => {
     setValue(val)
     dispatch(
-      getIntendedPayouts({
+      getWithdrawals({
         page: currentPage,
         perPage: rowsPerPage,
         status: statusValue,
@@ -105,7 +105,7 @@ const InvoiceList = () => {
   
   const handlePerPage = e => {
     dispatch(
-      getIntendedPayouts({
+      getWithdrawals({
         page: currentPage,
         perPage: parseInt(e.target.value),
         status: statusValue,
@@ -118,7 +118,7 @@ const InvoiceList = () => {
   const handleStatusValue = e => {
     setStatusValue(e.target.value)
     dispatch(
-      getIntendedPayouts({
+      getWithdrawals({
         page: currentPage,
         perPage: rowsPerPage,
         status: e.target.value,
@@ -129,7 +129,7 @@ const InvoiceList = () => {
   
   const handlePagination = page => {
     dispatch(
-      getIntendedPayouts({
+      getWithdrawals({
         page: page.selected + 1,
         perPage: rowsPerPage,
         status: statusValue,
