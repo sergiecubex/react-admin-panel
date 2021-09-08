@@ -40,15 +40,30 @@ export const getData = params => {
   }
 }
 
+// ** Get completed payouts
+export const getCompletedPayouts = params => {
+  return dispatch => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/balance/completed`, params).then(response => {
+      dispatch({
+        type: 'GET_DATA',
+        allData: response.data,
+        data: response.data,
+        totalPages: response.data / 10,
+        params
+      })
+    })
+  }
+}
+
 // ** Get intended payouts
 export const getIntendedPayouts = params => {
   return dispatch => {
-    axios.get('/apps/sales/intended', params).then(response => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/balance/intended`, params).then(response => {
       dispatch({
         type: 'GET_DATA',
-        allData: response.data.allData,
-        data: response.data.invoices,
-        totalPages: response.data.total,
+        allData: response.data,
+        data: response.data,
+        totalPages: response.data / 10,
         params
       })
     })

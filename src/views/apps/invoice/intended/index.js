@@ -79,17 +79,6 @@ const InvoiceList = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [statusValue, setStatusValue] = useState('')
   const [rowsPerPage, setRowsPerPage] = useState(10)
-
-  // useEffect(() => {
-  //   dispatch(
-  //     getData({
-  //       page: currentPage,
-  //       perPage: rowsPerPage,
-  //       status: statusValue,
-  //       q: value
-  //     })
-  //   )
-  // }, [dispatch, store.data.length])
   
   useEffect(() => {
     dispatch(
@@ -102,17 +91,6 @@ const InvoiceList = () => {
     )
   }, [dispatch, store.data.length])
 
-  // const handleFilter = val => {
-  //   setValue(val)
-  //   dispatch(
-  //     getData({
-  //       page: currentPage,
-  //       perPage: rowsPerPage,
-  //       status: statusValue,
-  //       q: val
-  //     })
-  //   )
-  // }
   const handleFilter = val => {
     setValue(val)
     dispatch(
@@ -124,18 +102,6 @@ const InvoiceList = () => {
       })
     )
   }
-
-  // const handlePerPage = e => {
-  //   dispatch(
-  //     getData({
-  //       page: currentPage,
-  //       perPage: parseInt(e.target.value),
-  //       status: statusValue,
-  //       q: value
-  //     })
-  //   )
-  //   setRowsPerPage(parseInt(e.target.value))
-  // }
   
   const handlePerPage = e => {
     dispatch(
@@ -148,18 +114,6 @@ const InvoiceList = () => {
     )
     setRowsPerPage(parseInt(e.target.value))
   }
-
-  // const handleStatusValue = e => {
-  //   setStatusValue(e.target.value)
-  //   dispatch(
-  //     getData({
-  //       page: currentPage,
-  //       perPage: rowsPerPage,
-  //       status: e.target.value,
-  //       q: value
-  //     })
-  //   )
-  // }
   
   const handleStatusValue = e => {
     setStatusValue(e.target.value)
@@ -172,18 +126,6 @@ const InvoiceList = () => {
       })
     )
   }
-
-  // const handlePagination = page => {
-  //   dispatch(
-  //     getData({
-  //       page: page.selected + 1,
-  //       perPage: rowsPerPage,
-  //       status: statusValue,
-  //       q: value
-  //     })
-  //   )
-  //   setCurrentPage(page.selected + 1)
-  // }
   
   const handlePagination = page => {
     dispatch(
@@ -198,7 +140,7 @@ const InvoiceList = () => {
   }
 
   const CustomPagination = () => {
-    const count = Number((store.total / rowsPerPage).toFixed(0))
+    const count = Number((store.allData.length / rowsPerPage).toFixed(0))
 
     return (
       <ReactPaginate

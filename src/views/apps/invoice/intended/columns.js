@@ -56,27 +56,6 @@ const renderClient = row => {
 // ** Table columns
 export const columns = [
   {
-    name: 'Customer',
-    minWidth: '50px',
-    selector: 'id',
-    cell: row => <Link to={`/apps/sales/preview/${row.id}`}>{`${row.customer}`}</Link>
-  },
-  {
-    name: <TrendingUp size={14} />,
-    minWidth: '50px',
-    selector: 'invoiceStatus',
-    sortable: true,
-    cell: row => {
-      const color = row.status === "requires_payment_method" ? 'light-danger' : 'primary',
-        Icon = row.status === "requires_payment_method" ? Info : Edit
-      return (
-        <Fragment>
-          <Avatar color={color} icon={<Icon size={14} />} id={`av-tooltip-${row.id}`} />
-        </Fragment>
-      )
-    }
-  },
-  {
     name: 'Description',
     minWidth: '150px',
     selector: 'description',
@@ -96,23 +75,26 @@ export const columns = [
     name: 'Amount',
     selector: 'amount',
     sortable: true,
-    minWidth: '80px',
-    cell: row => <span>${row.amount || 0}</span>
+    minWidth: '120px',
+    cell: row => <span>{row.currency}{row.amount || 0}</span>
   },
   {
-    name: 'Currency',
-    selector: 'currency',
+    name: 'Created',
+    selector: 'created',
     sortable: true,
-    minWidth: '80px',
-    cell: row => <span>{row.currency || 'unknown'}</span>
-  },
-  {
-    name: 'Date',
-    selector: 'date',
-    sortable: true,
-    minWidth: '100px',
+    minWidth: '120px',
     cell: row => {
-      const date = new Date(row.created).toLocaleString()
+      const date = new Date(row.created).toLocaleString().slice(0, 10)
+      return <span>{date}</span>
+    }
+  },
+  {
+    name: 'Arrival date',
+    selector: 'arrival',
+    sortable: true,
+    minWidth: '120px',
+    cell: row => {
+      const date = new Date(row.arrival_date).toLocaleString().slice(0, 10)
       return <span>{date}</span>
     }
   },
@@ -120,22 +102,22 @@ export const columns = [
     name: 'Status',
     selector: 'status',
     sortable: true,
-    minWidth: '160px',
+    minWidth: '80px',
     cell: row => row.status
   },
   {
-    name: 'Capture method',
+    name: 'Method',
     selector: 'capture_method',
     sortable: true,
-    minWidth: '130px',
-    cell: row => row.capture_method
+    minWidth: '100px',
+    cell: row => row.method
   },
   {
-    name: 'Confirmation method',
-    selector: 'confirmation_method',
+    name: 'Type',
+    selector: 'typr',
     sortable: true,
     minWidth: '200px',
-    cell: row => row.confirmation_method
+    cell: row => row.type
   },
   {
     name: 'Action',

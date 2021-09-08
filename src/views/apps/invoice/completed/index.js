@@ -13,8 +13,7 @@ import DataTable from 'react-data-table-component'
 import { Button, Label, Input, CustomInput, Row, Col, Card } from 'reactstrap'
 
 // ** Store & Actions
-// import { getData } from '../store/actions'
-import { getIntendedPayouts } from '../store/actions'
+import { getCompletedPayouts } from '../store/actions'
 import { useDispatch, useSelector } from 'react-redux'
 
 // ** Styles
@@ -81,20 +80,9 @@ const InvoiceList = () => {
   const [statusValue, setStatusValue] = useState('')
   const [rowsPerPage, setRowsPerPage] = useState(10)
 
-  // useEffect(() => {
-  //   dispatch(
-  //     getData({
-  //       page: currentPage,
-  //       perPage: rowsPerPage,
-  //       status: statusValue,
-  //       q: value
-  //     })
-  //   )
-  // }, [dispatch, store.data.length])
-  
   useEffect(() => {
     dispatch(
-      getIntendedPayouts({
+      getCompletedPayouts({
         page: currentPage,
         perPage: rowsPerPage,
         status: statusValue,
@@ -103,21 +91,10 @@ const InvoiceList = () => {
     )
   }, [dispatch, store.data.length])
 
-  // const handleFilter = val => {
-  //   setValue(val)
-  //   dispatch(
-  //     getData({
-  //       page: currentPage,
-  //       perPage: rowsPerPage,
-  //       status: statusValue,
-  //       q: val
-  //     })
-  //   )
-  // }
   const handleFilter = val => {
     setValue(val)
     dispatch(
-      getIntendedPayouts({
+      getCompletedPayouts({
         page: currentPage,
         perPage: rowsPerPage,
         status: statusValue,
@@ -125,22 +102,10 @@ const InvoiceList = () => {
       })
     )
   }
-
-  // const handlePerPage = e => {
-  //   dispatch(
-  //     getData({
-  //       page: currentPage,
-  //       perPage: parseInt(e.target.value),
-  //       status: statusValue,
-  //       q: value
-  //     })
-  //   )
-  //   setRowsPerPage(parseInt(e.target.value))
-  // }
   
   const handlePerPage = e => {
     dispatch(
-      getIntendedPayouts({
+      getCompletedPayouts({
         page: currentPage,
         perPage: parseInt(e.target.value),
         status: statusValue,
@@ -149,23 +114,11 @@ const InvoiceList = () => {
     )
     setRowsPerPage(parseInt(e.target.value))
   }
-
-  // const handleStatusValue = e => {
-  //   setStatusValue(e.target.value)
-  //   dispatch(
-  //     getData({
-  //       page: currentPage,
-  //       perPage: rowsPerPage,
-  //       status: e.target.value,
-  //       q: value
-  //     })
-  //   )
-  // }
   
   const handleStatusValue = e => {
     setStatusValue(e.target.value)
     dispatch(
-      getIntendedPayouts({
+      getCompletedPayouts({
         page: currentPage,
         perPage: rowsPerPage,
         status: e.target.value,
@@ -173,22 +126,10 @@ const InvoiceList = () => {
       })
     )
   }
-
-  // const handlePagination = page => {
-  //   dispatch(
-  //     getData({
-  //       page: page.selected + 1,
-  //       perPage: rowsPerPage,
-  //       status: statusValue,
-  //       q: value
-  //     })
-  //   )
-  //   setCurrentPage(page.selected + 1)
-  // }
   
   const handlePagination = page => {
     dispatch(
-      getIntendedPayouts({
+      getCompletedPayouts({
         page: page.selected + 1,
         perPage: rowsPerPage,
         status: statusValue,
@@ -203,13 +144,11 @@ const InvoiceList = () => {
   const getInfo = async (id) => {
     // const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/stripe/getStripeAccount/${stripeId}`)
     // console.log(res)
-    const proj = await axios.get(`${process.env.REACT_APP_BASE_URL}/balance/all`)
-    console.log("BALANCE", proj)
   }
   getInfo()
 
   const CustomPagination = () => {
-    const count = Number((store.total / rowsPerPage).toFixed(0))
+    const count = Number((store.allData.length / rowsPerPage).toFixed(0))
 
     return (
       <ReactPaginate
@@ -244,12 +183,12 @@ const InvoiceList = () => {
       return filters[k].length > 0
     })
 
-    if (store.data.length > 0) {
+    if (store.data?.length > 0) {
       return store.data
-    } else if (store.data.length === 0 && isFiltered) {
+    } else if (store?.data?.length === 0 && isFiltered) {
       return []
     } else {
-      return store.allData.slice(0, rowsPerPage)
+      return store?.allData?.slice(0, rowsPerPage)
     }
   }
 
