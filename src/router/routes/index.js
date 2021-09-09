@@ -184,11 +184,6 @@ const Routes = [
       navLink: '/apps/sales/intended'
     }
   },
-  // {
-  //   path: '/apps/gigs-management/gigs',
-  //   className: 'ecommerce-application',
-  //   component: lazy(() => import('../../views/apps/ecommerce/shop'))
-  // },
   {
     path: '/login',
     component: lazy(() => import('../../views/Login')),
@@ -213,7 +208,13 @@ const Routes = [
   },
   {
     path: '/register',
-    component: lazy(() => import('../../views/Register')),
+    component: lazy(() => {
+      if (userStatus === 'superadmin') {
+        return import('../../views/Register')
+      } else {
+        return import('../../views/Error')
+      }
+    }),
     layout: 'BlankLayout'
   },
   {

@@ -39,7 +39,9 @@ const Sidebar = props => {
   }
   
   //navigation for guest and admin 
-  const secondaryNavigation = userData.status === 'admin' ? admin : guest
+  const notAuthorized = userData?.status === undefined && []
+  const guestNavigation = userData?.status === 'guest' ? guest : notAuthorized
+  const secondaryNavigation = userData?.status === 'admin' ? admin : guestNavigation
   
   // ** Scroll Menu
   const scrollMenu = container => {
@@ -81,7 +83,7 @@ const Sidebar = props => {
             >
               <ul className='navigation navigation-main'>
                 <VerticalNavMenuItems
-                  items={userData.status === 'superadmin' ? navigation : secondaryNavigation}
+                  items={userData?.status === 'superadmin' ? navigation : secondaryNavigation}
                   groupActive={groupActive}
                   setGroupActive={setGroupActive}
                   activeItem={activeItem}
