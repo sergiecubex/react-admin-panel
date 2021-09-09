@@ -3,7 +3,8 @@
 //Template config options
 const themeConfig = {
   app: {
-    appName: 'Project',
+    appName: 'Human',
+    appName2: 'Works',
     appLogoImage: require('@src/assets/images/logo/logo.svg').default
   },
   layout: {
