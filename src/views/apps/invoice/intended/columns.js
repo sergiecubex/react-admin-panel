@@ -84,7 +84,7 @@ export const columns = [
     sortable: true,
     minWidth: '120px',
     cell: row => {
-      return <span>{row.date.slice(0, 10)}</span>
+      return <span>{row.date?.slice(0, 10)}</span>
     }
   },
   {
