@@ -55,6 +55,7 @@ export const deleteUser = id => {
 export const saveUser = (id, user) => {
   return dispatch => {
     return axios.patch(`${process.env.REACT_APP_BASE_URL}/users/all/${id}`, {user}).then(() => {
+      console.log('Updated user', user)
       dispatch({ type: 'SAVE_USER', data: user})
     })
   }

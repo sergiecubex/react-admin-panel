@@ -35,6 +35,26 @@ const suspendUser = async (id, user) => {
   }
 }
 
+const setProFreelancer = async (id, user) => {
+  let newUser
+  if (user.freelancerProfile) {
+    if (user.freelancerProfile?.proStatus) {
+      newUser = {freelancerProfile: {...user.freelancerProfile, proStatus: false}}
+    } else {
+      newUser = {freelancerProfile: {...user.freelancerProfile, proStatus: true}}
+    }
+    try {
+      store.dispatch(saveUser(id, newUser))
+      alert(`User id #${id} was changed`)
+    } catch (error) {
+      alert(error.message)
+    }
+  } else {
+    alert("This user is not freelancer")
+  }
+}
+
+
 // ** Table columns
 export const columns = [
   {
@@ -67,6 +87,15 @@ export const columns = [
     minWidth: '100px',
     selector: 'balance',
     cell: row => <span>{row.balance}</span>
+  },
+  {
+    name: 'Type',
+    minWidth: '100px',
+    selector: 'type',
+    cell: row => {
+      if (row.freelancerProfile) return <span>freelancer</span>
+      if (!row.freelancerProfile) return <span>Client</span>
+    }
   },
   {
     name: 'Stripe',
@@ -128,6 +157,13 @@ export const columns = [
               }}>
               <Eye size={14} className='mr-50' />
               <span className='align-middle'>{!row.isSuspended ? 'Suspend' : 'Unsuspend'}</span>
+            </DropdownItem>
+            <DropdownItem tag='a' href='/' className='w-100' onClick={e => {
+              e.preventDefault()
+              setProFreelancer(row._id, row)
+              }}>
+              <Eye size={14} className='mr-50' />
+              <span className='align-middle'>{!row.freelancerProfile?.proStatus ? 'Set Pro' : 'Delete Pro'}</span>
             </DropdownItem>
             <DropdownItem
               tag='a'
