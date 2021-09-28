@@ -22,7 +22,7 @@ pipeline {
                 sh 'node -v'
                 sh 'npm install'                
                 sh 'npm -v'
-                sh 'npm -i react-app-rewired'
+                sh 'npm install react-app-rewired'
                 sh 'CI=false npm run build'
             }
         }
