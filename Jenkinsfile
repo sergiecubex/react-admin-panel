@@ -20,9 +20,8 @@ pipeline {
             }
             steps {
                 sh 'node -v'
+                sh 'npm install'                
                 sh 'npm -v'
-                sh 'npm rebuild react-dev-utils node-sass date-fns caniuse-lite terser-webpack-plugin babel-preset-react-app react-app-rewired build'
-                sh 'npm i --save-dev --unsafe-perm react-dev-utils node-sass date-fns caniuse-lite terser-webpack-plugin babel-preset-react-app react-app-rewired build'
                 sh 'CI=false npm run build'
             }
         }
