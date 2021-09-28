@@ -20,7 +20,7 @@ pipeline {
             }
             steps {
                 sh 'node -v'
-                sh 'npm audit fix'
+                sh 'npm -v'
                 sh 'npm rebuild react-dev-utils node-sass date-fns caniuse-lite terser-webpack-plugin babel-preset-react-app'
                 sh 'npm i --save-dev --unsafe-perm react-dev-utils node-sass date-fns caniuse-lite terser-webpack-plugin babel-preset-react-app'
                 sh 'CI=false npm run build'
