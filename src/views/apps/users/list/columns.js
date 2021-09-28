@@ -4,6 +4,7 @@ import axios from 'axios'
 // ** Store & Actions
 import { deleteUser, saveUser } from '../store/actions'
 import { store } from '@store/storeConfig/store'
+import {ReactComponent as ReactLogo} from '@src/assets/images/icons/proStatusLogo.svg'
 
 // ** Third Party Components
 import {
@@ -63,7 +64,12 @@ export const columns = [
     selector: 'user',
     cell: row => {
       const userId = row._id || null
-      return <Link to={`/apps/user-details/${userId}`}>{`${row.firstname} ${row.lastname}`}</Link> 
+      return (
+        <>
+          {row.freelancerProfile?.proStatus ? <ReactLogo style={{position: 'absolute', right: 0, width: 20}}/> : null}
+          <Link to={`/apps/user-details/${userId}`}>{`${row.firstname} ${row.lastname}`}</Link>
+        </>
+      )
     }
   },
   {
