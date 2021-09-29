@@ -19,11 +19,23 @@ pipeline {
                 }
             }
             steps {
-                sh 'node -v'
-                sh 'npm install'                
-                sh 'npm -v'
-                sh 'npm install react-app-rewired'
-                sh 'CI=false npm run build'
+                script {
+                    echo "${BRANCH}"
+                    if ("${BRANCH}" == "master"){
+                        config_file = "live_env_file"
+                    } 
+                    else {
+                        config_file = "dev_env_file"
+                    }
+                    configFileProvider([configFile(fileId: "${config_file}", targetLocation: "${WORKSPACE}", variable: 'URL_CONFIG')]) {
+                        sh 'chmod 0755 -R "${WORKSPACE}"'
+                    }
+                    sh 'node -v'
+                    sh 'npm install'
+                    sh 'npm -v'
+                    sh 'npm install react-app-rewired'
+                    sh 'CI=false npm run build'
+                }
             }
         }
             
