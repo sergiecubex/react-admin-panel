@@ -24,20 +24,20 @@ const Routes = [
     path: '/home',
     component: lazy(() => import('../../views/Home'))
   },
-  {
-    path: '/dashboard/analytics',
-    component: lazy(() => import('../../views/dashboard/analytics'))
-  },
-  {
-    path: '/dashboard/sellers',
-    component: lazy(() => import('../../views/dashboard/sellers')),
-    exact: true
-  },
-  {
-    path: '/dashboard/buyers',
-    component: lazy(() => import('../../views/dashboard/buyers')),
-    exact: true
-  },
+  // {
+  //   path: '/dashboard/analytics',
+  //   component: lazy(() => import('../../views/dashboard/analytics'))
+  // },
+  // {
+  //   path: '/dashboard/sellers',
+  //   component: lazy(() => import('../../views/dashboard/sellers')),
+  //   exact: true
+  // },
+  // {
+  //   path: '/dashboard/buyers',
+  //   component: lazy(() => import('../../views/dashboard/buyers')),
+  //   exact: true
+  // },
   {
     path: '/apps/users',
     exact: true,
