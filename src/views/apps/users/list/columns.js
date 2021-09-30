@@ -50,6 +50,7 @@ const setProFreelancer = async (id, user) => {
     } catch (error) {
       alert(error.message)
     }
+    console.log(newUser)
   } else {
     alert("This user is not freelancer")
   }
