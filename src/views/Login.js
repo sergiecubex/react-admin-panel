@@ -42,7 +42,7 @@ const ToastContent = ({ name, status }) => (
       </div>
     </div>
     <div className='toastify-body'>
-      <span>You have successfully logged in as an {status} user to HumanWorks admin dashboard.</span>
+      <span>You have successfully logged in as an {status} user to admin dashboard.</span>
     </div>
   </Fragment>
 )
@@ -196,7 +196,7 @@ const Login = props => {
       <Row className='auth-inner m-0'>
         <Link className='brand-logo' to='/' onClick={e => e.preventDefault()}>
           <ReactLogo />
-          <h2 className='brand-text text-primary ml-1'>Human Works</h2>
+          <h2 className='brand-text text-primary ml-1'>Admin Panel</h2>
         </Link>
         <Col className='d-none d-lg-flex align-items-center p-5' lg='8' sm='12'>
           <div className='w-100 d-lg-flex align-items-center justify-content-center px-5'>
@@ -207,7 +207,7 @@ const Login = props => {
           <Col className='px-xl-2 mx-auto' sm='8' md='6' lg='12'>
             {enable2Factor && <Ask2FactorEnable />}
             <CardTitle tag='h2' className='font-weight-bold mb-1'>
-              Welcome to HumanWorks! 👋
+              Welcome to Admin Panel! 👋
             </CardTitle>
             <CardText className='mb-2'>Please sign-in to your account!</CardText>
             <Form className='auth-login-form mt-2' onSubmit={handleSubmit(onSubmit)}>

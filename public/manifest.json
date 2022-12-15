@@ -1,6 +1,6 @@
 {
-  "short_name": "Human Works",
-  "name": "Homan Works - admin dashboard",
+  "short_name": "Admin Panel",
+  "name": "Admin dashboard",
   "icons": [
     {
       "src": "favicon.ico",

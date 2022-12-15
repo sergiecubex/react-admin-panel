@@ -3,8 +3,8 @@
 //Template config options
 const themeConfig = {
   app: {
-    appName: 'Human',
-    appName2: 'Works',
+    appName: 'Admin Panel',
+    appName2: 'Admin',
     appLogoImage: require('@src/assets/images/logo/logo.svg').default
   },
   layout: {

@@ -10,7 +10,7 @@ const Error = () => {
     <div className='misc-wrapper'>
       <a className='brand-logo' href='/'>
         <ReactLogo />
-        <h2 className='brand-text text-primary ml-1'>Human Works</h2>
+        <h2 className='brand-text text-primary ml-1'>Admin Panel</h2>
       </a>
       <div className='misc-inner p-2 p-sm-3'>
         <div className='w-100 text-center'>

@@ -2,7 +2,7 @@ import { lazy } from 'react'
 import { Redirect } from 'react-router-dom'
 
 // ** Document title
-const TemplateTitle = 'HumanWorks - admin dashboard'
+const TemplateTitle = 'Admin dashboard'
 
 // ** Default Route
 const DefaultRoute = '/home'
